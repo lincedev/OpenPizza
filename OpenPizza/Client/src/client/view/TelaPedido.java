@@ -151,21 +151,21 @@ public class TelaPedido extends javax.swing.JFrame {
             this.tabelaItensDoPedido.setModel(DbUtils.resultSetToTableModel(rs));
 
             // Exibição centralizada dos registros
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+            DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+            centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
 
             this.tabelaItensDoPedido.getColumnModel().getColumn(0).setHeaderValue("Produto");
 
             this.tabelaItensDoPedido.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
             this.tabelaItensDoPedido.getColumnModel().getColumn(1).setPreferredWidth(12);
-            this.tabelaItensDoPedido.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            this.tabelaItensDoPedido.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
 
             this.tabelaItensDoPedido.getColumnModel().getColumn(2).setHeaderValue("Qtde");
-            this.tabelaItensDoPedido.getColumnModel().getColumn(2).setCellRenderer(centerRenderer);
+            this.tabelaItensDoPedido.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
             this.tabelaItensDoPedido.getColumnModel().getColumn(2).setPreferredWidth(6);
 
             this.tabelaItensDoPedido.getColumnModel().getColumn(3).setHeaderValue("Preço");
-            this.tabelaItensDoPedido.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
+            this.tabelaItensDoPedido.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
             this.tabelaItensDoPedido.getColumnModel().getColumn(3).setPreferredWidth(10);
 
             // Tentativa de recuperação e atualização da label do valor total
@@ -401,7 +401,7 @@ public class TelaPedido extends javax.swing.JFrame {
      */
     private void exibirCardapioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exibirCardapioActionPerformed
         // Criação da janela cardápio
-        TelaCardapio janelaCardapio = new TelaCardapio(this, this.getAutenticacao());
+        TelaCardapio janelaCardapio = new TelaCardapio(this, this.getAutenticacao(), infoPedido);
         this.setEnabled(false);
         janelaCardapio.setResizable(false);
         janelaCardapio.setSize(350, 600);

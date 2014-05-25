@@ -19,6 +19,10 @@ public class TelaCardapio extends javax.swing.JFrame {
     // Variável para autenticação com o banco de dados
     private Autenticacao autenticacao;
     
+    private Pedido infoPedido;
+
+    
+    
     // Objeto para interação com o banco de dados
     private final Banco banco = new Banco();
     
@@ -45,10 +49,11 @@ public class TelaCardapio extends javax.swing.JFrame {
      *           janelaPedido (Necessário para controle dos métodos da janela anterior)
      Retorno:
      */
-    public TelaCardapio(TelaPedido janelaPedido, Autenticacao autenticacao) {
+    public TelaCardapio(TelaPedido janelaPedido, Autenticacao autenticacao, Pedido infoPedido) {
         this();
         this.setJanelaPedido(janelaPedido);
         this.setAutenticacao(autenticacao);
+        this.setInfoPedido(infoPedido);
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         exibirCardapio(this.getAutenticacao());
     }
@@ -91,6 +96,14 @@ public class TelaCardapio extends javax.swing.JFrame {
      */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
+    }
+    
+    public Pedido getInfoPedido() {
+        return infoPedido;
+    }
+
+    public void setInfoPedido(Pedido infoPedido) {
+        this.infoPedido = infoPedido;
     }
 
     /*
@@ -300,7 +313,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
         if(this.tabelaCardapio.getSelectedIndex() == 0){
-            TelaInformacoesPizza infoPizza = new TelaInformacoesPizza(this, this.getAutenticacao(), this.tabelaCardapio.getSelectedIndex(), this.tabela.getSelectedRow());
+            TelaInformacoesPizza infoPizza = new TelaInformacoesPizza(this, this.getAutenticacao(), this.tabelaCardapio.getSelectedIndex(), this.tabela.getSelectedRow(), this.getInfoPedido());
             infoPizza.setLocation(790, 70);
             infoPizza.setSize(350, 600);
             infoPizza.setVisible(true);

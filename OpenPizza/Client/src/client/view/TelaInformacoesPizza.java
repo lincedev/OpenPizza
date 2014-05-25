@@ -4,6 +4,10 @@ package client.view;
 import client.modelo.*;
 import client.persistencia.*;
 import java.util.*;
+import java.sql.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import net.proteanit.sql.DbUtils;
 
 public class TelaInformacoesPizza extends javax.swing.JFrame {
 
@@ -16,6 +20,14 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
     private int indiceCardapioEscolhido;
     
     private int indiceProdutoEscolhido;
+    
+    private Pedido infoPedido;
+
+    private String tamanhoPizza;
+
+    private int quantidade;
+
+    
     
     ArrayList<Pizza> pizzas = new ArrayList();
     
@@ -32,12 +44,13 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         initComponents();
     }
 
-    public TelaInformacoesPizza(TelaCardapio telaCardapio, Autenticacao autenticacao, int indiceCardapioEscolhido, int indiceProdutoEscolhido){
+    public TelaInformacoesPizza(TelaCardapio telaCardapio, Autenticacao autenticacao, int indiceCardapioEscolhido, int indiceProdutoEscolhido, Pedido infoPedido){
         this();
         this.setTelaCardapio(telaCardapio);
         this.setAutenticacao(autenticacao);
         this.setIndiceCardapioEscolhido(indiceCardapioEscolhido);
         this.setIndiceProdutoEscolhido(indiceProdutoEscolhido);
+        this.setInfoPedido(infoPedido);
         this.getTelaCardapio().setEnabled(false);
         exibirInformacoes();
     }
@@ -74,6 +87,30 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         this.indiceProdutoEscolhido = indiceProdutoEscolhido;
     }
     
+    public Pedido getInfoPedido() {
+        return infoPedido;
+    }
+
+    public void setInfoPedido(Pedido infoPedido) {
+        this.infoPedido = infoPedido;
+    }
+    
+    public String getTamanhoPizza() {
+        return tamanhoPizza;
+    }
+
+    public void setTamanhoPizza(String tamanhoPizza) {
+        this.tamanhoPizza = tamanhoPizza;
+    }
+    
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
     public void exibirInformacoes(){
         try{
             // Recuperação de dados das pizzas
@@ -81,6 +118,33 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                 pizzas = banco.consultarInfoPizzas(this.getAutenticacao());
                 this.labelNomePizza.setText(pizzas.get(this.getIndiceProdutoEscolhido()).getDescricao());
                 this.textIngredientes.setText(pizzas.get(this.getIndiceProdutoEscolhido()).getIngredientesPizza());
+                
+                Connection con = DriverManager.getConnection(this.getAutenticacao().getCaminhoBanco(), this.getAutenticacao().getUsuarioBanco(), this.getAutenticacao().getUsuarioSenha());
+                Statement st = con.createStatement();
+                ResultSet rs = st.executeQuery("SELECT P.codigo, PZ.tamanho, PZ.fatias, PZ.preco FROM Pizza AS PZ JOIN Produto AS P ON PZ.codProduto = P.codigo WHERE P.descricao LIKE '" + pizzas.get(this.getIndiceProdutoEscolhido()).getDescricao() + "'");
+                
+                this.textoOpcoesDisponiveis.setModel(DbUtils.resultSetToTableModel(rs));
+                
+                // Exibição centralizada dos registros
+                DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+                centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+                
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setMaxWidth(0);
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setMinWidth(0);
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setPreferredWidth(0);
+                
+                
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
+                
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Fatias");
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+                
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Preço");
+                this.textoOpcoesDisponiveis.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
+                
+                con.close();
+                
             } // Recuperação de dados dos lanches
             else if(this.getIndiceCardapioEscolhido() == 1){
                 
@@ -116,7 +180,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         textIngredientes = new javax.swing.JTextPane();
         labelIngredientes = new javax.swing.JLabel();
         labelQuantidade = new javax.swing.JLabel();
-        textoFatias = new javax.swing.JTextField();
+        textoQuantidade = new javax.swing.JTextField();
         labelNomePizza = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -130,6 +194,11 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
             }
         });
 
+        textoOpcoesDisponiveis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoOpcoesDisponiveisMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(textoOpcoesDisponiveis);
 
         labelOpcoesDisponiveis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -140,6 +209,11 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         botaoAdicionar.setMaximumSize(new java.awt.Dimension(77, 30));
         botaoAdicionar.setMinimumSize(new java.awt.Dimension(77, 30));
         botaoAdicionar.setPreferredSize(new java.awt.Dimension(77, 30));
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarActionPerformed(evt);
+            }
+        });
 
         botaoFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoFechar.setText("Fechar");
@@ -160,7 +234,12 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         labelQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelQuantidade.setText("Quantidade:");
 
-        textoFatias.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoQuantidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoQuantidadeMouseClicked(evt);
+            }
+        });
 
         labelNomePizza.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomePizza.setText("-");
@@ -183,7 +262,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelQuantidade)
                         .addGap(18, 18, 18)
-                        .addComponent(textoFatias, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelNomePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -207,7 +286,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelQuantidade)
-                    .addComponent(textoFatias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(labelIngredientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,6 +325,49 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
+
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
+        // TODO add your handling code here:
+        if(this.getQuantidade() > 0){
+            int confirmar = JOptionPane.showConfirmDialog(null, "Deseja inserir esse item no pedido?\nEssa ação não poderá ser desfeita!", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if(confirmar == JOptionPane.OK_OPTION){
+                try{
+                    int pedidoNumero = this.getInfoPedido().getNumeroPedido();
+                    int codigoProduto = this.pizzas.get(this.getIndiceProdutoEscolhido()).getCodigo();
+                    int quantidadeProdutos = this.getQuantidade();
+                    float precoPizza = this.pizzas.get(this.getIndiceProdutoEscolhido()).getPreco();
+                    System.out.println(this.getTamanhoPizza());
+                    
+                    String query = "INSERT INTO ItemDoPedido(pedidoNumero, codigoProduto, qtdadeProdutos, tamanho, preco) VALUES(" + pedidoNumero + "," + codigoProduto + "," + quantidadeProdutos + ",'" + this.getTamanhoPizza() + "'," + precoPizza + ")";
+                    banco.efetuarInsercao(this.getAutenticacao(), query);
+                    JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    this.textoQuantidade.setText(null);
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
+
+    private void textoOpcoesDisponiveisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoOpcoesDisponiveisMouseClicked
+        // TODO add your handling code here:
+        this.setTamanhoPizza((String) this.textoOpcoesDisponiveis.getModel().getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 1));
+    }//GEN-LAST:event_textoOpcoesDisponiveisMouseClicked
+
+    private void textoQuantidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoQuantidadeMouseClicked
+        // TODO add your handling code here:
+        try{
+            int quantidade = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:", "Quantidade", JOptionPane.INFORMATION_MESSAGE));
+            if(quantidade > 0){
+                this.setQuantidade(quantidade);
+                this.textoQuantidade.setText(String.valueOf(this.getQuantidade()));
+            }
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Informe um número inteiro maior que 0 (zero)", "Aviso", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_textoQuantidadeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -293,7 +415,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
     private javax.swing.JLabel labelOpcoesDisponiveis;
     private javax.swing.JLabel labelQuantidade;
     private javax.swing.JTextPane textIngredientes;
-    private javax.swing.JTextField textoFatias;
     private javax.swing.JTable textoOpcoesDisponiveis;
+    private javax.swing.JTextField textoQuantidade;
     // End of variables declaration//GEN-END:variables
 }
