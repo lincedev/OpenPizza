@@ -22,7 +22,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     private Pedido infoPedido;
 
     // Objeto para interação com o banco de dados
-    private final Banco banco = new Banco();
+    private Banco banco = new Banco();
 
     ArrayList<Pizza> pizzas = new ArrayList();
 
@@ -119,7 +119,7 @@ public class TelaCardapio extends javax.swing.JFrame {
             // Seleção da categoria Pizza
             if (indiceTabela == 0) {
                 query = "SELECT P.descricao FROM Produto AS P JOIN Pizza as PZ ON P.codigo = PZ.codProduto GROUP BY P.descricao ORDER BY P.descricao";
-                tabela = this.tabela;
+                tabela = this.tabelaPizzas;
             } // Seleção da categoria Lanche
             else if (indiceTabela == 1) {
                 query = "SELECT P.descricao, L.preco FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto GROUP BY P.descricao ORDER BY P.descricao";
@@ -175,14 +175,14 @@ public class TelaCardapio extends javax.swing.JFrame {
 
         tabelaCardapio = new javax.swing.JTabbedPane();
         abaPizzas = new javax.swing.JScrollPane();
-        tabela = new javax.swing.JTable();
+        tabelaPizzas = new javax.swing.JTable();
         abaLanches = new javax.swing.JScrollPane();
         tabelaLanches = new javax.swing.JTable();
         abaBebidas = new javax.swing.JScrollPane();
         tabelaBebidas = new javax.swing.JTable();
         abaOutros = new javax.swing.JScrollPane();
         tabelaOutros = new javax.swing.JTable();
-        fecharCardapio = new javax.swing.JButton();
+        botaoFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza");
@@ -203,8 +203,8 @@ public class TelaCardapio extends javax.swing.JFrame {
             }
         });
 
-        tabela.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        tabela.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaPizzas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tabelaPizzas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -212,13 +212,13 @@ public class TelaCardapio extends javax.swing.JFrame {
 
             }
         ));
-        tabela.setSelectionBackground(new java.awt.Color(255, 255, 255));
-        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaPizzas.setSelectionBackground(new java.awt.Color(255, 255, 255));
+        tabelaPizzas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaMouseClicked(evt);
+                tabelaPizzasMouseClicked(evt);
             }
         });
-        abaPizzas.setViewportView(tabela);
+        abaPizzas.setViewportView(tabelaPizzas);
 
         tabelaCardapio.addTab("Pizzas", abaPizzas);
 
@@ -237,12 +237,12 @@ public class TelaCardapio extends javax.swing.JFrame {
 
         tabelaCardapio.addTab("Outros", abaOutros);
 
-        fecharCardapio.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        fecharCardapio.setText("Fechar");
-        fecharCardapio.setPreferredSize(new java.awt.Dimension(75, 30));
-        fecharCardapio.addActionListener(new java.awt.event.ActionListener() {
+        botaoFechar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoFechar.setText("Fechar");
+        botaoFechar.setPreferredSize(new java.awt.Dimension(75, 30));
+        botaoFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecharCardapioActionPerformed(evt);
+                botaoFecharActionPerformed(evt);
             }
         });
 
@@ -256,7 +256,7 @@ public class TelaCardapio extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(122, 122, 122)
-                .addComponent(fecharCardapio, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -265,7 +265,7 @@ public class TelaCardapio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(tabelaCardapio, javax.swing.GroupLayout.PREFERRED_SIZE, 500, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(fecharCardapio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31))
         );
 
@@ -288,10 +288,10 @@ public class TelaCardapio extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private void fecharCardapioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecharCardapioActionPerformed
+    private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
         // Retorno à tela anterior
         this.dispose();
-    }//GEN-LAST:event_fecharCardapioActionPerformed
+    }//GEN-LAST:event_botaoFecharActionPerformed
 
     /*
      Descrição: Método do botão Exibir Cardápio. Exibe os produtos cadastrados por categoria.
@@ -308,14 +308,14 @@ public class TelaCardapio extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+    private void tabelaPizzasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPizzasMouseClicked
         // TODO add your handling code here:
         if (this.tabelaCardapio.getSelectedIndex() == 0) {
-            TelaInformacoesPizza infoPizza = new TelaInformacoesPizza(this, this.getAutenticacao(), this.tabelaCardapio.getSelectedIndex(), this.tabela.getSelectedRow(), this.getInfoPedido());
+            TelaInformacoesPizza infoPizza = new TelaInformacoesPizza(this, this.getAutenticacao(), this.tabelaCardapio.getSelectedIndex(), this.tabelaPizzas.getSelectedRow(), this.getInfoPedido());
             infoPizza.setSize(350, 600);
             infoPizza.setVisible(true);
         }
-    }//GEN-LAST:event_tabelaMouseClicked
+    }//GEN-LAST:event_tabelaPizzasMouseClicked
 
     /**
      * @param args the command line arguments
@@ -357,12 +357,12 @@ public class TelaCardapio extends javax.swing.JFrame {
     private javax.swing.JScrollPane abaLanches;
     private javax.swing.JScrollPane abaOutros;
     private javax.swing.JScrollPane abaPizzas;
-    private javax.swing.JButton fecharCardapio;
-    private javax.swing.JTable tabela;
+    private javax.swing.JButton botaoFechar;
     private javax.swing.JTable tabelaBebidas;
     private javax.swing.JTabbedPane tabelaCardapio;
     private javax.swing.JTable tabelaLanches;
     private javax.swing.JTable tabelaOutros;
+    private javax.swing.JTable tabelaPizzas;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -82,14 +82,16 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         labelBancoDeDados = new javax.swing.JLabel();
         labelUsuario = new javax.swing.JLabel();
         labelSenha = new javax.swing.JLabel();
-        caminhoBanco = new javax.swing.JTextField();
-        usuarioBanco = new javax.swing.JTextField();
-        autenticarBanco = new javax.swing.JButton();
-        senhaBanco = new javax.swing.JTextField();
-        cancelar = new javax.swing.JButton();
+        textoCaminho = new javax.swing.JTextField();
+        textoUsuario = new javax.swing.JTextField();
+        botaoAutenticar = new javax.swing.JButton();
+        textoSenha = new javax.swing.JTextField();
+        botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Autenticação");
+        setMaximumSize(new java.awt.Dimension(400, 300));
+        setMinimumSize(new java.awt.Dimension(400, 300));
 
         labelBancoDeDados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelBancoDeDados.setText("Banco de Dados:");
@@ -100,37 +102,37 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         labelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelSenha.setText("Senha:");
 
-        caminhoBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        caminhoBanco.addActionListener(new java.awt.event.ActionListener() {
+        textoCaminho.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoCaminho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caminhoBancoActionPerformed(evt);
+                textoCaminhoActionPerformed(evt);
             }
         });
 
-        usuarioBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        usuarioBanco.addActionListener(new java.awt.event.ActionListener() {
+        textoUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioBancoActionPerformed(evt);
+                textoUsuarioActionPerformed(evt);
             }
         });
 
-        autenticarBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        autenticarBanco.setText("Autenticar");
-        autenticarBanco.setPreferredSize(new java.awt.Dimension(110, 30));
-        autenticarBanco.addActionListener(new java.awt.event.ActionListener() {
+        botaoAutenticar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoAutenticar.setText("Autenticar");
+        botaoAutenticar.setPreferredSize(new java.awt.Dimension(110, 30));
+        botaoAutenticar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autenticarBancoActionPerformed(evt);
+                botaoAutenticarActionPerformed(evt);
             }
         });
 
-        senhaBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textoSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        cancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        cancelar.setText("Cancelar");
-        cancelar.setPreferredSize(new java.awt.Dimension(110, 30));
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.setPreferredSize(new java.awt.Dimension(110, 30));
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
@@ -147,16 +149,16 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
                             .addComponent(labelSenha))
                         .addGap(85, 85, 85)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(usuarioBanco)
-                            .addComponent(caminhoBanco, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .addComponent(senhaBanco)
-                            .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textoUsuario)
+                            .addComponent(textoCaminho, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(textoSenha)
+                            .addComponent(botaoAutenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelBancoDeDados)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(33, 33, 33)
-                                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -168,22 +170,23 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelBancoDeDados)
-                            .addComponent(caminhoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textoCaminho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(45, 45, 45)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelUsuario)
-                            .addComponent(usuarioBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37)
-                        .addComponent(senhaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelSenha))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoAutenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /*
@@ -191,27 +194,27 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      Parâmetros:
      Retorno:
      */
-    private void caminhoBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoBancoActionPerformed
+    private void textoCaminhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoCaminhoActionPerformed
         // Campo de texto para receber o caminho do banco de dados.
-    }//GEN-LAST:event_caminhoBancoActionPerformed
+    }//GEN-LAST:event_textoCaminhoActionPerformed
 
     /*
      Descrição: Método de autenticação ao iniciar a aplicação, utilizando os parâmetros salvos no arquivo Autenticacao.txt
      Parâmetros: 
      Retorno:
      */
-    private void autenticarBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autenticarBancoActionPerformed
+    private void botaoAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAutenticarActionPerformed
         // Criação de objeto para recuperação de parâmetros do arquivo Autenticacao.txt
         Arquivos arquivo = new Arquivos();
         Autenticacao autenticar = new Autenticacao();
 
         // Tentativa de autenticação utilizando os parâmetros do arquivo de autenticação
         try {
-            autenticar.testarAutenticacao(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
+            autenticar.testarAutenticacao(this.textoCaminho.getText(), this.textoUsuario.getText(), this.textoSenha.getText());
 
             // Tentativa de arquivar os parâmetros de acesso ao banco no arquivo Autenticacao.txt
             try {
-                arquivo.salvarArquivo(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
+                arquivo.salvarArquivo(this.textoCaminho.getText(), this.textoUsuario.getText(), this.textoSenha.getText());
                 JOptionPane.showMessageDialog(null, "Autenticação salva com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
                 this.autenticar.setVisible(false);
@@ -223,26 +226,26 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_autenticarBancoActionPerformed
+    }//GEN-LAST:event_botaoAutenticarActionPerformed
 
     /*
      Descrição: Campo de texto para receber o usuário de acesso ao banco de dados.
      Parâmetros:
      Retorno:
      */
-    private void usuarioBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioBancoActionPerformed
+    private void textoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoUsuarioActionPerformed
         // Campo de texto para receber usuário de acesso ao banco de dados.
-    }//GEN-LAST:event_usuarioBancoActionPerformed
+    }//GEN-LAST:event_textoUsuarioActionPerformed
 
     /*
      Descrição: Método do botão Cancelar.
      Parâmetros: 
      Retorno:
      */
-    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         // Retorna à janela anterior
         this.dispose();
-    }//GEN-LAST:event_cancelarActionPerformed
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -280,13 +283,13 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton autenticarBanco;
-    private javax.swing.JTextField caminhoBanco;
-    private javax.swing.JButton cancelar;
+    private javax.swing.JButton botaoAutenticar;
+    private javax.swing.JButton botaoCancelar;
     private javax.swing.JLabel labelBancoDeDados;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelUsuario;
-    private javax.swing.JTextField senhaBanco;
-    private javax.swing.JTextField usuarioBanco;
+    private javax.swing.JTextField textoCaminho;
+    private javax.swing.JTextField textoSenha;
+    private javax.swing.JTextField textoUsuario;
     // End of variables declaration//GEN-END:variables
 }

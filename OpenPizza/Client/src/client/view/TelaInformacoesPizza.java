@@ -14,7 +14,7 @@ import net.proteanit.sql.DbUtils;
 public class TelaInformacoesPizza extends javax.swing.JFrame {
 
     // Objeto para persistência com o banco de dados.
-    private final Banco banco = new Banco();
+    private Banco banco = new Banco();
 
     // Objeto com dados de autenticação do banco de dados.
     private Autenticacao autenticacao;
@@ -244,13 +244,13 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        painelTelaInformacoes = new javax.swing.JPanel();
+        painelOpcoesDisponiveis = new javax.swing.JScrollPane();
         textoOpcoesDisponiveis = new javax.swing.JTable();
         labelOpcoesDisponiveis = new javax.swing.JLabel();
         botaoAdicionar = new javax.swing.JButton();
         botaoFechar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        painelIngredientes = new javax.swing.JScrollPane();
         textIngredientes = new javax.swing.JTextPane();
         labelIngredientes = new javax.swing.JLabel();
         labelQuantidade = new javax.swing.JLabel();
@@ -273,7 +273,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                 textoOpcoesDisponiveisMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(textoOpcoesDisponiveis);
+        painelOpcoesDisponiveis.setViewportView(textoOpcoesDisponiveis);
 
         labelOpcoesDisponiveis.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelOpcoesDisponiveis.setText("Opções disponíveis:");
@@ -300,7 +300,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setViewportView(textIngredientes);
+        painelIngredientes.setViewportView(textIngredientes);
 
         labelIngredientes.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelIngredientes.setText("Ingredientes:");
@@ -313,58 +313,58 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         labelNomePizza.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomePizza.setText("-");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelTelaInformacoesLayout = new javax.swing.GroupLayout(painelTelaInformacoes);
+        painelTelaInformacoes.setLayout(painelTelaInformacoesLayout);
+        painelTelaInformacoesLayout.setHorizontalGroup(
+            painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelTelaInformacoesLayout.createSequentialGroup()
                 .addContainerGap(54, Short.MAX_VALUE)
                 .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(50, 50, 50))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelIngredientes)
                     .addComponent(labelOpcoesDisponiveis, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
                         .addComponent(labelQuantidade)
                         .addGap(18, 18, 18)
                         .addComponent(textoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(labelNomePizza, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2)
+                .addComponent(painelIngredientes)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(painelOpcoesDisponiveis, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        painelTelaInformacoesLayout.setVerticalGroup(
+            painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(labelNomePizza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(labelOpcoesDisponiveis)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelOpcoesDisponiveis, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelQuantidade)
                     .addComponent(textoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(labelIngredientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelTelaInformacoesLayout.createSequentialGroup()
+                        .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(95, 95, 95))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelTelaInformacoesLayout.createSequentialGroup()
+                        .addGroup(painelTelaInformacoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(27, 27, 27))))
@@ -374,11 +374,11 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelTelaInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelTelaInformacoes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -435,8 +435,8 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                     float precoPizza = (Float) this.textoOpcoesDisponiveis.getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 3);
 
                     // Verificação da existência do mesmo produto já presente no pedido
-                    boolean produtoNoPedido = banco.verificarProdutoNoPedido(this.getAutenticacao(), codigoProduto, codigoProduto);
-
+                    boolean produtoNoPedido = banco.verificarProdutoNoPedido(this.getAutenticacao(), pedidoNumero, codigoProduto);
+                    
                     // Produto encontrado -> Atualização da quantidade no pedido
                     if (produtoNoPedido) {
                         String query = "UPDATE ItemDoPedido SET qtdadeProdutos = qtdadeProdutos + " + quantidadeProdutos + " WHERE pedidoNumero = " + pedidoNumero + " AND codigoProduto = " + codigoProduto;
@@ -448,6 +448,14 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                         banco.executarSQL(this.getAutenticacao(), query);
                         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     }
+              
+                    // Tentativa de atualização do valor total do pedido
+                    try {
+                        String query = "UPDATE Pedido SET valor =(SELECT SUM(qtdadeProdutos * preco) FROM ItemDoPedido WHERE pedidoNumero = " + pedidoNumero + ") WHERE numeroPedido = " + pedidoNumero + " AND pedidoFinalizado = false;";
+                        banco.executarSQL(this.getAutenticacao(), query);
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "Não foi possível atualizar o valor total do pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                     
                 } // Falha na inserção do(s) produtos ao pedido atual
                 catch (Exception e) {
@@ -455,6 +463,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
                 }
 
                 // Fechar janela atual após inserção do produto no pedido
+                this.getTelaCardapio().getJanelaPedido().exibirPedidoDaMesa();
                 this.dispose();
             }
         } // Mensagem de erro caso a quantidade seja nula ou menor que zero
@@ -512,13 +521,13 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAdicionar;
     private javax.swing.JButton botaoFechar;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel labelIngredientes;
     private javax.swing.JLabel labelNomePizza;
     private javax.swing.JLabel labelOpcoesDisponiveis;
     private javax.swing.JLabel labelQuantidade;
+    private javax.swing.JScrollPane painelIngredientes;
+    private javax.swing.JScrollPane painelOpcoesDisponiveis;
+    private javax.swing.JPanel painelTelaInformacoes;
     private javax.swing.JTextPane textIngredientes;
     private javax.swing.JTable textoOpcoesDisponiveis;
     private javax.swing.JTextField textoQuantidade;

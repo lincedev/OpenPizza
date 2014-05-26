@@ -22,7 +22,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     public TelaPrincipal() {
         initComponents();
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
-        this.abrirPedido.setEnabled(false);
+        this.botaoAbrirPedido.setEnabled(false);
         verificarAutenticacao();
     }
 
@@ -39,8 +39,8 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
                 // Se a conexão foi efetuada, o botão de autenticação é desabilitado e o botão para abrir pedido é habilitado.
                 Connection conexao = DriverManager.getConnection(autenticacao.getCaminhoBanco(), autenticacao.getUsuarioBanco(), autenticacao.getUsuarioSenha());
                 conexao.close();
-                this.autenticar.setVisible(false);
-                this.abrirPedido.setEnabled(true);
+                this.botaoAutenticar.setVisible(false);
+                this.botaoAbrirPedido.setEnabled(true);
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
@@ -58,16 +58,15 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        sairAplicacao = new javax.swing.JButton();
-        abrirPedido = new javax.swing.JButton();
-        autenticar = new javax.swing.JButton();
+        botaoSair = new javax.swing.JButton();
+        botaoAbrirPedido = new javax.swing.JButton();
+        botaoAutenticar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenPizza");
         setMaximumSize(new java.awt.Dimension(350, 600));
         setMinimumSize(new java.awt.Dimension(350, 600));
-        setPreferredSize(new java.awt.Dimension(350, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -75,30 +74,30 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
             }
         });
 
-        sairAplicacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        sairAplicacao.setText("Sair");
-        sairAplicacao.setPreferredSize(new java.awt.Dimension(110, 30));
-        sairAplicacao.addActionListener(new java.awt.event.ActionListener() {
+        botaoSair.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoSair.setText("Sair");
+        botaoSair.setPreferredSize(new java.awt.Dimension(110, 30));
+        botaoSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sairAplicacaoActionPerformed(evt);
+                botaoSairActionPerformed(evt);
             }
         });
 
-        abrirPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        abrirPedido.setText("Abrir Pedido");
-        abrirPedido.setPreferredSize(new java.awt.Dimension(110, 30));
-        abrirPedido.addActionListener(new java.awt.event.ActionListener() {
+        botaoAbrirPedido.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoAbrirPedido.setText("Abrir Pedido");
+        botaoAbrirPedido.setPreferredSize(new java.awt.Dimension(110, 30));
+        botaoAbrirPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrirPedidoActionPerformed(evt);
+                botaoAbrirPedidoActionPerformed(evt);
             }
         });
 
-        autenticar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        autenticar.setText("Autenticar");
-        autenticar.setPreferredSize(new java.awt.Dimension(110, 30));
-        autenticar.addActionListener(new java.awt.event.ActionListener() {
+        botaoAutenticar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoAutenticar.setText("Autenticar");
+        botaoAutenticar.setPreferredSize(new java.awt.Dimension(110, 30));
+        botaoAutenticar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                autenticarActionPerformed(evt);
+                botaoAutenticarActionPerformed(evt);
             }
         });
 
@@ -109,29 +108,30 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(autenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(abrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sairAplicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(botaoAbrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoAutenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(84, Short.MAX_VALUE)
+                .addContainerGap(64, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(autenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49)
-                .addComponent(abrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(sairAplicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addGap(41, 41, 41)
+                .addComponent(botaoAutenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38)
+                .addComponent(botaoAbrirPedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(botaoSair, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -143,36 +143,36 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
      Parâmetros:
      Retorno:
      */
-    private void sairAplicacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sairAplicacaoActionPerformed
+    private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
         // Saída da aplicação
         System.exit(0);
-    }//GEN-LAST:event_sairAplicacaoActionPerformed
+    }//GEN-LAST:event_botaoSairActionPerformed
 
     /*
      Descrição: Método para criação da janela de pedido após a autenticação do banco de dados
      Parâmetros:
      Retorno:
      */
-    private void abrirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPedidoActionPerformed
+    private void botaoAbrirPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAbrirPedidoActionPerformed
         // Criação da janela de pedido
         TelaPedido janelaPedido = new TelaPedido(this, this.autenticacao);
         this.setVisible(false);
         janelaPedido.setResizable(false);
         janelaPedido.setSize(350, 600);
         janelaPedido.setVisible(true);
-    }//GEN-LAST:event_abrirPedidoActionPerformed
+    }//GEN-LAST:event_botaoAbrirPedidoActionPerformed
 
     /*
      Descrição: Método para criação da janela de autenticação do banco de dados.
      Parâmetros:
      Retorno:
      */
-    private void autenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autenticarActionPerformed
+    private void botaoAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAutenticarActionPerformed
         // Criação da janela de autenticação
-        TelaAutenticacao janelaAutenticar = new TelaAutenticacao(this, this.abrirPedido, this.autenticar);
+        TelaAutenticacao janelaAutenticar = new TelaAutenticacao(this, this.botaoAbrirPedido, this.botaoAutenticar);
         janelaAutenticar.setVisible(true);
 
-    }//GEN-LAST:event_autenticarActionPerformed
+    }//GEN-LAST:event_botaoAutenticarActionPerformed
 
     /*
      Descrição: Método executado ao clicar no Fechar (X).
@@ -220,9 +220,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton abrirPedido;
-    private javax.swing.JButton autenticar;
+    private javax.swing.JButton botaoAbrirPedido;
+    private javax.swing.JButton botaoAutenticar;
+    private javax.swing.JButton botaoSair;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton sairAplicacao;
     // End of variables declaration//GEN-END:variables
 }

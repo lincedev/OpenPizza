@@ -40,14 +40,14 @@ public class Banco {
     }
 
     /*
-     Descrição: Método para realização de consulta no banco de dados
+     Descrição: Método para realização de consulta de um pedido no banco de dados
      Parâmetros:
      *           autenticacao (Necessário para acesso ao banco de dados)
      *           query (String SQL)
      Retorno:
      *           infoPedido (Objeto do tipo Pedido contendo os dados caso sejam encontrados, ou null caso contrário)
      */
-    public Pedido consultarPedidos(Autenticacao autenticacao, String query) throws Exception {
+    public Pedido consultarPedido(Autenticacao autenticacao, String query) throws Exception {
 
         Pedido infoPedido = new Pedido();
         Connection cn = null;
@@ -60,7 +60,7 @@ public class Banco {
                 infoPedido.setNumeroPedido(rs.getInt("numeroPedido"));
                 infoPedido.setData(rs.getString("data"));
                 infoPedido.setHora(rs.getString("hora"));
-                infoPedido.setValor(rs.getFloat("valor"));
+                infoPedido.setValor(rs.getFloat("value"));
                 infoPedido.setFormaPagamento(rs.getString("formaPagamento"));
                 infoPedido.setPedidoFinalizado(rs.getBoolean("pedidoFinalizado"));
             } else {
@@ -92,6 +92,7 @@ public class Banco {
             while (rs.next()) {
                 valor += rs.getInt("qtdadeProdutos") * rs.getFloat("preco");
             }
+            fecharConexao(cn);
             return valor;
         } catch (Exception e) {
             throw new Exception();
@@ -133,6 +134,26 @@ public class Banco {
     }
 
     /*
+     Descrição: Método para cancelar de um pedido.
+     Parâmetros:
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     *           infoPedido (Objeto contendo o pedido a ser cancelado)
+     Retorno:
+     */
+    public void cancelarPedido(Autenticacao autenticacao, Pedido infoPedido) throws Exception {
+        Connection cn = null;
+        try {
+            cn = abrirConexao(autenticacao);
+            Statement st = cn.createStatement();
+            st.executeUpdate("UPDATE Pedido SET pedidoFinalizado = TRUE, horaFim = current_time WHERE numeroPedido = " + infoPedido.getNumeroPedido() + " AND pedidoFinalizado = FALSE");
+        } catch (Exception e) {
+            throw new Exception();
+        } finally {
+            fecharConexao(cn);
+        }
+    }
+
+    /*
      Descrição: Método para finalização de um pedido.
      Parâmetros:
      *           autenticacao (Necessário para acesso ao banco de dados)
@@ -144,7 +165,7 @@ public class Banco {
         try {
             cn = abrirConexao(autenticacao);
             Statement st = cn.createStatement();
-            st.executeUpdate("UPDATE Pedido SET pedidoFinalizado = TRUE, horaFim = current_time WHERE numeroPedido = " + infoPedido.getNumeroPedido());
+            st.executeUpdate("UPDATE Pedido SET pedidoFinalizado = TRUE, horaFim = current_time, formaPagamento = '" + infoPedido.getFormaPagamento() + "' WHERE numeroPedido = " + infoPedido.getNumeroPedido() + " AND pedidoFinalizado = FALSE");
         } catch (Exception e) {
             throw new Exception();
         } finally {
@@ -210,21 +231,21 @@ public class Banco {
     public boolean verificarProdutoNoPedido(Autenticacao autenticacao, int codigoPedido, int codigoProduto) throws Exception {
 
         Connection cn = null;
-        boolean resultado = true;
+        PreparedStatement pst = null;
+        ResultSet rs = null;
+        boolean resultado = false;
         try {
             cn = abrirConexao(autenticacao);
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery("SELECT IDP.codigoProduto FROM ItemDoPedido AS IDP JOIN Pedido AS P ON IDP.pedidoNumero = P.numeroPedido WHERE IDP.pedidoNumero = " + codigoPedido + " AND P.pedidoFinalizado = false");
-            if (rs.next()) {
-                resultado = false;
-            } else {
-                resultado = true;
-            }
+            pst = cn.prepareStatement("SELECT IDP.qtdadeProdutos FROM ItemDoPedido AS IDP JOIN Pedido AS P ON IDP.pedidoNumero = P.numeroPedido WHERE IDP.pedidoNumero = ? AND IDP.codigoProduto = ? AND P.pedidoFinalizado = false");
+            pst.setInt(1, codigoPedido);
+            pst.setInt(2, codigoProduto);
+            rs = pst.executeQuery();
+            resultado = rs.next();
         } catch (Exception e) {
             throw new Exception();
         } finally {
             fecharConexao(cn);
-            return resultado;
         }
+        return resultado;
     }
 }
