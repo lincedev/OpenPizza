@@ -1,4 +1,3 @@
-
 package client.view;
 
 import client.modelo.*;
@@ -9,158 +8,233 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 
+/*
+ Descrição: Tela de exibição das informações específicas de cada produto.
+ */
 public class TelaInformacoesPizza extends javax.swing.JFrame {
 
+    // Objeto para persistência com o banco de dados.
     private final Banco banco = new Banco();
-    
+
+    // Objeto com dados de autenticação do banco de dados.
     private Autenticacao autenticacao;
-    
+
+    // Objeto com a referência da tela anterior.
     private TelaCardapio telaCardapio;
 
-    private int indiceCardapioEscolhido;
-    
-    private int indiceProdutoEscolhido;
-    
+    // Objeto com informações do pedido atual.
     private Pedido infoPedido;
 
-    private String tamanhoPizza;
+    // Variável contendo o índice da categoria de produtos escolhido na tela de cardápio.
+    private int indiceCardapioEscolhido;
 
-    private int quantidade;
+    // Variável contendo o índice do produto escolhido na tabela de informações das pizzas.
+    private int indiceProdutoEscolhido;
 
-    
-    
+    // Lista com todas as opções de pizzas.
     ArrayList<Pizza> pizzas = new ArrayList();
-    
-    ArrayList<Lanche> lanches = new ArrayList();
-    
-    ArrayList<Bebidas> bebidas = new ArrayList();
-    
-    ArrayList<Outros> outros = new ArrayList();
-    
-    /**
-     * Creates new form TelaInformacoesProduto
+
+    /*
+     Descrição: Construtor padrão da tela de informações das pizzas
+     Parâmetros:
+     Retorno:
      */
     private TelaInformacoesPizza() {
         initComponents();
     }
 
-    public TelaInformacoesPizza(TelaCardapio telaCardapio, Autenticacao autenticacao, int indiceCardapioEscolhido, int indiceProdutoEscolhido, Pedido infoPedido){
+    /*
+     Descrição: Construtor completo da tela de informações das pizzas
+     Parâmetros:
+     *           telaCardapio (Tela anterior)
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     *           indiceCardapioEscolhido (Categoria escolhida na tela anterior: pizza, lanches, bebidas ou outros)
+     *           indiceProdutoEscolhido (Indice do produto escolhido em uma categoria)
+     *           infoPedido (Objeto com informações do pedido atual)
+     Retorno:
+     */
+    public TelaInformacoesPizza(TelaCardapio telaCardapio, Autenticacao autenticacao, int indiceCardapioEscolhido, int indiceProdutoEscolhido, Pedido infoPedido) {
         this();
         this.setTelaCardapio(telaCardapio);
         this.setAutenticacao(autenticacao);
         this.setIndiceCardapioEscolhido(indiceCardapioEscolhido);
         this.setIndiceProdutoEscolhido(indiceProdutoEscolhido);
         this.setInfoPedido(infoPedido);
+        this.textoQuantidade.setEnabled(false);
         this.getTelaCardapio().setEnabled(false);
         exibirInformacoes();
     }
-    
+
+    /*
+     Descrição: Método get do objeto de autenticação.
+     Parâmetros:
+     Retorno:
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de autenticação.
+     Parâmetros:
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
-    
+
+    /*
+     Descrição: Método get do índice escolhido em uma categoria de produtos.
+     Parâmetros:
+     Retorno:
+     *           indiceCardapioEscolhido (Índice escolhido em uma categoria de produtos)
+     */
     public int getIndiceCardapioEscolhido() {
         return indiceCardapioEscolhido;
     }
-    
+
+    /*
+     Descrição: Método set do índice escolhido em uma categoria de produtos.
+     Parâmetros:
+     *           indiceCardapioEscolhido (Categoria selecionada na tela anterior)
+     Retorno:
+     */
+    public void setIndiceCardapioEscolhido(int indiceCardapioEscolhido) {
+        this.indiceCardapioEscolhido = indiceCardapioEscolhido;
+    }
+
+    /*
+     Descrição: Método set da tela de cardápio.
+     Parâmetros:
+     Retorno:
+     *           telaCardapio (Tela anterior)
+     */
     public TelaCardapio getTelaCardapio() {
         return telaCardapio;
     }
 
+    /*
+     Descrição: Método set da tela de cardápio.
+     Parâmetros:
+     *           telaCardápio (Referência para a tela anterior)
+     Retorno:
+     */
     public void setTelaCardapio(TelaCardapio telaCardapio) {
         this.telaCardapio = telaCardapio;
     }
 
-    public void setIndiceCardapioEscolhido(int indiceCardapioEscolhido) {
-        this.indiceCardapioEscolhido = indiceCardapioEscolhido;
-    }
-    
+    /*
+     Descrição: Método get do índice do produto escolhido em uma categoria.
+     Parâmetros:
+     Retorno:
+     *           indiceProdutoEscolhido (Índice do produto escolhido em uma categoria)
+     */
     public int getIndiceProdutoEscolhido() {
         return indiceProdutoEscolhido;
     }
 
+    /*
+     Descrição: Método set do índice do produto escolhido em uma categoria.
+     Parâmetros:
+     *           indiceProdutoEscolhido (Índice do produto escolhido em uma categoria)
+     Retorno:
+     */
     public void setIndiceProdutoEscolhido(int indiceProdutoEscolhido) {
         this.indiceProdutoEscolhido = indiceProdutoEscolhido;
     }
-    
+
+    /*
+     Descrição: Método get do objeto contendo as informações do pedido atual.
+     Parâmetros:
+     Retorno:
+     *           infoPedido (Objeto com as informações do pedido atual)
+     */
     public Pedido getInfoPedido() {
         return infoPedido;
     }
 
+    /*
+     Descrição: Método set do objeto contendo as informações do pedido atual.
+     Parâmetros:
+     *           infoPedido (Objeto com as informações do pedido atual)
+     Retorno:
+     */
     public void setInfoPedido(Pedido infoPedido) {
         this.infoPedido = infoPedido;
     }
-    
-    public String getTamanhoPizza() {
-        return tamanhoPizza;
-    }
 
-    public void setTamanhoPizza(String tamanhoPizza) {
-        this.tamanhoPizza = tamanhoPizza;
-    }
-    
-    public int getQuantidade() {
-        return quantidade;
-    }
+    /*
+     Descrição: Método para exibição das informações específicas de cada tipo de produto.
+     *          Utilizado para exibição das diferentes opções de cada produto.
+     Parâmetros:
+     Retorno:
+     */
+    public void exibirInformacoes() {
 
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-    
-    public void exibirInformacoes(){
-        try{
+        // Tentiva de conexão com o banco de dados para recuperação das informações específicas de cada produto
+        try {
             // Recuperação de dados das pizzas
-            if(this.getIndiceCardapioEscolhido() == 0){
+            if (this.getIndiceCardapioEscolhido() == 0) {
+
+                // Recuperação das informações específicas de cada pizza escolhida
                 pizzas = banco.consultarInfoPizzas(this.getAutenticacao());
+
+                // Atualização dos textos de índices da interface
                 this.labelNomePizza.setText(pizzas.get(this.getIndiceProdutoEscolhido()).getDescricao());
                 this.textIngredientes.setText(pizzas.get(this.getIndiceProdutoEscolhido()).getIngredientesPizza());
-                
-                Connection con = DriverManager.getConnection(this.getAutenticacao().getCaminhoBanco(), this.getAutenticacao().getUsuarioBanco(), this.getAutenticacao().getUsuarioSenha());
+
+                // Conexão com o banco de dados e recuperação dos dados da pizza selecionada
+                String query = "SELECT P.codigo, PZ.tamanho, PZ.fatias, PZ.preco FROM Pizza AS PZ JOIN Produto AS P ON PZ.codProduto = P.codigo WHERE P.descricao LIKE '" + pizzas.get(this.getIndiceProdutoEscolhido()).getDescricao() + "'";
+                Connection con = banco.abrirConexao(this.getAutenticacao());
                 Statement st = con.createStatement();
-                ResultSet rs = st.executeQuery("SELECT P.codigo, PZ.tamanho, PZ.fatias, PZ.preco FROM Pizza AS PZ JOIN Produto AS P ON PZ.codProduto = P.codigo WHERE P.descricao LIKE '" + pizzas.get(this.getIndiceProdutoEscolhido()).getDescricao() + "'");
-                
+                ResultSet rs = st.executeQuery(query);
+
+                // Declaração do modelo da tabela de exibição dos dados
                 this.textoOpcoesDisponiveis.setModel(DbUtils.resultSetToTableModel(rs));
-                
+
                 // Exibição centralizada dos registros
                 DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
                 centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
-                
+
+                // Formatação dos campos da tabela
+                // Campo de código do produto (Invisível ao usuário, mas necessário para inserção do produto no pedido)
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setMaxWidth(0);
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setMinWidth(0);
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(0).setPreferredWidth(0);
-                
-                
+
+                // Campo de tamanho da pizza
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
-                
+
+                // Campo de número de fatias da pizza
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Fatias");
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
-                
+
+                // Campo de preço da pizza
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Preço");
                 this.textoOpcoesDisponiveis.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
-                
-                con.close();
+
+                // Término da conexão com o banco de dados.
+                banco.fecharConexao(con);
                 
             } // Recuperação de dados dos lanches
-            else if(this.getIndiceCardapioEscolhido() == 1){
+            else if (this.getIndiceCardapioEscolhido() == 1) {
                 
             } // Recuperação de dados das bebidas
-            else if(this.getIndiceCardapioEscolhido() == 2){
+            else if (this.getIndiceCardapioEscolhido() == 2) {
                 
             } // Recuperação de dados dos outros
-            else{
+            else {
                 
             }
-        }
-        catch(Exception e){
-            e.printStackTrace();
+        } // Falha na conexão com o banco de dados
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível recuperar as informações dos produtos.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -235,11 +309,6 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         labelQuantidade.setText("Quantidade:");
 
         textoQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        textoQuantidade.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                textoQuantidadeMouseClicked(evt);
-            }
-        });
 
         labelNomePizza.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomePizza.setText("-");
@@ -313,61 +382,97 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Método disparado ao fechar a janela no botão X.
+     Parâmetros:
+     Retorno:
+     */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+        // Habilitar tela anterior e fechar tela atual
         this.getTelaCardapio().setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
+    /*
+     Descrição: Método disparado ao clicar no botão Fechar.
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
-        // TODO add your handling code here:
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
+    /*
+     Descrição: Método disparado ao clicar no botão Adicionar.
+     *           Este método verifica o produto selecionado e a quantidade desejada,
+     *           para registro desses dados no número do pedido atual. Após o registro
+     *           o método atualiza o valor total do número do pedido na tela de Pedidos.
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
-        if(this.getQuantidade() > 0){
+        // Verificação da quantidade de produtos selecionados
+        if (this.textoQuantidade.getText().length() > 0) {
+
+            // Mensagem de confirmação para adição do produto ao pedido
             int confirmar = JOptionPane.showConfirmDialog(null, "Deseja inserir esse item no pedido?\nEssa ação não poderá ser desfeita!", "Aviso", JOptionPane.OK_CANCEL_OPTION);
-            if(confirmar == JOptionPane.OK_OPTION){
-                try{
+
+            // Verificação da opção do usuário -> Adicionar produto
+            if (confirmar == JOptionPane.OK_OPTION) {
+
+                // Recuperação dos dados selecionados na interface e tentativa de inserção no banco de dados
+                try {
+
+                    // Recuperação dos dados da pizza escolhida
                     int pedidoNumero = this.getInfoPedido().getNumeroPedido();
-                    int codigoProduto = this.pizzas.get(this.getIndiceProdutoEscolhido()).getCodigo();
-                    int quantidadeProdutos = this.getQuantidade();
-                    float precoPizza = this.pizzas.get(this.getIndiceProdutoEscolhido()).getPreco();
-                    System.out.println(this.getTamanhoPizza());
+                    int codigoProduto = (Integer) this.textoOpcoesDisponiveis.getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 0);
+                    int quantidadeProdutos = Integer.parseInt(this.textoQuantidade.getText());
+                    String tamanho = (String) this.textoOpcoesDisponiveis.getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 1);
+                    float precoPizza = (Float) this.textoOpcoesDisponiveis.getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 3);
+
+                    // Verificação da existência do mesmo produto já presente no pedido
+                    boolean produtoNoPedido = banco.verificarProdutoNoPedido(this.getAutenticacao(), codigoProduto, codigoProduto);
+
+                    // Produto encontrado -> Atualização da quantidade no pedido
+                    if (produtoNoPedido) {
+                        String query = "UPDATE ItemDoPedido SET qtdadeProdutos = qtdadeProdutos + " + quantidadeProdutos + " WHERE pedidoNumero = " + pedidoNumero + " AND codigoProduto = " + codigoProduto;
+                        banco.atualizarProdutoNoPedido(this.getAutenticacao(), query);
+                        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    } // Produto não encontrado -> Registro do novo produto no pedido
+                    else {
+                        String query = "INSERT INTO ItemDoPedido(pedidoNumero, codigoProduto, qtdadeProdutos, tamanho, preco) VALUES(" + pedidoNumero + "," + codigoProduto + "," + quantidadeProdutos + ",'" + tamanho + "'," + precoPizza + ")";
+                        banco.executarSQL(this.getAutenticacao(), query);
+                        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     
-                    String query = "INSERT INTO ItemDoPedido(pedidoNumero, codigoProduto, qtdadeProdutos, tamanho, preco) VALUES(" + pedidoNumero + "," + codigoProduto + "," + quantidadeProdutos + ",'" + this.getTamanhoPizza() + "'," + precoPizza + ")";
-                    banco.efetuarInsercao(this.getAutenticacao(), query);
-                    JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    this.textoQuantidade.setText(null);
+                } // Falha na inserção do(s) produtos ao pedido atual
+                catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Não foi possível adicionar o produto ao pedido atual.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
-                catch(Exception e){
-                    e.printStackTrace();
-                }
+
+                // Fechar janela atual após inserção do produto no pedido
+                this.dispose();
             }
+        } // Mensagem de erro caso a quantidade seja nula ou menor que zero
+        else {
+            JOptionPane.showMessageDialog(null, "Informe a quantidade");
         }
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
+    /*
+     Descrição: Método disparado ao clicar em uma linha da tabela de produtos.
+     *           Este método habilita o campo para inserção da quantidade desejada.
+     Parâmetros:
+     Retorno:
+     */
     private void textoOpcoesDisponiveisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoOpcoesDisponiveisMouseClicked
-        // TODO add your handling code here:
-        this.setTamanhoPizza((String) this.textoOpcoesDisponiveis.getModel().getValueAt(this.textoOpcoesDisponiveis.getSelectedRow(), 1));
+        // Habilitar campo para inserção da quantidade
+        this.textoQuantidade.setEnabled(true);
     }//GEN-LAST:event_textoOpcoesDisponiveisMouseClicked
-
-    private void textoQuantidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoQuantidadeMouseClicked
-        // TODO add your handling code here:
-        try{
-            int quantidade = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe a quantidade:", "Quantidade", JOptionPane.INFORMATION_MESSAGE));
-            if(quantidade > 0){
-                this.setQuantidade(quantidade);
-                this.textoQuantidade.setText(String.valueOf(this.getQuantidade()));
-            }
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Informe um número inteiro maior que 0 (zero)", "Aviso", JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_textoQuantidadeMouseClicked
 
     /**
      * @param args the command line arguments

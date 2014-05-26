@@ -35,6 +35,5 @@ public class Client implements Serializable {
         TelaPrincipal janelaPrincipal = new TelaPrincipal();
         janelaPrincipal.setResizable(false);
         janelaPrincipal.setVisible(true);
-        janelaPrincipal.setLocation(50, 70);
     }
 }

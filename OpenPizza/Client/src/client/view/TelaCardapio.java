@@ -18,22 +18,20 @@ public class TelaCardapio extends javax.swing.JFrame {
 
     // Variável para autenticação com o banco de dados
     private Autenticacao autenticacao;
-    
+
     private Pedido infoPedido;
 
-    
-    
     // Objeto para interação com o banco de dados
     private final Banco banco = new Banco();
-    
+
     ArrayList<Pizza> pizzas = new ArrayList();
-    
+
     ArrayList<Lanche> lanches = new ArrayList();
-    
+
     ArrayList<Bebidas> bebidas = new ArrayList();
-    
+
     ArrayList<Outros> outros = new ArrayList();
-    
+
     /*
      Descrição: Construtor padrão do objeto TelaCardapio
      Parâmetros:
@@ -57,7 +55,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         exibirCardapio(this.getAutenticacao());
     }
-    
+
     /*
      Descrição: Método get da janela de pedido
      Parâmetros:
@@ -67,7 +65,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     public TelaPedido getJanelaPedido() {
         return janelaPedido;
     }
-    
+
     /*
      Descrição: Método set da janela de pedido
      Parâmetros:
@@ -97,7 +95,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
-    
+
     public Pedido getInfoPedido() {
         return infoPedido;
     }
@@ -112,35 +110,35 @@ public class TelaCardapio extends javax.swing.JFrame {
      *           autenticacao (Necessário para autenticação no banco de dados)
      Retorno:
      */
-    public void exibirCardapio(Autenticacao autenticacao){
-        try{
+    public void exibirCardapio(Autenticacao autenticacao) {
+        try {
             String query = null;
             int indiceTabela = this.tabelaCardapio.getSelectedIndex();
             JTable tabela = null;
-            
+
             // Seleção da categoria Pizza
-            if(indiceTabela == 0){
+            if (indiceTabela == 0) {
                 query = "SELECT P.descricao FROM Produto AS P JOIN Pizza as PZ ON P.codigo = PZ.codProduto GROUP BY P.descricao ORDER BY P.descricao";
                 tabela = this.tabela;
             } // Seleção da categoria Lanche
-            else if(indiceTabela == 1){
+            else if (indiceTabela == 1) {
                 query = "SELECT P.descricao, L.preco FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto GROUP BY P.descricao ORDER BY P.descricao";
                 tabela = this.tabelaLanches;
             } // Seleção da categoria Bebidas
-            else if(indiceTabela == 2){
+            else if (indiceTabela == 2) {
                 query = "SELECT P.descricao, B.preco FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto GROUP BY P.descricao ORDER BY P.descricao";
                 tabela = this.tabelaBebidas;
             } // Seleção da categoria Outros
-            else{
+            else {
                 query = "SELECT P.descricao, O.preco FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto GROUP BY P.descricao ORDER BY P.descricao";
                 tabela = this.tabelaOutros;
             }
-            
+
             // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
             Connection con = DriverManager.getConnection(this.getAutenticacao().getCaminhoBanco(), this.getAutenticacao().getUsuarioBanco(), this.getAutenticacao().getUsuarioSenha());
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
-            
+
             // Formatação do modelo da tabela de exibição
             tabela.setModel(DbUtils.resultSetToTableModel(rs));
             tabela.setRowSelectionAllowed(true);
@@ -148,25 +146,24 @@ public class TelaCardapio extends javax.swing.JFrame {
             // Exibição centralizada dos registros
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-            
+
             // Formatação das colunas da tabela de exibição
             tabela.getColumnModel().getColumn(0).setHeaderValue("Produto");
-            
+
             // // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            if(indiceTabela != 0){
+            if (indiceTabela != 0) {
                 tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
                 tabela.getColumnModel().getColumn(1).setMaxWidth(70);
                 tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
             }
-            
+
             con.close();
-            
-        }
-        catch(Exception e){
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível exibir os produtos cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -189,8 +186,8 @@ public class TelaCardapio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza");
-        setMaximumSize(new java.awt.Dimension(345, 600));
-        setMinimumSize(new java.awt.Dimension(345, 600));
+        setMaximumSize(new java.awt.Dimension(350, 600));
+        setMinimumSize(new java.awt.Dimension(350, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -255,7 +252,7 @@ public class TelaCardapio extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabelaCardapio, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(tabelaCardapio, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(122, 122, 122)
@@ -273,6 +270,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /*
@@ -312,9 +310,8 @@ public class TelaCardapio extends javax.swing.JFrame {
      */
     private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
         // TODO add your handling code here:
-        if(this.tabelaCardapio.getSelectedIndex() == 0){
+        if (this.tabelaCardapio.getSelectedIndex() == 0) {
             TelaInformacoesPizza infoPizza = new TelaInformacoesPizza(this, this.getAutenticacao(), this.tabelaCardapio.getSelectedIndex(), this.tabela.getSelectedRow(), this.getInfoPedido());
-            infoPizza.setLocation(790, 70);
             infoPizza.setSize(350, 600);
             infoPizza.setVisible(true);
         }

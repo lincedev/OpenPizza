@@ -20,7 +20,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
     // Objeto para realização de operações no banco de dados.
     private Banco banco = new Banco();
-    
+
     // Objeto para armazenamento das informações de determinado pedido.
     private Pedido infoPedido;
 
@@ -88,7 +88,7 @@ public class TelaPedido extends javax.swing.JFrame {
     public Autenticacao getAutenticacao() {
         return this.autenticacao;
     }
-    
+
     /*
      Descrição: Método set para o objeto infoPedido.
      Parâmetros: 
@@ -98,7 +98,7 @@ public class TelaPedido extends javax.swing.JFrame {
     public void setInfoPedido(Pedido infoPedido) {
         this.infoPedido = infoPedido;
     }
-    
+
     /*
      Descrição: Método get para o objeto infoPedido.
      Parâmetros:
@@ -115,17 +115,23 @@ public class TelaPedido extends javax.swing.JFrame {
      Retorno:
      */
     public void preencherComboBoxMesas() {
+        Connection conexao = null;
         try {
-            Connection conexao = DriverManager.getConnection(this.autenticacao.getCaminhoBanco(), this.autenticacao.getUsuarioBanco(), this.autenticacao.getUsuarioSenha());
+            conexao = banco.abrirConexao(this.getAutenticacao());
             PreparedStatement pst = conexao.prepareStatement("SELECT * FROM Mesa");
             ResultSet resultado = pst.executeQuery();
             while (resultado.next()) {
                 String numeroMesa = resultado.getString("numero");
                 this.mesas.addItem(numeroMesa);
             }
-            conexao.close();
         } catch (Exception e) {
-
+            
+        } finally {
+            try {
+                banco.fecharConexao(conexao);
+            } catch (Exception e) {
+                
+            }
         }
     }
 
@@ -136,14 +142,14 @@ public class TelaPedido extends javax.swing.JFrame {
      Retorno:
      */
     public void formatarTabelaItensDoPedido(Pedido infoPedido) {
-
+        
         try {
             // Atualização da label de número do pedido
             this.numeroDoPedido.setText(String.valueOf(infoPedido.getNumeroPedido()));
 
             // Recuperação dos dados referentes ao pedido
             String query = "SELECT P.descricao, IDP.tamanho, IDP.qtdadeProdutos, IDP.preco FROM ItemDoPedido AS IDP JOIN Produto AS P ON codigoProduto = codigo WHERE pedidoNumero = " + infoPedido.getNumeroPedido();
-            Connection con = DriverManager.getConnection(autenticacao.getCaminhoBanco(), autenticacao.getUsuarioBanco(), autenticacao.getUsuarioSenha());
+            Connection con = banco.abrirConexao(this.getAutenticacao());
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -153,17 +159,17 @@ public class TelaPedido extends javax.swing.JFrame {
             // Exibição centralizada dos registros
             DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
             centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
-
+            
             this.tabelaItensDoPedido.getColumnModel().getColumn(0).setHeaderValue("Produto");
-
+            
             this.tabelaItensDoPedido.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
             this.tabelaItensDoPedido.getColumnModel().getColumn(1).setPreferredWidth(12);
             this.tabelaItensDoPedido.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
-
+            
             this.tabelaItensDoPedido.getColumnModel().getColumn(2).setHeaderValue("Qtde");
             this.tabelaItensDoPedido.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
             this.tabelaItensDoPedido.getColumnModel().getColumn(2).setPreferredWidth(6);
-
+            
             this.tabelaItensDoPedido.getColumnModel().getColumn(3).setHeaderValue("Preço");
             this.tabelaItensDoPedido.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
             this.tabelaItensDoPedido.getColumnModel().getColumn(3).setPreferredWidth(10);
@@ -177,7 +183,9 @@ public class TelaPedido extends javax.swing.JFrame {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao recuperar o valor total do pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-            con.close();
+            
+            banco.fecharConexao(con);
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possível recuperar os itens do pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
@@ -206,6 +214,9 @@ public class TelaPedido extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza");
+        setMaximumSize(new java.awt.Dimension(350, 600));
+        setMinimumSize(new java.awt.Dimension(350, 600));
+        setPreferredSize(new java.awt.Dimension(350, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -337,6 +348,7 @@ public class TelaPedido extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /*
@@ -405,7 +417,7 @@ public class TelaPedido extends javax.swing.JFrame {
         this.setEnabled(false);
         janelaCardapio.setResizable(false);
         janelaCardapio.setSize(350, 600);
-        janelaCardapio.setLocation(420, 70);
+        //janelaCardapio.setLocation(420, 70);
         janelaCardapio.setVisible(true);
     }//GEN-LAST:event_exibirCardapioActionPerformed
 
@@ -418,7 +430,7 @@ public class TelaPedido extends javax.swing.JFrame {
 
         // Ignorar o primeiro elemento da combobox
         if (this.mesas.getSelectedIndex() != 0) {
-
+            
             this.tabelaItensDoPedido.setVisible(true);
             this.fecharJanelaPedido.setEnabled(false);
             this.exibirCardapio.setEnabled(true);
@@ -434,7 +446,7 @@ public class TelaPedido extends javax.swing.JFrame {
                     // Tentativa de inserção do novo pedido
                     try {
                         query = "INSERT INTO Pedido(data, horaInicio, valor, formaPagamento, numeroMesa, pedidoFinalizado) VALUES(current_date, current_time, 0, null," + String.valueOf(this.mesas.getSelectedItem()) + ", false)";
-                        banco.efetuarInsercao(this.getAutenticacao(), query);
+                        banco.executarSQL(this.getAutenticacao(), query);
 
                         // Tentativa de acesso aos dados do pedido inserido e atualização das labels numero do pedido e valor total
                         try {

@@ -65,6 +65,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenPizza");
+        setMaximumSize(new java.awt.Dimension(350, 600));
+        setMinimumSize(new java.awt.Dimension(350, 600));
+        setPreferredSize(new java.awt.Dimension(350, 600));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -113,14 +116,14 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
                     .addComponent(sairAplicacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(57, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(80, Short.MAX_VALUE)
+                .addContainerGap(84, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(autenticar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -132,6 +135,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     /*
@@ -155,7 +159,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         this.setVisible(false);
         janelaPedido.setResizable(false);
         janelaPedido.setSize(350, 600);
-        janelaPedido.setLocation(50, 70);
         janelaPedido.setVisible(true);
     }//GEN-LAST:event_abrirPedidoActionPerformed
 
@@ -168,7 +171,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         // Criação da janela de autenticação
         TelaAutenticacao janelaAutenticar = new TelaAutenticacao(this, this.abrirPedido, this.autenticar);
         janelaAutenticar.setVisible(true);
-        janelaAutenticar.setLocation(50, 70);
 
     }//GEN-LAST:event_autenticarActionPerformed
 
