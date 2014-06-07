@@ -6,18 +6,95 @@
 
 package server.view;
 
+import server.modelo.Autenticacao;
+import server.persistencia.Banco;
+
 /**
  *
  * @author Gustavo
  */
 public class TelaCRUDPizza extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCRUDPizza
+    // Variável para armazenamento da tela principal.
+    private TelaPrincipal janelaPrincipal;
+
+    
+    // Variável para armazenamento dos dados de autenticação do banco de dados.
+    private Autenticacao autenticacaoServer;
+    
+    // Objeto para realização de operações no banco de dados.
+    private Banco banco = new Banco();
+    
+    /*
+     Descrição: Construtor padrão da janela de CRUD Pizza.
+     Parâmetros:
+     Retorno:
+     
      */
     public TelaCRUDPizza() {
         initComponents();
     }
+    
+    
+    /*
+     Descrição: Construtor completo da janela de CRUD de pizzas.
+     Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     *          autenticacao (Necessário para realizar operações no banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    public TelaCRUDPizza(TelaPrincipal telaPrincipal, Autenticacao autenticacao) {
+        this();
+        this.setJanelaPrincipal(telaPrincipal);
+        this.setAutenticacaoServer(autenticacao);
+        this.getJanelaPrincipal().setEnabled(false);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     Data Última Alteração: 22/05/2014
+    */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     Data Última Alteração: 22/05/2014 
+    */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método set para a variável autenticação.
+     Parâmetros: 
+     *           autenticacao (Caminho para o banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
+    
+    /*
+     Descrição: Método get para a variável autenticação
+     Parâmetros:
+     Retorno: 
+     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
+    Data Última Alteração: 22/05/2014 
+    */
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +119,6 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         setTitle("CRUD Pizza");
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         jScrollPane1.setViewportView(tabelaCRUDPizza);
@@ -53,7 +129,7 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         descricaoPizza.setText("Descrição:");
 
         botaoExcluirCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
-        botaoExcluirCRUDPizzas.setBorder(javax.swing.BorderFactory.createBevelBorder(0));
+        botaoExcluirCRUDPizzas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botaoExcluirCRUDPizzas.setBorderPainted(false);
         botaoExcluirCRUDPizzas.setContentAreaFilled(false);
         botaoExcluirCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
@@ -72,6 +148,11 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         botaoAdicionarCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDPizzas.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDPizzas.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionarCRUDPizzas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarCRUDPizzasActionPerformed(evt);
+            }
+        });
 
         botaoVoltarCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
         botaoVoltarCRUDPizzas.setBorderPainted(false);
@@ -161,10 +242,18 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /*
+     Descrição: Método para voltar a janela anterior.
+     Parâmetros: 
+     *           Evento de botão
+     Retorno:
+    
+     Data Última Alteração: 22/05/2014 
+    */
     private void botaoVoltarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDPizzasActionPerformed
         // TODO add your handling code here:
-        TelaPrincipal tPrincipal = new TelaPrincipal();
+        this.getJanelaPrincipal().setVisible(true);
+        this.getJanelaPrincipal().setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_botaoVoltarCRUDPizzasActionPerformed
 
@@ -175,6 +264,14 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
     private void botaoEditarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDPizzasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoEditarCRUDPizzasActionPerformed
+
+    private void botaoAdicionarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDPizzasActionPerformed
+        // TODO add your handling code here:
+        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas();
+        addPizza.setVisible(true);
+        this.setEnabled(false);
+        addPizza.setLocationRelativeTo(null);
+    }//GEN-LAST:event_botaoAdicionarCRUDPizzasActionPerformed
 
     /**
      * @param args the command line arguments

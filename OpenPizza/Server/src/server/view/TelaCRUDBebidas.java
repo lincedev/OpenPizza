@@ -6,6 +6,9 @@
 
 package server.view;
 
+import server.modelo.Autenticacao;
+import server.persistencia.Banco;
+
 /**
  *
  * @author Gustavo
@@ -15,8 +18,85 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     /**
      * Creates new form TelaCRUDBebidas
      */
+    
+    // Variável para armazenamento da tela principal.
+    private TelaPrincipal janelaPrincipal;
+
+    
+    // Variável para armazenamento dos dados de autenticação do banco de dados.
+    private Autenticacao autenticacaoServer;
+    
+    // Objeto para realização de operações no banco de dados.
+    private Banco banco = new Banco();
+    
+   /*
+     Descrição: Construtor padrão da janela de CRUD Lanches.
+     Parâmetros:
+     Retorno:
+     Data Última Alteração: 22/05/2014
+     */
     public TelaCRUDBebidas() {
         initComponents();
+    }
+    
+    /*
+     Descrição: Construtor completo da janela de CRUD de Lanches.
+     Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     *          autenticacao (Necessário para realizar operações no banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    TelaCRUDBebidas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+        this();
+        this.setJanelaPrincipal(janelaPrincipal);
+        this.setAutenticacaoServer(autenticacaoServer);
+        this.getJanelaPrincipal().setEnabled(false);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     Data Última Alteração: 22/05/2014
+    */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     Data Última Alteração: 22/05/2014 
+    */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método set para a variável autenticação.
+     Parâmetros: 
+     *           autenticacao (Caminho para o banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
+    
+    /*
+     Descrição: Método get para a variável autenticação
+     Parâmetros:
+     Retorno: 
+     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
+    Data Última Alteração: 22/05/2014 
+    */
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
     }
 
     /**
@@ -57,6 +137,11 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         botaoAdicionarCRUDBebidas.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDBebidas.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDBebidas.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionarCRUDBebidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarCRUDBebidasActionPerformed(evt);
+            }
+        });
 
         botaoExcluirCRUDBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
         botaoExcluirCRUDBebidas.setBorderPainted(false);
@@ -153,11 +238,22 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
 
     private void botaoVoltarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDBebidasActionPerformed
         // TODO add your handling code here:
+        this.getJanelaPrincipal().setVisible(true);
+        this.getJanelaPrincipal().setEnabled(true);
+        this.dispose();
     }//GEN-LAST:event_botaoVoltarCRUDBebidasActionPerformed
 
     private void botaoExcluirCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirCRUDBebidasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_botaoExcluirCRUDBebidasActionPerformed
+
+    private void botaoAdicionarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDBebidasActionPerformed
+        // TODO add your handling code here:
+        TelaAdicionarBebidas addBebida = new TelaAdicionarBebidas();
+        addBebida.setVisible(true);
+        this.setEnabled(false);
+        addBebida.setLocationRelativeTo(null);
+    }//GEN-LAST:event_botaoAdicionarCRUDBebidasActionPerformed
 
     /**
      * @param args the command line arguments

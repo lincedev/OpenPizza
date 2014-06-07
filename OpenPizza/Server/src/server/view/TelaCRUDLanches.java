@@ -6,6 +6,9 @@
 
 package server.view;
 
+import server.modelo.Autenticacao;
+import server.persistencia.Banco;
+
 /**
  *
  * @author Gustavo
@@ -15,9 +18,85 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     /**
      * Creates new form TelaCRUDLanches
      */
+    
+    // Variável para armazenamento da tela principal.
+    private TelaPrincipal janelaPrincipal;
+
+    
+    // Variável para armazenamento dos dados de autenticação do banco de dados.
+    private Autenticacao autenticacaoServer;
+    
+    // Objeto para realização de operações no banco de dados.
+    private Banco banco = new Banco();
+    
+   /*
+     Descrição: Construtor padrão da janela de CRUD Lanches.
+     Parâmetros:
+     Retorno:
+     Data Última Alteração: 22/05/2014
+     */
     public TelaCRUDLanches() {
         initComponents();
     }
+    
+    /*
+     Descrição: Construtor completo da janela de CRUD de Lanches.
+     Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     *          autenticacao (Necessário para realizar operações no banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    public TelaCRUDLanches(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+        this();
+        this.setJanelaPrincipal(janelaPrincipal);
+        this.setAutenticacaoServer(autenticacaoServer);
+        this.getJanelaPrincipal().setEnabled(false);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     Data Última Alteração: 22/05/2014
+    */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     Data Última Alteração: 22/05/2014 
+    */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método set para a variável autenticação.
+     Parâmetros: 
+     *           autenticacao (Caminho para o banco de dados)
+     Retorno:
+     Data Última Alteração: 22/05/2014 
+    */
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
+    
+    /*
+     Descrição: Método get para a variável autenticação
+     Parâmetros:
+     Retorno: 
+     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
+    Data Última Alteração: 22/05/2014 
+    */
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -41,7 +120,6 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         setTitle("CRUD Lanches");
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         jScrollPane1.setViewportView(tabelaCRUDLanches);
@@ -57,6 +135,11 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         botaoAdicionarCRUDLanches.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDLanches.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoAdicionarCRUDLanches.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionarCRUDLanches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarCRUDLanchesActionPerformed(evt);
+            }
+        });
 
         botaoExcluirCRUDLanches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
         botaoExcluirCRUDLanches.setBorderPainted(false);
@@ -145,7 +228,18 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
 
     private void botaoVoltarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDLanchesActionPerformed
         // TODO add your handling code here:
+        this.getJanelaPrincipal().setVisible(true);
+        this.getJanelaPrincipal().setEnabled(true);
+        this.dispose();
     }//GEN-LAST:event_botaoVoltarCRUDLanchesActionPerformed
+
+    private void botaoAdicionarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDLanchesActionPerformed
+        // TODO add your handling code here:
+        TelaAdicionarLanches addLanche = new TelaAdicionarLanches();
+        addLanche.setVisible(true);
+        this.setEnabled(false);
+        addLanche.setLocationRelativeTo(null);
+    }//GEN-LAST:event_botaoAdicionarCRUDLanchesActionPerformed
 
     /**
      * @param args the command line arguments
