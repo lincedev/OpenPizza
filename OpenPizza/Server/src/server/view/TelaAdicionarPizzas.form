@@ -10,11 +10,12 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Adicionar Pizza"/>
     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[340, 320]"/>
+      <Dimension value="[320, 320]"/>
     </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[340, 320]"/>
+      <Dimension value="[320, 320]"/>
     </Property>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
@@ -37,18 +38,15 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jPanelMenuCadastroLanche" min="-2" pref="320" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
-          </Group>
+          <Component id="jPanelMenuCadastroLanche" min="-2" pref="320" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanelMenuCadastroLanche" min="-2" pref="277" max="-2" attributes="0"/>
-              <EmptySpace pref="32" max="32767" attributes="0"/>
+              <Component id="jPanelMenuCadastroLanche" pref="298" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -74,49 +72,53 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelIngredientesPizza" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="botaoCadastrarPizza" min="-2" pref="100" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="botaoCancelar" min="-2" pref="100" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="textIngredientesPizza" alignment="0" min="-2" pref="306" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="104" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="labelNomePizza" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelFatiasPizza" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="textNomePizza" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="labelTamanhoPizza" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="textFatiasPizza" min="-2" pref="45" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="labelPrecoPizza" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="textPrecoPizza" min="-2" pref="35" max="-2" attributes="0"/>
-                              <Component id="textTamanhoPizza" min="-2" pref="45" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="labelImagemPizza" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="botaoProcurarImagemPizza" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="labelIngredientesPizza" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="botaoCadastrarPizza" min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="botaoCancelar" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="textIngredientesPizza" min="-2" pref="300" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="labelNomePizza" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelFatiasPizza" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelImagemPizza" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="botaoProcurarImagemPizza" min="-2" pref="79" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="textNomePizza" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                          <Component id="labelTamanhoPizza" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Component id="textFatiasPizza" min="-2" pref="45" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="labelPrecoPizza" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="textTamanhoPizza" pref="45" max="32767" attributes="0"/>
+                                      <Component id="textPrecoPizza" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                       </Group>
                   </Group>
               </Group>
@@ -133,22 +135,26 @@
                       <Component id="labelTamanhoPizza" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="labelFatiasPizza" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textFatiasPizza" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="textPrecoPizza" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="labelPrecoPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="textPrecoPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelPrecoPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                          <Component id="labelFatiasPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFatiasPizza" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="labelImagemPizza" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="botaoProcurarImagemPizza" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="labelIngredientesPizza" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="textIngredientesPizza" min="-2" pref="100" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="botaoCadastrarPizza" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="botaoCancelar" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
@@ -161,7 +167,7 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="labelNomePizza">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nome:"/>
+            <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textNomePizza">
@@ -192,7 +198,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelPrecoPizza">
           <Properties>
-            <Property name="text" type="java.lang.String" value="R$:"/>
+            <Property name="text" type="java.lang.String" value="Pre&#xe7;o:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textPrecoPizza">

@@ -6,7 +6,16 @@
 
 package server.view;
 
+import java.sql.*;
+
+import java.util.ArrayList;
+
+import javax.swing.*;
+
+import javax.swing.table.DefaultTableCellRenderer;
+import net.proteanit.sql.DbUtils;
 import server.modelo.Autenticacao;
+import server.modelo.Pizza;
 import server.persistencia.Banco;
 
 /**
@@ -24,6 +33,8 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
     
     // Objeto para realização de operações no banco de dados.
     private Banco banco = new Banco();
+    
+    ArrayList<Pizza> pizzas = new ArrayList();
     
     /*
      Descrição: Construtor padrão da janela de CRUD Pizza.
@@ -48,6 +59,7 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         this.setJanelaPrincipal(telaPrincipal);
         this.setAutenticacaoServer(autenticacao);
         this.getJanelaPrincipal().setEnabled(false);
+        this.exibirPizzasCadastradas(autenticacaoServer);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
@@ -95,6 +107,68 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
         return autenticacaoServer;
     }
     
+    /*
+     Descrição: Método para exibição das pizzas cadastrados
+     Parâmetros:
+     *           autenticacao (Necessário para acesso/consulta no banco de dados)
+     Retorno:
+     Data Última Alteração: 07/06/2014
+     */
+    public void exibirPizzasCadastradas(Autenticacao autenticacaoServer) {
+        try {
+            String query = null;
+            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
+            JTable tabelaPizzas = null;
+            
+            query = "SELECT p.descricao, pp.preco, pp.tamanho , pp.fatias FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
+            
+            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
+            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            tabelaPizzas = this.tabelaCRUDPizza;
+            System.out.print(" HAHAHA LEPO LEPO ");
+            
+            // Formatação do modelo da tabela de exibição
+            tabelaPizzas.setModel(DbUtils.resultSetToTableModel(rs));
+            tabelaPizzas.setRowSelectionAllowed(true);
+
+            // Exibição centralizada dos registros
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            // Formatação das colunas da tabela de exibição
+            tabelaPizzas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+            tabelaPizzas.getColumnModel().getColumn(1).setHeaderValue("Preço");
+            tabelaPizzas.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
+            tabelaPizzas.getColumnModel().getColumn(3).setHeaderValue("Fatias");
+            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
+
+            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
+            //if (indiceTabela != 0) {
+            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
+            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
+            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            //}
+
+            con.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /*
+     Descrição: Método disparado ao fechar a janela no botão |X|.
+     Parâmetros:
+     Retorno:
+     */
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // Habilitar tela anterior e fechar tela atual
+        this.getJanelaPrincipal().setEnabled(true);
+        this.dispose();
+    }                                 
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -123,10 +197,10 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(tabelaCRUDPizza);
 
-        labelImagemPizza.setText("Imagem");
+        labelImagemPizza.setText("Imagem:");
 
         descricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        descricaoPizza.setText("Descrição:");
+        descricaoPizza.setText("Ingredientes:");
 
         botaoExcluirCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
         botaoExcluirCRUDPizzas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -233,7 +307,7 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
                         .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(descricaoPizza)
-                        .addGap(191, 191, 191)
+                        .addGap(105, 105, 105)
                         .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
                 .addContainerGap())
@@ -247,7 +321,6 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
      Parâmetros: 
      *           Evento de botão
      Retorno:
-    
      Data Última Alteração: 22/05/2014 
     */
     private void botaoVoltarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDPizzasActionPerformed
@@ -263,11 +336,12 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
 
     private void botaoEditarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDPizzasActionPerformed
         // TODO add your handling code here:
+        this.exibirPizzasCadastradas(autenticacaoServer);
     }//GEN-LAST:event_botaoEditarCRUDPizzasActionPerformed
 
     private void botaoAdicionarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDPizzasActionPerformed
         // TODO add your handling code here:
-        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas();
+        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas(this, this.autenticacaoServer);
         addPizza.setVisible(true);
         this.setEnabled(false);
         addPizza.setLocationRelativeTo(null);
@@ -319,4 +393,8 @@ public class TelaCRUDPizza extends javax.swing.JFrame {
     private javax.swing.JLabel labelImagemPizza;
     private javax.swing.JTable tabelaCRUDPizza;
     // End of variables declaration//GEN-END:variables
+
+    private Object getAutenticacao() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

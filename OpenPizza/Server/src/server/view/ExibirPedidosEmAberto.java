@@ -6,6 +6,15 @@
 
 package server.view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import net.proteanit.sql.DbUtils;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -51,7 +60,8 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
         this.setAutenticacaoServer(autenticacaoServer);
         this.setJanelaPrincipal(janelaPrincipal);
         this.getJanelaPrincipal().setEnabled(false);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.exibirPedidosEmAberto(autenticacaoServer);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /*
@@ -98,6 +108,71 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
         return autenticacaoServer;
     }
     
+    /*
+     Descrição: Método para exibir os pedidos em aberto
+     Parâmetros: 
+     *           autenticacaoServer(Necessário para fazer a acesso/consulta no banco de dados)
+     Retorno: 
+     *          
+    Data Última Alteração: 07/06/2014 
+    */
+    public void exibirPedidosEmAberto(Autenticacao autenticacaoServer) {
+        try {
+            String query = null;
+            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
+            JTable tabelaPedidosAbertos = null;
+            
+            query = "SELECT p.numeroPedido, m.numero, p.valor, p.hora FROM Pedido AS p JOIN Mesa as m ON m.numero = p.numeroMesa WHERE p.pedidoFinalizado = 0";
+            
+            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
+            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
+
+            tabelaPedidosAbertos = this.tabelaPedidosEmAberto;
+            System.out.print(" HAHAHA LEPO LEPO ");
+            
+            // Formatação do modelo da tabela de exibição
+            tabelaPedidosAbertos.setModel(DbUtils.resultSetToTableModel(rs));
+            tabelaPedidosAbertos.setRowSelectionAllowed(true);
+
+            // Exibição centralizada dos registros
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            // Formatação das colunas da tabela de exibição
+            tabelaPedidosAbertos.getColumnModel().getColumn(0).setHeaderValue("N° do Pedido");
+            tabelaPedidosAbertos.getColumnModel().getColumn(1).setHeaderValue("Mesa");
+            tabelaPedidosAbertos.getColumnModel().getColumn(2).setHeaderValue("Valor do Pedido");
+            tabelaPedidosAbertos.getColumnModel().getColumn(3).setHeaderValue("Hora Inicio");
+            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
+
+            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
+            //if (indiceTabela != 0) {
+            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
+            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
+            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            //}
+
+            con.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+    /*
+     Descrição: Método disparado ao fechar a janela no botão |X|.
+     Parâmetros:
+     Retorno:
+     */
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // Habilitar tela anterior e fechar tela atual
+        this.getJanelaPrincipal().setEnabled(true);
+        this.dispose();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -108,11 +183,13 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
     private void initComponents() {
 
         botãoVoltarTelaPedidosEmAberto = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaPedidosEmAberto = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Pedidos em Aberto");
-        setMaximumSize(new java.awt.Dimension(800, 500));
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMaximumSize(new java.awt.Dimension(400, 500));
+        setMinimumSize(new java.awt.Dimension(400, 500));
         setResizable(false);
 
         botãoVoltarTelaPedidosEmAberto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
@@ -122,19 +199,36 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
             }
         });
 
+        tabelaPedidosEmAberto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tabelaPedidosEmAberto);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botãoVoltarTelaPedidosEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botãoVoltarTelaPedidosEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(439, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botãoVoltarTelaPedidosEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -185,5 +279,7 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botãoVoltarTelaPedidosEmAberto;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabelaPedidosEmAberto;
     // End of variables declaration//GEN-END:variables
 }

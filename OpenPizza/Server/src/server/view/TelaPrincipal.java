@@ -298,13 +298,14 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         // TODO add your handling code here:
         ExibirPedidosEmAberto pedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacao);
         pedidosEmAberto.setVisible(true);
+        //pedidosEmAberto.setEnabled(true);
         pedidosEmAberto.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados();
+        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados(this,this.autenticacao);
         produtosCadastrados.setVisible(true);
         produtosCadastrados.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed

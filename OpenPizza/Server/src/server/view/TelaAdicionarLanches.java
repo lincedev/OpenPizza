@@ -48,7 +48,16 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         this.autenticacao = autenticacao;
     }
 
-    
+    /*
+     Descrição: Método disparado ao fechar a janela no botão |X|.
+     Parâmetros:
+     Retorno:
+     */
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // Habilitar tela anterior e fechar tela atual
+        this.getTelaCrudLanches().setEnabled(true);
+        this.dispose();
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,6 +182,8 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         // TODO add your handling code here:
+        this.getTelaCrudLanches().setEnabled(true);
+        this.getTelaCrudLanches().setVisible(true);
         this.dispose();
 
     }//GEN-LAST:event_botaoCancelarActionPerformed

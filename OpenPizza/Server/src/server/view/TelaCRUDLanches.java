@@ -6,12 +6,21 @@
 
 package server.view;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import net.proteanit.sql.DbUtils;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
 /**
  *
- * @author Gustavo
+ * @author Gustavo(buzaLOCO)
  */
 public class TelaCRUDLanches extends javax.swing.JFrame {
 
@@ -51,6 +60,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         this.setJanelaPrincipal(janelaPrincipal);
         this.setAutenticacaoServer(autenticacaoServer);
         this.getJanelaPrincipal().setEnabled(false);
+        this.exibirLanchesCadastrados(autenticacaoServer);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     /*
@@ -97,7 +107,70 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         return autenticacaoServer;
     }
 
+    /*
+     Descrição: Método para exibição dos Lanches cadastrados
+     Parâmetros:
+     *           autenticacao (Necessário para acesso/consulta no banco de dados)
+     Retorno:
+     Data Última Alteração: 07/06/2014
+     */
+    public void exibirLanchesCadastrados(Autenticacao autenticacaoServer) {
+        try {
+            String query = null;
+            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
+            JTable tabelaLanches = null;
+            
+            query = "SELECT p.descricao, l.preco FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
+            
+            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
+            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
+            Statement st = con.createStatement();
+            ResultSet rs = st.executeQuery(query);
 
+            tabelaLanches = this.tabelaCRUDLanches;
+            
+            System.out.print(" HAHAHA LEPO LEPO ");
+            
+            // Formatação do modelo da tabela de exibição
+            tabelaLanches.setModel(DbUtils.resultSetToTableModel(rs));
+            tabelaLanches.setRowSelectionAllowed(true);
+
+            // Exibição centralizada dos registros
+            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+
+            // Formatação das colunas da tabela de exibição
+            tabelaLanches.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+            tabelaLanches.getColumnModel().getColumn(1).setHeaderValue("Preço");
+            //tabelaOutros.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
+            //tabelaOutros.getColumnModel().getColumn(3).setHeaderValue("Fatias");
+            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
+
+            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
+            //if (indiceTabela != 0) {
+            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
+            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
+            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+            //}
+
+            con.close();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    /*
+     Descrição: Método disparado ao fechar a janela no botão |X|.
+     Parâmetros:
+     Retorno:
+     */
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // Habilitar tela anterior e fechar tela atual
+        this.getJanelaPrincipal().setEnabled(true);
+        this.dispose();
+    } 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -153,6 +226,11 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         botaoEditarCRUDLanches.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoEditarCRUDLanches.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoEditarCRUDLanches.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoEditarCRUDLanches.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoEditarCRUDLanchesActionPerformed(evt);
+            }
+        });
 
         botaoVoltarCRUDLanches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
         botaoVoltarCRUDLanches.setBorderPainted(false);
@@ -235,11 +313,16 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
 
     private void botaoAdicionarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDLanchesActionPerformed
         // TODO add your handling code here:
-        TelaAdicionarLanches addLanche = new TelaAdicionarLanches();
+        TelaAdicionarLanches addLanche = new TelaAdicionarLanches(this,this.autenticacaoServer);
         addLanche.setVisible(true);
         this.setEnabled(false);
         addLanche.setLocationRelativeTo(null);
     }//GEN-LAST:event_botaoAdicionarCRUDLanchesActionPerformed
+
+    private void botaoEditarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDLanchesActionPerformed
+        // TODO add your handling code here:
+        this.exibirLanchesCadastrados(autenticacaoServer);
+    }//GEN-LAST:event_botaoEditarCRUDLanchesActionPerformed
 
     /**
      * @param args the command line arguments

@@ -50,6 +50,16 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
     }
 
 
+    /*
+     Descrição: Método disparado ao fechar a janela no botão |X|.
+     Parâmetros:
+     Retorno:
+     */
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
+        // Habilitar tela anterior e fechar tela atual
+        this.getTelaCrudBebidas().setEnabled(true);
+        this.dispose();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,6 +91,12 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         jPanelMenuCadastroBebida.setPreferredSize(new java.awt.Dimension(480, 386));
 
         labelNomeLanche.setText("Nome:");
+
+        textNomeBebida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textNomeBebidaActionPerformed(evt);
+            }
+        });
 
         labelImagemBebida.setText("Imagem:");
 
@@ -200,6 +216,8 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
 
     private void botaoCancelarBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarBebidaActionPerformed
         // TODO add your handling code here:
+        this.getTelaCrudBebidas().setEnabled(true);
+        this.getTelaCrudBebidas().setVisible(true);
         this.dispose();
         
         
@@ -246,6 +264,10 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
     private void textSaborBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textSaborBebidaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textSaborBebidaActionPerformed
+
+    private void textNomeBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textNomeBebidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textNomeBebidaActionPerformed
 
     /**
      * @param args the command line arguments

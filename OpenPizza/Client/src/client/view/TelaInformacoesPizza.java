@@ -386,7 +386,7 @@ public class TelaInformacoesPizza extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /*
-     Descrição: Método disparado ao fechar a janela no botão X.
+     Descrição: Método disparado ao fechar a janela no botão |X|.
      Parâmetros:
      Retorno:
      */
