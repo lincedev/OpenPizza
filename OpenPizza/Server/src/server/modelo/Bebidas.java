@@ -13,7 +13,7 @@ public class Bebidas extends Produto {
      Parâmetros:
      Retorno:
      */
-    private Bebidas() {
+    public Bebidas() {
     }
 
     /*

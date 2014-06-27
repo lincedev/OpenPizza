@@ -6,9 +6,6 @@
 
 package server.view;
 
-import server.modelo.Autenticacao;
-import server.persistencia.Banco;
-
 /**
  *
  * @author Gustavo
@@ -18,97 +15,9 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
     /**
      * Creates new form produtosCadastrados
      */
-    
-    // Variável para armazenamento da tela principal.
-    private TelaPrincipal janelaPrincipal;
-   
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
-    private Autenticacao autenticacaoServer;
-    
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-    
-    /*
-     Descrição: Construtor padrão da janela Exibir Produtos Cadastrados.
-     Parâmetros:
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
     public ExibirProdutosCadastrados() {
         initComponents();
     }
-    
-    /*
-     Descrição: Construtor completo da janela de CRUD de pizzas.
-     Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014 
-    */
-    public ExibirProdutosCadastrados(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
-        this();
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.setJanelaPrincipal(janelaPrincipal);
-        this.getJanelaPrincipal().setEnabled(false);
-        
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-    */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-
-    /*
-     Descrição: Método get para a variável janelaPrincipal
-     Parâmetros:
-     Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 07/06/2014 
-    */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
-
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014 
-    */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-    Data Última Alteração: 07/06/2014
-    */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método disparado ao fechar a janela no botão |X|.
-     Parâmetros:
-     Retorno:
-     */
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
-        // Habilitar tela anterior e fechar tela atual
-        this.getJanelaPrincipal().setEnabled(true);
-        this.dispose();
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -156,8 +65,6 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
 
     private void botãoVoltarTelaProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botãoVoltarTelaProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        this.getJanelaPrincipal().setEnabled(true);
-        this.getJanelaPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botãoVoltarTelaProdutosCadastradosActionPerformed
 

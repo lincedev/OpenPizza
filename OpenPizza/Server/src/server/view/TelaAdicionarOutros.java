@@ -3,108 +3,87 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package server.view;
 
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
 /**
  *
- * @authors Wellington(Z1k40 d0 b41l3), Gustavo Avelar(buzaLOCO)
+ * @author Wellington
  */
 public class TelaAdicionarOutros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAdicionarOutros
-     */
-    
-    // Variável para armazenar a tela CRUDOutros
     private TelaCRUDOutros telaCrudOutros;
-
-    // Variável para armazenar a autenticação do banco de dados
+    private Banco bancoDados = new Banco();
+    private Connection connection;
     private Autenticacao autenticacaoServer;
-
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-
-    /*
-     Descrição: Construtor padrão da Tela AdicionarOutros produtos.
-     Parâmetros:
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
+    private String descricaoOutros;
+    private String precoOutros;
+    private float precoOutrosFinal;
+    
     public TelaAdicionarOutros() {
         initComponents();
     }
 
-    /*
-     Descrição: Construtor completo da Tela Adicionar Outros.
-     Parâmetros: telaCrudOutros (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-    public TelaAdicionarOutros(TelaCRUDOutros telaCrudOutros, Autenticacao atenticacaoServer) {
-        this();
+    public TelaAdicionarOutros(TelaCRUDOutros telaCrudOutros, Autenticacao autenticacaoServer)            
+    {
+        this();        
+        this.setAutenticacaoServer(autenticacaoServer);
         this.setTelaCrudOutros(telaCrudOutros);
-        this.setAutenticacao(autenticacaoServer);
-        this.getTelaCrudOutros().setEnabled(false);
     }
     
-    /*
-     Descrição: Método set para a variável telaCrudOutros.
-     Parâmetros: 
-     *           telaCrudOutros (Necessário para controle dos métodos da TelaCRUDOutros)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-     public void setTelaCrudOutros(TelaCRUDOutros telaCrudOutros) {
-        this.telaCrudOutros = telaCrudOutros;
-    }
-
-    /*
-     Descrição: Método get para a variável telaCrudOutros
-     Parâmetros:
-     Retorno:
-     *           telaCrudOutros (Necessário para controle dos métodos da tela anterior)
-     Data Última Alteração: 07/06/2014
-     */
     public TelaCRUDOutros getTelaCrudOutros() {
         return telaCrudOutros;
     }
 
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-    public void setAutenticacao(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    public void setTelaCrudOutros(TelaCRUDOutros telaCrudOutros) {
+        this.telaCrudOutros = telaCrudOutros;
     }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-     Data Última Alteração: 07/06/2014
-     */
-    public Autenticacao getAutenticacao() {
+
+    public Banco getBancoDados() {
+        return bancoDados;
+    }
+
+    public void setBancoDados(Banco bancoDados) {
+        this.bancoDados = bancoDados;
+    }
+
+    public Autenticacao getAutenticacaoServer() {
         return autenticacaoServer;
     }
 
-    /*
-     Descrição: Método disparado ao fechar a janela no botão |X|.
-     Parâmetros:
-     Retorno:
-     */
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
-        // Habilitar tela anterior e fechar tela atual
-        this.getTelaCrudOutros().setEnabled(true);
-        this.dispose();
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
     }
+
+    public String getDescricaoOutros() {
+        return descricaoOutros;
+    }
+
+    public void setDescricaoOutros(String descricaoOutros) {
+        this.descricaoOutros = descricaoOutros;
+    }
+
+    public String getPrecoOutros() {
+        return precoOutros;
+    }
+
+    public void setPrecoOutros(String precoOutros) {
+        this.precoOutros = precoOutros;
+    }
+
+    public float getPrecoOutrosFinal() {
+        return precoOutrosFinal;
+    }
+
+    public void setPrecoOutrosFinal(float precoOutrosFinal) {
+        this.precoOutrosFinal = precoOutrosFinal;
+    }            
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,76 +93,84 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelADDOutros = new javax.swing.JPanel();
+        painelCadastrarOutros = new javax.swing.JPanel();
         labelDescricaoOutros = new javax.swing.JLabel();
         textDescricaoOutros = new javax.swing.JTextField();
         labelPrecoOutros = new javax.swing.JLabel();
         textPrecoOutros = new javax.swing.JTextField();
-        botaoCadastrarOutros = new javax.swing.JButton();
-        botaoCancelarOutros = new javax.swing.JButton();
+        buttonCadastrarOutros = new javax.swing.JButton();
+        buttonCancelarCadastroOutros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Adicionar Outros");
-        setMaximumSize(new java.awt.Dimension(320, 320));
-        setMinimumSize(new java.awt.Dimension(320, 320));
-        setResizable(false);
+
+        painelCadastrarOutros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Outros Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
         labelDescricaoOutros.setText("Descrição:");
 
+        textDescricaoOutros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textDescricaoOutrosActionPerformed(evt);
+            }
+        });
+
         labelPrecoOutros.setText("Preço:");
 
-        botaoCadastrarOutros.setText("Cadastrar");
-        botaoCadastrarOutros.addActionListener(new java.awt.event.ActionListener() {
+        textPrecoOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarOutrosActionPerformed(evt);
+                textPrecoOutrosActionPerformed(evt);
             }
         });
 
-        botaoCancelarOutros.setText("Cancelar");
-        botaoCancelarOutros.addActionListener(new java.awt.event.ActionListener() {
+        buttonCadastrarOutros.setText("Cadastrar");
+        buttonCadastrarOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCancelarOutrosActionPerformed(evt);
+                buttonCadastrarOutrosActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanelADDOutrosLayout = new javax.swing.GroupLayout(jPanelADDOutros);
-        jPanelADDOutros.setLayout(jPanelADDOutrosLayout);
-        jPanelADDOutrosLayout.setHorizontalGroup(
-            jPanelADDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelADDOutrosLayout.createSequentialGroup()
-                .addComponent(labelDescricaoOutros)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(textDescricaoOutros)
-            .addGroup(jPanelADDOutrosLayout.createSequentialGroup()
-                .addComponent(labelPrecoOutros)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanelADDOutrosLayout.createSequentialGroup()
-                .addComponent(botaoCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(botaoCancelarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanelADDOutrosLayout.setVerticalGroup(
-            jPanelADDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelADDOutrosLayout.createSequentialGroup()
+        buttonCancelarCadastroOutros.setText("Cancelar");
+        buttonCancelarCadastroOutros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarCadastroOutrosActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelCadastrarOutrosLayout = new javax.swing.GroupLayout(painelCadastrarOutros);
+        painelCadastrarOutros.setLayout(painelCadastrarOutrosLayout);
+        painelCadastrarOutrosLayout.setHorizontalGroup(
+            painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(textDescricaoOutros)
+                    .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelDescricaoOutros)
+                        .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                            .addComponent(labelPrecoOutros)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                            .addComponent(buttonCadastrarOutros)
+                            .addGap(45, 45, 45)
+                            .addComponent(buttonCancelarCadastroOutros))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelCadastrarOutrosLayout.setVerticalGroup(
+            painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addComponent(labelDescricaoOutros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textDescricaoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanelADDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelADDOutrosLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanelADDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelPrecoOutros))
-                        .addGap(0, 125, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelADDOutrosLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelADDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoCancelarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(botaoCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                .addComponent(textDescricaoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoOutros)
+                    .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCadastrarOutros)
+                    .addComponent(buttonCancelarCadastroOutros))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -191,31 +178,68 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelADDOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(31, 31, 31)
+                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanelADDOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(34, 34, 34)
+                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCancelarOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarOutrosActionPerformed
-        // TODO add your handling code here:
-        this.getTelaCrudOutros().setVisible(true);
-        this.getTelaCrudOutros().setEnabled(true);
-        this.dispose();
+    private void textDescricaoOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoOutrosActionPerformed
+        this.setDescricaoOutros(textDescricaoOutros.getText());
+    }//GEN-LAST:event_textDescricaoOutrosActionPerformed
 
-    }//GEN-LAST:event_botaoCancelarOutrosActionPerformed
+    private void textPrecoOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoOutrosActionPerformed
+        this.setPrecoOutros(textPrecoOutros.getText());
+    }//GEN-LAST:event_textPrecoOutrosActionPerformed
 
-    private void botaoCadastrarOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarOutrosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoCadastrarOutrosActionPerformed
+    private void buttonCadastrarOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarOutrosActionPerformed
+        this.setDescricaoOutros(textDescricaoOutros.getText());
+        this.setPrecoOutros(textPrecoOutros.getText());
+                
+        if(this.getDescricaoOutros().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
+        } else if(this.getPrecoOutros().equals("")){
+                JOptionPane.showMessageDialog(null, "Preencha o campo 'Preço'");
+                } else {
+                    this.setPrecoOutrosFinal(Float.parseFloat(textPrecoOutros.getText()));
+                    if(this.getPrecoOutrosFinal() <= 0.00){
+                        JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
+                    }
+                }
+        
+        if((!(this.getDescricaoOutros().equals(""))) && (!(this.getPrecoOutros().equals(""))) && (!(this.getPrecoOutrosFinal() <= 0.00))){
+            try{
+                boolean retorno = bancoDados.inserirOutros(this.getAutenticacaoServer(), this.getDescricaoOutros(), this.getPrecoOutrosFinal());
+                if(retorno == true){
+                    JOptionPane.showMessageDialog(null, "Outros cadastrada com sucesso!!!");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar Outros");
+                }                                    
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar Outros");
+            }
+        }                          
+        //this.setEnabled(false);
+        //this.setVisible(false);
+        //this.telaCrudOutros.setEnabled(true);
+        //this.telaCrudOutros.setVisible(true);
+    }//GEN-LAST:event_buttonCadastrarOutrosActionPerformed
+
+    private void buttonCancelarCadastroOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroOutrosActionPerformed
+        this.setVisible(false);
+        this.setEnabled(false);
+        this.telaCrudOutros.setVisible(true);
+        this.telaCrudOutros.setEnabled(true);
+    }//GEN-LAST:event_buttonCancelarCadastroOutrosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -253,11 +277,11 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrarOutros;
-    private javax.swing.JButton botaoCancelarOutros;
-    private javax.swing.JPanel jPanelADDOutros;
+    private javax.swing.JButton buttonCadastrarOutros;
+    private javax.swing.JButton buttonCancelarCadastroOutros;
     private javax.swing.JLabel labelDescricaoOutros;
     private javax.swing.JLabel labelPrecoOutros;
+    private javax.swing.JPanel painelCadastrarOutros;
     private javax.swing.JTextField textDescricaoOutros;
     private javax.swing.JTextField textPrecoOutros;
     // End of variables declaration//GEN-END:variables

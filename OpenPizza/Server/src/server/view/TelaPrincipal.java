@@ -257,7 +257,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     private void itemMenuProdutosPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosPizzasActionPerformed
         // Criação da janela de CRUD para Pizzas
-        TelaCRUDPizza tpizza = new TelaCRUDPizza(this, this.autenticacao);
+        TelaCRUDPizzas tpizza = new TelaCRUDPizzas(this, this.autenticacao);
         //this.setVisible(false);
         tpizza.setVisible(true);
         tpizza.setResizable(false);
@@ -287,7 +287,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     private void itemMenuProdutosBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosBebidasActionPerformed
         // TODO add your handling code here:
-        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this,this.autenticacao);
+        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.autenticacao);
         tBebidas.setVisible(true);
         tBebidas.setLocationRelativeTo(null);
         tBebidas.setResizable(false);
@@ -298,14 +298,13 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         // TODO add your handling code here:
         ExibirPedidosEmAberto pedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacao);
         pedidosEmAberto.setVisible(true);
-        //pedidosEmAberto.setEnabled(true);
         pedidosEmAberto.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados(this,this.autenticacao);
+        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados();
         produtosCadastrados.setVisible(true);
         produtosCadastrados.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed

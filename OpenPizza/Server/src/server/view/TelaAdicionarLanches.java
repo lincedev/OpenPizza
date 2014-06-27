@@ -6,7 +6,10 @@
 
 package server.view;
 
+import java.sql.*;
+import javax.swing.JOptionPane;
 import server.modelo.Autenticacao;
+import server.persistencia.Banco;
 
 /**
  *
@@ -14,22 +17,24 @@ import server.modelo.Autenticacao;
  */
 public class TelaAdicionarLanches extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaAdicionarLanches
-     */        
     private TelaCRUDLanches telaCrudLanches;
-    private Autenticacao autenticacao;
-    
+    private Banco bancoDados = new Banco();
+    private Connection connection;
+    private Autenticacao autenticacaoServer;
+    private String descricaoLanche;
+    private String ingredientesLanche;
+    private String precoLanche;
+    private float precoLancheFinal;
+        
     public TelaAdicionarLanches() {
         initComponents();
     }
 
-    public TelaAdicionarLanches(TelaCRUDLanches telaCrudLanches, Autenticacao autenticacao)
+    public TelaAdicionarLanches(TelaCRUDLanches telaCrudLanches, Autenticacao autenticacaoServer)            
     {
-        this();
+        this();        
+        this.setAutenticacaoServer(autenticacaoServer);
         this.setTelaCrudLanches(telaCrudLanches);
-        this.setAutenticacao(autenticacao);
-        this.getTelaCrudLanches().setEnabled(false);
     }
     
     public TelaCRUDLanches getTelaCrudLanches() {
@@ -40,25 +45,54 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         this.telaCrudLanches = telaCrudLanches;
     }
 
-    public Autenticacao getAutenticacao() {
-        return autenticacao;
+    public Banco getBancoDados() {
+        return bancoDados;
     }
 
-    public void setAutenticacao(Autenticacao autenticacao) {
-        this.autenticacao = autenticacao;
+    public void setBancoDados(Banco bancoDados) {
+        this.bancoDados = bancoDados;
     }
 
-    /*
-     Descrição: Método disparado ao fechar a janela no botão |X|.
-     Parâmetros:
-     Retorno:
-     */
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {                                  
-        // Habilitar tela anterior e fechar tela atual
-        this.getTelaCrudLanches().setEnabled(true);
-        this.dispose();
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
     }
-    
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
+
+    public String getDescricaoLanche() {
+        return descricaoLanche;
+    }
+
+    public void setDescricaoLanche(String descricaoLanche) {
+        this.descricaoLanche = descricaoLanche;
+    }
+
+    public String getIngredientesLanche() {
+        return ingredientesLanche;
+    }
+
+    public void setIngredientesLanche(String ingredientesLanche) {
+        this.ingredientesLanche = ingredientesLanche;
+    }
+
+    public String getPrecoLanche() {
+        return precoLanche;
+    }
+
+    public void setPrecoLanche(String precoLanche) {
+        this.precoLanche = precoLanche;
+    }
+
+    public float getPrecoLancheFinal() {
+        return precoLancheFinal;
+    }
+
+    public void setPrecoLancheFinal(float precoLancheFinal) {
+        this.precoLancheFinal = precoLancheFinal;
+    }
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -68,125 +102,178 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelMenuCadastroLanches = new javax.swing.JPanel();
-        labelNomeLanche = new javax.swing.JLabel();
-        textNomeLanche = new javax.swing.JTextField();
-        labelIngredientesLanche = new javax.swing.JLabel();
-        textIngredientesLanche = new javax.swing.JTextField();
+        painelCadastroLanches = new javax.swing.JPanel();
+        labelDescricaoLanche = new javax.swing.JLabel();
+        textDescricaoLanche = new javax.swing.JTextField();
         labelPrecoLanche = new javax.swing.JLabel();
         textPrecoLanche = new javax.swing.JTextField();
-        botaoCadastrar = new javax.swing.JButton();
-        botaoCancelar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        labelImagemLanche = new javax.swing.JLabel();
+        labelIngredientesLanche = new javax.swing.JLabel();
+        textIngredientesLanche = new javax.swing.JTextField();
+        buttonCadastrarLanche = new javax.swing.JToggleButton();
+        buttonCancelarCadastroLanche = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(305, 320));
-        setMinimumSize(new java.awt.Dimension(305, 320));
-        setPreferredSize(new java.awt.Dimension(305, 320));
 
-        labelNomeLanche.setText("Nome:");
+        painelCadastroLanches.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Lanches", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
-        labelIngredientesLanche.setText("Ingredientes:");
+        labelDescricaoLanche.setText("Descrição:");
 
-        labelPrecoLanche.setText("R$:");
-
-        botaoCadastrar.setText("Cadastrar");
-
-        botaoCancelar.setText("Cancelar");
-        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+        textDescricaoLanche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCancelarActionPerformed(evt);
+                textDescricaoLancheActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Procurar");
+        labelPrecoLanche.setText("Preço:");
 
-        labelImagemLanche.setText("Imagem:");
+        textPrecoLanche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPrecoLancheActionPerformed(evt);
+            }
+        });
 
-        javax.swing.GroupLayout jPanelMenuCadastroLanchesLayout = new javax.swing.GroupLayout(jPanelMenuCadastroLanches);
-        jPanelMenuCadastroLanches.setLayout(jPanelMenuCadastroLanchesLayout);
-        jPanelMenuCadastroLanchesLayout.setHorizontalGroup(
-            jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                        .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textIngredientesLanche)
-                            .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                                .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                                        .addComponent(labelNomeLanche)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textNomeLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                                        .addGap(14, 14, 14)
-                                        .addComponent(labelPrecoLanche)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(45, 45, 45)
-                                        .addComponent(labelImagemLanche)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1)))
-                                .addGap(0, 17, Short.MAX_VALUE))
-                            .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
-                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(18, Short.MAX_VALUE))
-                    .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
+        labelIngredientesLanche.setText("Ingredientes:");
+
+        textIngredientesLanche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textIngredientesLancheActionPerformed(evt);
+            }
+        });
+
+        buttonCadastrarLanche.setText("Cadastrar");
+        buttonCadastrarLanche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCadastrarLancheActionPerformed(evt);
+            }
+        });
+
+        buttonCancelarCadastroLanche.setText("Cancelar");
+        buttonCancelarCadastroLanche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarCadastroLancheActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelCadastroLanchesLayout = new javax.swing.GroupLayout(painelCadastroLanches);
+        painelCadastroLanches.setLayout(painelCadastroLanchesLayout);
+        painelCadastroLanchesLayout.setHorizontalGroup(
+            painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+                        .addComponent(labelPrecoLanche)
+                        .addGap(18, 18, 18)
+                        .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+                            .addComponent(buttonCadastrarLanche)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonCancelarCadastroLanche))
+                        .addComponent(textIngredientesLanche)
                         .addComponent(labelIngredientesLanche)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+                            .addComponent(labelDescricaoLanche)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
-        jPanelMenuCadastroLanchesLayout.setVerticalGroup(
-            jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuCadastroLanchesLayout.createSequentialGroup()
+        painelCadastroLanchesLayout.setVerticalGroup(
+            painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelNomeLanche)
-                    .addComponent(textNomeLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPrecoLanche)
-                    .addComponent(labelImagemLanche)
-                    .addComponent(jButton1))
-                .addGap(23, 23, 23)
+                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDescricaoLanche)
+                    .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(labelIngredientesLanche)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textIngredientesLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(jPanelMenuCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addComponent(textIngredientesLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPrecoLanche)
+                    .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(buttonCadastrarLanche)
+                    .addComponent(buttonCancelarCadastroLanche))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelMenuCadastroLanches, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(painelCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(35, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelMenuCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(painelCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        // TODO add your handling code here:
-        this.getTelaCrudLanches().setEnabled(true);
-        this.getTelaCrudLanches().setVisible(true);
-        this.dispose();
+    private void textDescricaoLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoLancheActionPerformed
+        this.setDescricaoLanche(textDescricaoLanche.getText());
+    }//GEN-LAST:event_textDescricaoLancheActionPerformed
 
-    }//GEN-LAST:event_botaoCancelarActionPerformed
+    private void textPrecoLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoLancheActionPerformed
+        this.setPrecoLanche(textPrecoLanche.getText());
+    }//GEN-LAST:event_textPrecoLancheActionPerformed
+
+    private void textIngredientesLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIngredientesLancheActionPerformed
+        this.setIngredientesLanche(textIngredientesLanche.getText());
+    }//GEN-LAST:event_textIngredientesLancheActionPerformed
+
+    private void buttonCadastrarLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarLancheActionPerformed
+        this.setDescricaoLanche(textDescricaoLanche.getText());
+        this.setPrecoLanche(textPrecoLanche.getText());
+        this.setIngredientesLanche(textIngredientesLanche.getText());
+        
+        if(this.getDescricaoLanche().equals("")){
+            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
+        } else if(this.getPrecoLanche().equals("")){
+                JOptionPane.showMessageDialog(null, "Preencha o campo 'Preço'");
+                } else if(this.getIngredientesLanche().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo 'Ingredientes'");
+                } else {
+                    this.setPrecoLancheFinal(Float.parseFloat(textPrecoLanche.getText()));
+                    if(this.getPrecoLancheFinal() <= 0.00){
+                        JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
+                    }
+                }
+        
+        if((!(this.getDescricaoLanche().equals(""))) && (!(this.getPrecoLanche().equals(""))) && (!(this.getIngredientesLanche().equals(""))) && (!(this.getPrecoLancheFinal() <= 0.00))){
+            try{
+                boolean retorno = bancoDados.inserirLanche(this.getAutenticacaoServer(), this.getDescricaoLanche(), this.getPrecoLancheFinal(), this.getIngredientesLanche());
+                if(retorno == true){
+                    JOptionPane.showMessageDialog(null, "Lanche cadastrado com sucesso!!!");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Lanche");
+                }                                    
+            } catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Lanche");
+            }
+        }                       
+        //this.setEnabled(false);
+        //this.setVisible(false);
+        //this.telaCrudLanches.setEnabled(true);
+        //this.telaCrudLanches.setVisible(true);
+    }//GEN-LAST:event_buttonCadastrarLancheActionPerformed
+
+    private void buttonCancelarCadastroLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroLancheActionPerformed
+        this.setVisible(false);
+        this.setEnabled(false);
+        this.telaCrudLanches.setVisible(true);
+        this.telaCrudLanches.setEnabled(true);
+    }//GEN-LAST:event_buttonCancelarCadastroLancheActionPerformed
 
     /**
      * @param args the command line arguments
@@ -224,16 +311,14 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCadastrar;
-    private javax.swing.JButton botaoCancelar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JPanel jPanelMenuCadastroLanches;
-    private javax.swing.JLabel labelImagemLanche;
+    private javax.swing.JToggleButton buttonCadastrarLanche;
+    private javax.swing.JButton buttonCancelarCadastroLanche;
+    private javax.swing.JLabel labelDescricaoLanche;
     private javax.swing.JLabel labelIngredientesLanche;
-    private javax.swing.JLabel labelNomeLanche;
     private javax.swing.JLabel labelPrecoLanche;
+    private javax.swing.JPanel painelCadastroLanches;
+    private javax.swing.JTextField textDescricaoLanche;
     private javax.swing.JTextField textIngredientesLanche;
-    private javax.swing.JTextField textNomeLanche;
     private javax.swing.JTextField textPrecoLanche;
     // End of variables declaration//GEN-END:variables
 }

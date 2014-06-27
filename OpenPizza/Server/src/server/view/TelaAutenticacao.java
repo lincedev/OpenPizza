@@ -152,7 +152,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         this.setBarraProdutos(barraProdutos);
         this.setBarraMesas(barraMesas);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -331,10 +330,9 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      */
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         // Retorna à janela anterior
-        this.getTelaPrincipal().setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_cancelarActionPerformed
- 
+
     /*
      Descrição: Método do botão Fechar (X).
      Parâmetros: 
@@ -342,7 +340,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      */
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // Retorna à janela anterior
-        this.getTelaPrincipal().setEnabled(true);
         this.dispose();
     }//GEN-LAST:event_formWindowClosed
 
