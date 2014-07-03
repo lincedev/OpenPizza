@@ -101,10 +101,13 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
         buttonCadastrarOutros = new javax.swing.JButton();
         buttonCancelarCadastroOutros = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(270, 300));
+        setMinimumSize(new java.awt.Dimension(270, 300));
 
-        painelCadastrarOutros.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Outros Produtos", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        painelCadastrarOutros.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        labelDescricaoOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDescricaoOutros.setText("Descrição:");
 
         textDescricaoOutros.addActionListener(new java.awt.event.ActionListener() {
@@ -113,6 +116,7 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
             }
         });
 
+        labelPrecoOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPrecoOutros.setText("Preço:");
 
         textPrecoOutros.addActionListener(new java.awt.event.ActionListener() {
@@ -121,6 +125,7 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
             }
         });
 
+        buttonCadastrarOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCadastrarOutros.setText("Cadastrar");
         buttonCadastrarOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,6 +133,7 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
             }
         });
 
+        buttonCancelarCadastroOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCancelarCadastroOutros.setText("Cancelar");
         buttonCancelarCadastroOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -141,53 +147,51 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
             painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textDescricaoOutros)
-                    .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(labelDescricaoOutros)
-                        .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                            .addComponent(labelPrecoOutros)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                            .addComponent(buttonCadastrarOutros)
-                            .addGap(45, 45, 45)
-                            .addComponent(buttonCancelarCadastroOutros))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                        .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDescricaoOutros)
+                            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                                .addComponent(labelPrecoOutros)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+                        .addComponent(buttonCadastrarOutros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                        .addComponent(buttonCancelarCadastroOutros)))
+                .addContainerGap())
         );
         painelCadastrarOutrosLayout.setVerticalGroup(
             painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addComponent(labelDescricaoOutros)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textDescricaoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textDescricaoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPrecoOutros)
-                    .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPrecoOutros))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
                 .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCadastrarOutros)
                     .addComponent(buttonCancelarCadastroOutros))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+            .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();

@@ -102,10 +102,14 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         buttonCadastrarBebida = new javax.swing.JButton();
         buttonCancelarCadastroBebida = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Adicionar - Bebidas");
+        setMaximumSize(new java.awt.Dimension(270, 300));
+        setMinimumSize(new java.awt.Dimension(270, 300));
+        setPreferredSize(new java.awt.Dimension(270, 300));
+        setResizable(false);
 
-        painelCadastroBebidas.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Bebidas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
-
+        labelDescricaoBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDescricaoBebida.setText("Descrição:");
 
         textDescricaoBebida.addActionListener(new java.awt.event.ActionListener() {
@@ -114,6 +118,7 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
             }
         });
 
+        labelPrecoBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPrecoBebida.setText("Preço:");
 
         textPrecoBebida.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +127,7 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
             }
         });
 
+        buttonCadastrarBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCadastrarBebida.setText("Cadastrar");
         buttonCadastrarBebida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -129,6 +135,7 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
             }
         });
 
+        buttonCancelarCadastroBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCancelarCadastroBebida.setText("Cancelar");
         buttonCancelarCadastroBebida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,52 +152,50 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
                 .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textDescricaoBebida)
                     .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                        .addComponent(labelDescricaoBebida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelPrecoBebida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonCancelarCadastroBebida)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addComponent(buttonCadastrarBebida))
+                    .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
+                        .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDescricaoBebida)
+                            .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
+                                .addComponent(labelPrecoBebida)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
-                .addComponent(buttonCadastrarBebida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-                .addComponent(buttonCancelarCadastroBebida)
-                .addGap(61, 61, 61))
         );
         painelCadastroBebidasLayout.setVerticalGroup(
             painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(labelDescricaoBebida)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textDescricaoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDescricaoBebida)
-                    .addComponent(labelPrecoBebida)
-                    .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(textDescricaoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                    .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPrecoBebida))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
                 .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCancelarCadastroBebida)
-                    .addComponent(buttonCadastrarBebida))
-                .addContainerGap())
+                    .addComponent(buttonCadastrarBebida)
+                    .addComponent(buttonCancelarCadastroBebida))
+                .addGap(17, 17, 17))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+            .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        painelCadastroBebidas.getAccessibleContext().setAccessibleName("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

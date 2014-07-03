@@ -112,10 +112,17 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         buttonCadastrarLanche = new javax.swing.JToggleButton();
         buttonCancelarCadastroLanche = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Adicionar - Lanches");
+        setMaximumSize(new java.awt.Dimension(270, 300));
+        setMinimumSize(new java.awt.Dimension(270, 300));
+        setPreferredSize(new java.awt.Dimension(270, 300));
 
-        painelCadastroLanches.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Lanches", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
+        painelCadastroLanches.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        painelCadastroLanches.setMaximumSize(new java.awt.Dimension(260, 290));
+        painelCadastroLanches.setMinimumSize(new java.awt.Dimension(260, 290));
 
+        labelDescricaoLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDescricaoLanche.setText("Descrição:");
 
         textDescricaoLanche.addActionListener(new java.awt.event.ActionListener() {
@@ -124,6 +131,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
             }
         });
 
+        labelPrecoLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPrecoLanche.setText("Preço:");
 
         textPrecoLanche.addActionListener(new java.awt.event.ActionListener() {
@@ -132,6 +140,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
             }
         });
 
+        labelIngredientesLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelIngredientesLanche.setText("Ingredientes:");
 
         textIngredientesLanche.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +149,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
             }
         });
 
+        buttonCadastrarLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCadastrarLanche.setText("Cadastrar");
         buttonCadastrarLanche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +157,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
             }
         });
 
+        buttonCancelarCadastroLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCancelarCadastroLanche.setText("Cancelar");
         buttonCancelarCadastroLanche.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,62 +170,65 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         painelCadastroLanchesLayout.setHorizontalGroup(
             painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(labelIngredientesLanche)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
                 .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textIngredientesLanche))
                     .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
-                        .addComponent(labelPrecoLanche)
-                        .addGap(18, 18, 18)
-                        .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
-                            .addComponent(buttonCadastrarLanche)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonCancelarCadastroLanche))
-                        .addComponent(textIngredientesLanche)
-                        .addComponent(labelIngredientesLanche)
-                        .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
+                        .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelDescricaoLanche)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(31, Short.MAX_VALUE))
+                            .addComponent(labelPrecoLanche))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(buttonCancelarCadastroLanche)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCadastrarLanche)))
+                .addContainerGap())
         );
         painelCadastroLanchesLayout.setVerticalGroup(
             painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDescricaoLanche)
                     .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPrecoLanche, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelIngredientesLanche)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textIngredientesLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelPrecoLanche)
-                    .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textIngredientesLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCadastrarLanche)
                     .addComponent(buttonCancelarCadastroLanche))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(59, 59, 59))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(painelCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+            .addComponent(painelCadastroLanches, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(painelCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
