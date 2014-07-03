@@ -1,14 +1,20 @@
 package client.view;
 
-import client.persistencia.Arquivos;
-import java.io.*;
-import javax.swing.*;
+import client.control.Controle;
+import client.model.Autenticacao;
+import java.io.Serializable;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
 
 /*
  Descrição: Classe principal do cliente
  */
 public class Client implements Serializable {
-
+ 
+    public static Controle controle = new Controle();
+    
+    public static Autenticacao autenticacao = new Autenticacao();
     /*
      Descrição: Método principal.
      Parâmetros: 
@@ -16,24 +22,18 @@ public class Client implements Serializable {
      */
     public static void main(String[] args) {
 
-        /*
-         * Parâmetros para conexão no banco de dados
-         * 
-         String banco = "jdbc:mysql://localhost:3306/projetosin143";
-         String usuario = "projeto";
-         String senha = "projeto";
-         */
-        // Checagem da existência dos arquivos necessários
-        Arquivos arquivo = new Arquivos();
-        try {
-            arquivo.checarArquivos();
-        } catch (Exception e) {
+        boolean verificarArquivos = controle.verificarArquivos();
+        if(verificarArquivos){
+            autenticacao = controle.recuperarDadosAutenticacao();
+            New_TelaPrincipal telaPrincipal = new New_TelaPrincipal(autenticacao, controle);
+            telaPrincipal.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
+            telaPrincipal.setVisible(true);
+        }
+        else{
             JOptionPane.showMessageDialog(null, "Não foi possível criar os arquivos necessários.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
-
-        // Criação da janela principal e habilitação da visualização
-        TelaPrincipal janelaPrincipal = new TelaPrincipal();
-        janelaPrincipal.setResizable(false);
-        janelaPrincipal.setVisible(true);
+        
+        
+        
     }
 }

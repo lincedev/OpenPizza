@@ -1,9 +1,9 @@
-package client.modelo;
+package client.model;
 
 /*
  Descrição: Classe Produto
  */
-public class Produto {
+public abstract class Produto {
 
     // Atributos encapsulados
     private int codigo;

@@ -1,4 +1,4 @@
-package client.modelo;
+package client.model;
 
 /*
  Descrição: Classe Bebidas (Subclasse de Produto)

@@ -1,6 +1,6 @@
-package client.persistencia;
+package client.persistence;
 
-import client.modelo.Autenticacao;
+import client.model.Autenticacao;
 import java.io.*;
 
 
@@ -55,22 +55,22 @@ public class Arquivos implements Serializable {
      Retorno:
      *           autenticar (Retorna os dados de autenticação armazenados)
      */
-    public Autenticacao lerArquivo() throws FileNotFoundException, IOException {
+    public Autenticacao recuperarDadosDeAutenticacao() throws FileNotFoundException, IOException {
         FileInputStream arquivo = new FileInputStream(documento);
         ObjectInputStream objeto = new ObjectInputStream(arquivo);
         Autenticacao autenticar;
         // Tentativa de recuperação de dados do arquivo
         try {
             autenticar = (Autenticacao) objeto.readObject();
+            objeto.close();
+            arquivo.close();
             return autenticar;
 
         } catch (Exception e) {
-
-        } finally {
             objeto.close();
             arquivo.close();
+            return null;
         }
-        return null;
     }
 
     /*
@@ -81,7 +81,7 @@ public class Arquivos implements Serializable {
      *           senha (Senha do banco de dados)
      Retorno:
      */
-    public void salvarArquivo(String caminho, String usuario, String senha) throws FileNotFoundException, IOException {
+    public boolean salvarAutenticacao(String caminho, String usuario, String senha) throws FileNotFoundException, IOException {
         Autenticacao autenticar = new Autenticacao(caminho, usuario, senha);
         FileOutputStream arquivo = new FileOutputStream(documento);
         ObjectOutputStream objeto = new ObjectOutputStream(arquivo);
@@ -89,11 +89,13 @@ public class Arquivos implements Serializable {
         // Tentativa de salvamento dos dados
         try {
             objeto.writeObject(autenticar);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             objeto.close();
             arquivo.close();
+            return true;
+        } catch (Exception e) {
+            objeto.close();
+            arquivo.close();
+            return false;
         }
     }
 }
