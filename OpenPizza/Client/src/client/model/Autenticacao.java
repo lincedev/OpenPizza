@@ -1,5 +1,5 @@
 // Revert
-package client.modelo;
+package client.model;
 
 import java.io.Serializable;
 import java.sql.*;

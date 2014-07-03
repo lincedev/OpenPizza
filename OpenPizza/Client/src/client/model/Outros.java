@@ -1,4 +1,4 @@
-package client.modelo;
+package client.model;
 
 /*
  Descrição: Classe Outros (Subclasse de Produto)

@@ -1,4 +1,4 @@
-package client.modelo;
+package client.model;
 
 /*
  Descrição: Classe Pizza (Subclasse de Produto)
