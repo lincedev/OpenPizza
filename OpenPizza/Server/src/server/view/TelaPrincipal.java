@@ -1,10 +1,11 @@
 package server.view;
 
+import java.io.*;
 import java.sql.*;
 import javax.swing.*;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Arquivos;
-import java.io.*;
 
 /*
  Descrição: Tela principal do servidor
@@ -13,42 +14,20 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     // Variável para armazenamento dos dados de autenticação do banco de dados
     public Autenticacao autenticacaoServer;
+    public Controle controle;
 
     /*
      Descrição: Criação da tela principal do servidor.
      Parâmetros: 
      Retorno:
      */
-    public TelaPrincipal() {
-        initComponents();
+    public TelaPrincipal() {        
+        initComponents();        
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
-        verificarAutenticacao();
+        controle = new Controle();
+        controle.verificarAutenticacao();
     }
-
-    /*
-     Descrição: Método para tentativa de autenticação dos dados do banco de dados.
-     Parâmetros:
-     Retorno:
-     */
-    public void verificarAutenticacao() {
-        Arquivos arquivo = new Arquivos();
-        try {
-            autenticacaoServer = arquivo.lerArquivo();
-            try {
-                // Se a conexão foi efetuada, o botão de autenticação é desabilitado e o botão para abrir pedido é habilitado.
-                Connection conexao = DriverManager.getConnection(autenticacaoServer.getCaminhoBanco(), autenticacaoServer.getUsuarioBanco(), autenticacaoServer.getUsuarioSenha());
-                conexao.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão.", "Erro", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível estabelecer conexão automática com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
-            this.menuExibir.setEnabled(false);
-            this.menuProdutos.setEnabled(false);
-            this.menuMesas.setEnabled(false);
-        }
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,6 +80,8 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/logo.png"))); // NOI18N
         getContentPane().add(jLabel1);
         jLabel1.setBounds(310, 150, 300, 240);
+
+        barraMenus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         menuArquivo.setText("Arquivo");
         menuArquivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -205,7 +186,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         menuProdutos.add(itemMenuProdutosBebidas);
 
         itemMenuProdutosOutros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemMenuProdutosOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/chocolate.png"))); // NOI18N
         itemMenuProdutosOutros.setText("Outros");
         itemMenuProdutosOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,69 +242,70 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     private void itemMenuProdutosPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosPizzasActionPerformed
         // Criação da janela de CRUD para Pizzas
-        TelaCRUDPizzas telaPizza = new TelaCRUDPizzas(this, this.autenticacaoServer);
-        telaPizza.setVisible(true);
-        telaPizza.setLocationRelativeTo(null);
-
-   
+        TelaCRUDPizzas tpizza = new TelaCRUDPizzas(this, this.autenticacaoServer);
+        //this.setVisible(false);
+        tpizza.setVisible(true);
+        tpizza.setResizable(false);
+        tpizza.setSize(800, 500);
+        tpizza.setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosPizzasActionPerformed
 
     private void itemMenuProdutosOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosOutrosActionPerformed
         // TODO add your handling code here:
-        TelaCRUDOutros telaOutros = new TelaCRUDOutros(this,this.autenticacaoServer);
-        telaOutros.setVisible(true);
-        telaOutros.setLocationRelativeTo(null);
+        TelaCRUDOutros tOutros = new TelaCRUDOutros(this,this.autenticacaoServer);
+        tOutros.setVisible(true);
+        tOutros.setLocationRelativeTo(null);
+        //this.setVisible(false);
+        tOutros.setResizable(false);
+        tOutros.setSize(800, 500);
     }//GEN-LAST:event_itemMenuProdutosOutrosActionPerformed
 
     private void itemMenuProdutosLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosLanchesActionPerformed
         // TODO add your handling code here:
-        TelaCRUDLanches telaLanches = new TelaCRUDLanches(this,this.autenticacaoServer);
-        telaLanches.setVisible(true);
-        telaLanches.setLocationRelativeTo(null);
-        telaLanches.setResizable(false);
-        telaLanches.setSize(800,500);
-        
+        TelaCRUDLanches tLanches = new TelaCRUDLanches(this,this.autenticacaoServer);
+        tLanches.setVisible(true);
+        tLanches.setLocationRelativeTo(null);
+        tLanches.setResizable(false);
+        tLanches.setSize(800,500);        
     }//GEN-LAST:event_itemMenuProdutosLanchesActionPerformed
 
     private void itemMenuProdutosBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosBebidasActionPerformed
         // TODO add your handling code here:
-        TelaCRUDBebidas telaBebidas = new TelaCRUDBebidas(this ,this.autenticacaoServer);
-        telaBebidas.setVisible(true);
-        telaBebidas.setLocationRelativeTo(null);
-        telaBebidas.setResizable(false);
-        telaBebidas.setSize(800,500);
+        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.autenticacaoServer);
+        tBebidas.setVisible(true);
+        tBebidas.setLocationRelativeTo(null);
+        tBebidas.setResizable(false);
+        tBebidas.setSize(800,500);
     }//GEN-LAST:event_itemMenuProdutosBebidasActionPerformed
 
     private void itemMenuExibirPedidosEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirPedidosEmAbertoActionPerformed
         // TODO add your handling code here:
-        ExibirPedidosEmAberto telaPedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacaoServer);
-        telaPedidosEmAberto.setVisible(true);
-        telaPedidosEmAberto.setLocationRelativeTo(null);
+        ExibirPedidosEmAberto pedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacaoServer);
+        pedidosEmAberto.setVisible(true);
+        pedidosEmAberto.setLocationRelativeTo(null);
         
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        ExibirProdutosCadastrados telaProdutosCadastrados = new ExibirProdutosCadastrados();
-        telaProdutosCadastrados.setVisible(true);
-        telaProdutosCadastrados.setLocationRelativeTo(null);
+        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados();
+        produtosCadastrados.setVisible(true);
+        produtosCadastrados.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed
 
     private void menuItemExibirRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExibirRelatoriosActionPerformed
         // TODO add your handling code here:
-        ExibirRelatorio telaRelatorioProdutos = new ExibirRelatorio();
-        telaRelatorioProdutos.setVisible(true);
-        telaRelatorioProdutos.setLocationRelativeTo(null);
+        ExibirRelatorio relatorioProdutos = new ExibirRelatorio();
+        relatorioProdutos.setVisible(true);
+        relatorioProdutos.setLocationRelativeTo(null);
     }//GEN-LAST:event_menuItemExibirRelatoriosActionPerformed
 
     private void itemMenuMesasGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuMesasGerenciarActionPerformed
         // TODO add your handling code here:
-        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this,this.autenticacaoServer);
-        //System.out.println(this.autenticacaoServer.getCaminhoBanco());
+        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.autenticacaoServer);
         telaMesas.setVisible(true);
         telaMesas.setEnabled(true);
         telaMesas.setLocationRelativeTo(null);
-        
     }//GEN-LAST:event_itemMenuMesasGerenciarActionPerformed
 
     /**

@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -27,13 +28,11 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     // Variável para armazenamento da tela principal.
     private TelaPrincipal janelaPrincipal;
 
+    private Controle controle;
     
     // Variável para armazenamento dos dados de autenticação do banco de dados.
     private Autenticacao autenticacaoServer;
-    
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-    
+      
     /*
      Descrição: Construtor padrão da janela de CRUD Pizza.
      Parâmetros:
@@ -41,7 +40,7 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
      
      */
     public TelaCRUDPizzas() {
-        initComponents();
+        initComponents();                                
     }
     
     
@@ -52,15 +51,15 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014 
     */
-    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacao) {
-        this();
+    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer) {                
+        this();                        
         this.setJanelaPrincipal(telaPrincipal);
-        this.setAutenticacaoServer(autenticacao);
-        this.exibirPizzasCadastradas(autenticacaoServer);
-        this.getJanelaPrincipal().setEnabled(false);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.getJanelaPrincipal().setEnabled(false);  
+        controle = new Controle();
+        controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
     }
-    
+
     /*
      Descrição: Método set para a variável janelaPrincipal.
      Parâmetros: 
@@ -82,30 +81,8 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
     }
-    
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 22/05/2014 
-    */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-    Data Última Alteração: 22/05/2014 
-    */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-    
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -115,6 +92,7 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaCRUDPizza = new javax.swing.JTable();
         labelImagemPizza = new javax.swing.JLabel();
@@ -124,10 +102,16 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         botaoAdicionarCRUDPizzas = new javax.swing.JButton();
         botaoVoltarCRUDPizzas = new javax.swing.JButton();
         botaoEditarCRUDPizzas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CRUD Pizza");
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMaximumSize(new java.awt.Dimension(540, 400));
+        setMinimumSize(new java.awt.Dimension(540, 400));
+        setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -135,11 +119,13 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
             }
         });
 
+        tabelaCRUDPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tabelaCRUDPizza);
 
+        labelImagemPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelImagemPizza.setText("Imagem");
 
-        descricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        descricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         descricaoPizza.setText("Descrição:");
 
         botaoExcluirCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
@@ -211,103 +197,79 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         jPanelMenuCRUDPizzasLayout.setVerticalGroup(
             jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(botaoExcluirCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoAdicionarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoVoltarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoEditarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoEditarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Voltar");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Adicionar");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Excluir");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Atualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descricaoPizza)
-                            .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                        .addGap(107, 107, 107)
+                        .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel2)
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel3)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel4)))
+                .addContainerGap(127, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(descricaoPizza)
-                        .addGap(191, 191, 191)
-                        .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(64, 64, 64)
+                        .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    /*
-     Descrição: Método para exibição das pizzas cadastrados
-     Parâmetros:
-     *           autenticacao (Necessário para acesso/consulta no banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-    public void exibirPizzasCadastradas(Autenticacao autenticacaoServer) {
-        try {
-            String query = null;
-            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
-            JTable tabelaPizzas = null;
-            
-            query = "SELECT p.descricao, pp.preco, pp.tamanho , pp.fatias FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
-            
-            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
-            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
-            tabelaPizzas = this.tabelaCRUDPizza;
-            
-            // Formatação do modelo da tabela de exibição
-            tabelaPizzas.setModel(DbUtils.resultSetToTableModel(rs));
-            tabelaPizzas.setRowSelectionAllowed(true);
-
-            // Exibição centralizada dos registros
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-            // Formatação das colunas da tabela de exibição
-            tabelaPizzas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
-            tabelaPizzas.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            tabelaPizzas.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
-            tabelaPizzas.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
-
-            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            //if (indiceTabela != 0) {
-            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
-            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            //}
-
-            con.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }   
-    
+   
+       
     /*
      Descrição: Método para voltar a janela anterior.
      Parâmetros: 
@@ -328,11 +290,11 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExcluirCRUDPizzasActionPerformed
 
     private void botaoEditarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDPizzasActionPerformed
-        this.exibirPizzasCadastradas(autenticacaoServer);
+        // Talves seja necessário colocar o método de testarAutenticação
+        controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
     }//GEN-LAST:event_botaoEditarCRUDPizzasActionPerformed
 
     private void botaoAdicionarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDPizzasActionPerformed
-
         TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas(this, this.autenticacaoServer);
         addPizza.setVisible(true);
         this.setEnabled(false);
@@ -386,8 +348,13 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     private javax.swing.JButton botaoExcluirCRUDPizzas;
     private javax.swing.JButton botaoVoltarCRUDPizzas;
     private javax.swing.JLabel descricaoPizza;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelMenuCRUDPizzas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel labelImagemPizza;
     private javax.swing.JTable tabelaCRUDPizza;
     // End of variables declaration//GEN-END:variables

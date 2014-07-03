@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -27,17 +28,12 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     /**
      * Creates new form TelaCRUDLanches
      */
-    
+
+    private Controle controle;
     // Variável para armazenamento da tela principal.
     private TelaPrincipal janelaPrincipal;
-
-    
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
     private Autenticacao autenticacaoServer;
-    
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-    
+
    /*
      Descrição: Construtor padrão da janela de CRUD Lanches.
      Parâmetros:
@@ -57,10 +53,10 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     */
     public TelaCRUDLanches(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
         this();
-        this.setJanelaPrincipal(janelaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.exibirLanchesCadastrados(autenticacaoServer);
+        this.setJanelaPrincipal(janelaPrincipal);        
         this.getJanelaPrincipal().setEnabled(false);
+        controle = new Controle();
+        controle.exibirLanchesCadastrados(this.autenticacaoServer, this.tabelaCRUDLanches);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     /*
@@ -84,29 +80,6 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
     }
-    
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 22/05/2014 
-    */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-    Data Última Alteração: 22/05/2014 
-    */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -125,11 +98,16 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         botaoExcluirCRUDLanches = new javax.swing.JButton();
         botaoEditarCRUDLanches = new javax.swing.JButton();
         botaoVoltarCRUDLanches = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CRUD Lanches");
-        setMaximumSize(new java.awt.Dimension(800, 500));
-        setMinimumSize(new java.awt.Dimension(800, 500));
+        setMaximumSize(new java.awt.Dimension(540, 400));
+        setMinimumSize(new java.awt.Dimension(540, 400));
+        setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -137,9 +115,10 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
             }
         });
 
+        tabelaCRUDLanches.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tabelaCRUDLanches);
 
-        labelDescriçãoLanches.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescriçãoLanches.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDescriçãoLanches.setText("Descrição:");
 
         jPanelMenuCRUDLanches.setPreferredSize(new java.awt.Dimension(353, 85));
@@ -204,100 +183,72 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         jPanelMenuCRUDLanchesLayout.setVerticalGroup(
             jPanelMenuCRUDLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuCRUDLanchesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelMenuCRUDLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoEditarCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoVoltarCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoAdicionarCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoExcluirCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoExcluirCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Voltar");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Adicionar");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Adicionar");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Atualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
-                        .addComponent(jPanelMenuCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(labelDescriçãoLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(labelDescriçãoLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(116, 116, 116)
+                        .addComponent(jPanelMenuCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(143, 143, 143)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)))
+                .addContainerGap(129, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelDescriçãoLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelMenuCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelDescriçãoLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanelMenuCRUDLanches, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    /*
-     Descrição: Método para exibição dos Lanches cadastrados
-     Parâmetros:
-     *           autenticacao (Necessário para acesso/consulta no banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-    public void exibirLanchesCadastrados(Autenticacao autenticacaoServer) {
-        try {
-            String query = null;
-            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
-            JTable tabelaLanches = null;
-            
-            query = "SELECT p.descricao, l.preco FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
-            
-            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
-            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
-            tabelaLanches = this.tabelaCRUDLanches;
-            
-            // Formatação do modelo da tabela de exibição
-            tabelaLanches.setModel(DbUtils.resultSetToTableModel(rs));
-            tabelaLanches.setRowSelectionAllowed(true);
-
-            // Exibição centralizada dos registros
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-            // Formatação das colunas da tabela de exibição
-            tabelaLanches.getColumnModel().getColumn(0).setHeaderValue("Descrição");
-            tabelaLanches.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //tabelaOutros.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
-            //tabelaOutros.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
-
-            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            //if (indiceTabela != 0) {
-            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
-            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            //}
-
-            con.close();
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    
+  
     private void botaoVoltarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDLanchesActionPerformed
         // TODO add your handling code here:
         this.getJanelaPrincipal().setVisible(true);
@@ -314,7 +265,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoAdicionarCRUDLanchesActionPerformed
 
     private void botaoEditarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDLanchesActionPerformed
-        this.exibirLanchesCadastrados(autenticacaoServer);
+        controle.exibirLanchesCadastrados(this.autenticacaoServer, this.tabelaCRUDLanches);
     }//GEN-LAST:event_botaoEditarCRUDLanchesActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -363,6 +314,10 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     private javax.swing.JButton botaoEditarCRUDLanches;
     private javax.swing.JButton botaoExcluirCRUDLanches;
     private javax.swing.JButton botaoVoltarCRUDLanches;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelMenuCRUDLanches;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDescriçãoLanches;

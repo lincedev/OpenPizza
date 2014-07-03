@@ -14,7 +14,7 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     private TelaPrincipal telaPrincipal;
 
     // Variável de armazenamento da autenticação do banco de dados
-    private Autenticacao autenticacao;
+    private Autenticacao autenticacaoServer;
     
     // Variável de armazenamento do Jmenu Exibir
     private JMenu barraExibir;
@@ -112,8 +112,8 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      Retorno:
      *           autenticacao (Informações de autenticação no banco de dados)
      */
-    public Autenticacao getAutenticacao() {
-        return autenticacao;
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
     }
 
     /*
@@ -122,8 +122,8 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      *           autenticacao (Necessário para acesso ao banco de dados)
      Retorno:
      */
-    public void setAutenticacao(Autenticacao autenticacao) {
-        this.autenticacao = autenticacao;
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
     }
 
     /*
@@ -143,11 +143,11 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      *           autenticacao (Necessário para acesso ao banco de dados)
      Retorno:
      */
-    public TelaAutenticacao(TelaPrincipal telaPrincipal, Autenticacao autenticacao, JMenu barraExibir, JMenu barraProdutos, JMenu barraMesas) {
+    public TelaAutenticacao(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer, JMenu barraExibir, JMenu barraProdutos, JMenu barraMesas) {
         this();
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         this.setTelaPrincipal(telaPrincipal);
-        this.setAutenticacao(autenticacao);
+        this.setAutenticacaoServer(autenticacaoServer);
         this.setBarraExibir(barraExibir);
         this.setBarraProdutos(barraProdutos);
         this.setBarraMesas(barraMesas);

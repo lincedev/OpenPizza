@@ -5,7 +5,6 @@
  */
 package server.view;
 
-import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -29,13 +29,9 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
      */
     // Variável para armazenamento da tela principal.
     private TelaPrincipal janelaPrincipal;
-
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
+    private Controle controle;
     private Autenticacao autenticacaoServer;
-
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-
+    
     /*
      Descrição: Construtor padrão da janela de CRUD Lanches.
      Parâmetros:
@@ -55,10 +51,10 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
      */
     TelaCRUDBebidas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
         this();
-        this.setJanelaPrincipal(janelaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.exibirBebidasCadastrados(autenticacaoServer);
+        this.setJanelaPrincipal(janelaPrincipal);        
         this.getJanelaPrincipal().setEnabled(false);
+        controle = new Controle();
+        controle.exibirBebidasCadastrados(autenticacaoServer, tabelaCRUDBebidas);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -83,29 +79,7 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
     }
-
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 22/05/2014 
-     */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-     Data Última Alteração: 22/05/2014 
-     */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -123,12 +97,17 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         botaoExcluirCRUDBebidas = new javax.swing.JButton();
         botaoVoltarCRUDBebidas = new javax.swing.JButton();
         botatoEditarCRUDBebidas = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CRUD Bebidas");
-        setMaximumSize(new java.awt.Dimension(800, 500));
-        setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setBounds(new java.awt.Rectangle(0, 0, 400, 380));
+        setMaximumSize(new java.awt.Dimension(150, 150));
+        setMinimumSize(new java.awt.Dimension(150, 150));
+        setPreferredSize(new java.awt.Dimension(150, 150));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -136,9 +115,10 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
             }
         });
 
+        tabelaCRUDBebidas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jScrollPane1.setViewportView(tabelaCRUDBebidas);
 
-        labelDescriçãoBebidas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        labelDescriçãoBebidas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDescriçãoBebidas.setText("Descrição:");
 
         jPanelMenuCRUDBebidas.setPreferredSize(new java.awt.Dimension(353, 85));
@@ -196,9 +176,9 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         jPanelMenuCRUDBebidasLayout.setHorizontalGroup(
             jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoVoltarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botaoAdicionarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(botaoExcluirCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -209,96 +189,74 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         jPanelMenuCRUDBebidasLayout.setVerticalGroup(
             jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(botaoAdicionarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(botaoVoltarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(botatoEditarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botaoExcluirCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoExcluirCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel1.setText("Voltar");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel2.setText("Adicionar");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setText("Excluir");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Atualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                        .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(83, 83, 83))))
+                        .addGap(113, 113, 113)
+                        .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(135, 135, 135)
+                        .addComponent(jLabel1)
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(31, 31, 31)
+                        .addComponent(jLabel4)))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    /*
-     Descrição: Método para exibição das Bebidas cadastradas
-     Parâmetros:
-     *           autenticacao (Necessário para acesso/consulta no banco de dados)
-     Retorno:
-     Data Última Alteração: 07/06/2014
-     */
-    public void exibirBebidasCadastrados(Autenticacao autenticacaoServer) {
-        try {
-            String query = null;
-            //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
-            JTable tabelaBebidas = null;
-
-            //query = "SELECT p.descricao, b.preco FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
-            query = "SELECT p.codigo, p.descricao, b.preco FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
-
-            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
-            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
-            tabelaBebidas = this.tabelaCRUDBebidas;
-
-            // Formatação do modelo da tabela de exibição
-            tabelaBebidas.setModel(DbUtils.resultSetToTableModel(rs));
-            tabelaBebidas.setRowSelectionAllowed(true);
-
-            // Exibição centralizada dos registros
-            DefaultTableCellRenderer centralizarTexto = new DefaultTableCellRenderer();
-            centralizarTexto.setHorizontalAlignment(JLabel.CENTER);
-
-            tabelaBebidas.getColumnModel().getColumn(0).setMaxWidth(0);
-            tabelaBebidas.getColumnModel().getColumn(0).setMinWidth(0);
-            tabelaBebidas.getColumnModel().getColumn(0).setPreferredWidth(0);
-            
-            // Formatação das colunas da tabela de exibição
-            tabelaBebidas.getColumnModel().getColumn(1).setHeaderValue("Descrição");
-
-            tabelaBebidas.getColumnModel().getColumn(2).setHeaderValue("Preço");
-            tabelaBebidas.getColumnModel().getColumn(2).setCellRenderer(centralizarTexto);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
+    
     private void botaoVoltarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDBebidasActionPerformed
 
         this.getJanelaPrincipal().setVisible(true);
@@ -319,14 +277,14 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
 
     private void botaoAdicionarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDBebidasActionPerformed
         // TODO add your handling code here:
-        TelaAdicionarBebidas addBebida = new TelaAdicionarBebidas(this, autenticacaoServer);
+        TelaAdicionarBebidas addBebida = new TelaAdicionarBebidas(this, this.autenticacaoServer);
         addBebida.setVisible(true);
         this.setEnabled(false);
         addBebida.setLocationRelativeTo(null);
     }//GEN-LAST:event_botaoAdicionarCRUDBebidasActionPerformed
 
     private void botatoEditarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botatoEditarCRUDBebidasActionPerformed
-        this.exibirBebidasCadastrados(autenticacaoServer);
+        controle.exibirBebidasCadastrados(this.autenticacaoServer, this.tabelaCRUDBebidas);
     }//GEN-LAST:event_botatoEditarCRUDBebidasActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
@@ -375,6 +333,10 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     private javax.swing.JButton botaoExcluirCRUDBebidas;
     private javax.swing.JButton botaoVoltarCRUDBebidas;
     private javax.swing.JButton botatoEditarCRUDBebidas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelMenuCRUDBebidas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelDescriçãoBebidas;

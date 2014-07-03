@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -108,6 +109,8 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
      Data Última Alteração: 03/07/2014 
     */
     public void exibirMesas(Autenticacao autenticacaoServer) {
+        Controle controle = new Controle();
+        controle.verificarAutenticacao();
         try {
             String query = null;
             JTable tabelaMesas = null;
