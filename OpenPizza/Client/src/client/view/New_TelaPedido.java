@@ -8,17 +8,10 @@ package client.view;
 
 import client.control.Controle;
 import client.model.Autenticacao;
-import client.persistence.Banco;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
-import net.proteanit.sql.DbUtils;
 
 /**
  *
