@@ -1,19 +1,30 @@
+// Pacote Persistência
 package client.persistence;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.model.Autenticacao;
-import java.io.*;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.io.Serializable;
 
 /*
- Descrição: Classe manipulação de arquivos
+ Descrição: Classe de persistência para manipulação de arquivos
  */
 public class Arquivos implements Serializable {
 
     // Diretório onde será criado o arquivo de autenticação com o banco de dados
-    public final String caminho = "../Arquivos";
+    public final String caminho = "./Arquivos";
 
     // Localização do arquivo de autenticação
-    public final String documento = "../Arquivos/AutenticacaoCliente.txt";
+    public final String documento = "./Arquivos/AutenticacaoCliente.txt";
 
     /*
      Descrição: Método de verificação da existência dos arquivos necessários
@@ -28,7 +39,7 @@ public class Arquivos implements Serializable {
             arquivo.close();
         } // Criação dos arquivos, caso não sejam encontrados
         catch (FileNotFoundException ex) {
-            criarArquivos();
+            this.criarArquivos();
         }
     }
 
@@ -55,21 +66,22 @@ public class Arquivos implements Serializable {
      Retorno:
      *           autenticar (Retorna os dados de autenticação armazenados)
      */
-    public Autenticacao recuperarDadosDeAutenticacao() throws FileNotFoundException, IOException {
+    public void recuperarDadosDeAutenticacao(Autenticacao autenticacao) throws FileNotFoundException, IOException {
         FileInputStream arquivo = new FileInputStream(documento);
         ObjectInputStream objeto = new ObjectInputStream(arquivo);
         Autenticacao autenticar;
         // Tentativa de recuperação de dados do arquivo
         try {
             autenticar = (Autenticacao) objeto.readObject();
+            autenticacao.setCaminhoBanco(autenticar.getCaminhoBanco());
+            autenticacao.setUsuarioBanco(autenticar.getUsuarioBanco());
+            autenticacao.setUsuarioSenha(autenticar.getUsuarioSenha());
             objeto.close();
             arquivo.close();
-            return autenticar;
 
         } catch (Exception e) {
             objeto.close();
             arquivo.close();
-            return null;
         }
     }
 

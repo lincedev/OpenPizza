@@ -1,43 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package client.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.control.Controle;
 import client.model.Autenticacao;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- *
- * @author lince
+/*
+ Descrição: Tela de Inclusão de Produtos
  */
 public class New_TelaIncluirProduto extends javax.swing.JFrame {
 
+    // Atributos encapsulados
     private New_TelaCardapio telaCardapio;
-    
     private Autenticacao autenticacao;
-    
     private Controle controle;
-    
     private String categoriaDoProduto;
-    
     private String nomeDoProduto;
-    
     private int numeroDoPedido;
-    
-    /**
-     * Creates new form New_TelaIncluirPizza
+
+    /*
+     Descrição: Construtor padrão da Tela de Inclusão de Produtos
+     Parâmetros:
+     Retorno:
      */
     private New_TelaIncluirProduto() {
         initComponents();
     }
 
-    public New_TelaIncluirProduto(New_TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido){
+    /*
+     Descrição: Construtor completo da Tela de Cardápio
+     Parâmetros:
+     telaCardapio (Referência à Tabela Cardápio)
+     controle (Objeto do tipo Controle)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     categoriaDoProduto (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro)
+     nomeDoProduto (String contendo o nome do produto selecionado na Tela Cardápio)
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela Pedido)
+     Retorno:
+     */
+    public New_TelaIncluirProduto(New_TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido) {
         this();
         this.setTelaCardapio(telaCardapio);
         this.setControle(controle);
@@ -49,8 +53,13 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
         this.getControle().consultarOpcoesDoProduto(this.tabelaOpcoesDisponiveis, this.getAutenticacao(), this.getCategoriaDoProduto(), this.getNomeDoProduto());
         this.formatarTabelaDeOpcoesDisponiveis();
     }
-    
-    public void formatarTabelaDeOpcoesDisponiveis(){
+
+    /*
+     Descrição: Método para formatação dos dados referentes à tabela de opções disponíveis do produto
+     Parâmetros:
+     Retorno:
+     */
+    public void formatarTabelaDeOpcoesDisponiveis() {
         // Exibição centralizada dos registros
         DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
         centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -60,8 +69,8 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
         this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(0).setMaxWidth(0);
         this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(0).setMinWidth(0);
         this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(0).setPreferredWidth(0);
-        if(this.getCategoriaDoProduto().equals("Pizza")){
-            
+        if (this.getCategoriaDoProduto().equals("Pizza")) {
+
             // Campo de tamanho da pizza
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
 
@@ -72,16 +81,15 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
             // Campo de preço da pizza
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Preço");
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
-        }
-        else{
+        } // Formatação dos campos da tabela para as categorias Lanches, Bebidas e Outros
+        else {
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Descrição");
-            
+
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Preço");
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
         }
-        
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,7 +118,6 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
         setTitle("OpenPizza - Incluir Produto");
         setMaximumSize(new java.awt.Dimension(400, 700));
         setMinimumSize(new java.awt.Dimension(400, 700));
-        setPreferredSize(new java.awt.Dimension(400, 700));
         setResizable(false);
 
         labelProduto.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
@@ -126,7 +133,6 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
         labelIngredientes.setText("Ingredientes:");
 
         labelFoto.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        labelFoto.setText("Foto:");
 
         labelNomeProduto.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
         labelNomeProduto.setText("---");
@@ -214,14 +220,14 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(painelLayout.createSequentialGroup()
                         .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(painelLayout.createSequentialGroup()
                                 .addComponent(labelQuantidade)
                                 .addGap(11, 11, 11)
                                 .addComponent(textFieldQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(labelIngredientes)
-                            .addComponent(painelOpcoesDisponiveis, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelFoto))
+                            .addComponent(painelOpcoesDisponiveis, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         painelLayout.setVerticalGroup(
@@ -244,8 +250,8 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelFoto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,76 +273,134 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Fechar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
-        // TODO add your handling code here:
+        // Habilitar a visualização da Tela de Cardápio e fechar a janela atual
         this.getTelaCardapio().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Incluir
+     Parâmetros:
+     Retorno:
+     */
     private void botaoIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIncluirActionPerformed
-        // TODO add your handling code here:
+        // Recuperação da quantidade informada pelo usuário
         String quantidade = this.textFieldQuantidade.getText();
+
+        // Recuperação do código do produto selecionado na tabela de opções disponíveis
         int codigoDoProduto = (Integer) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 0);
-        if((quantidade.length() > 0) && (Integer.parseInt(quantidade) > 0)){
-            
+
+        // Quantidade informada é válida -> Confirmação de inclusão do produto no pedido
+        if ((quantidade.length() > 0) && (Integer.parseInt(quantidade) > 0)) {
+
+            // Mensagem de confirmação de inclusão
             int confirmarInclusao = JOptionPane.showConfirmDialog(null, "Deseja incluir o item na quantidade selecionada?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
-            if(confirmarInclusao == JOptionPane.OK_OPTION){
+
+            // Confirmação válida -> Tentativa de inclusão do produto no pedido
+            if (confirmarInclusao == JOptionPane.OK_OPTION) {
+
+                // Verificação de instância do produto no pedido
                 boolean consultarProdutoNoPedido = this.getControle().consultarProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto);
-                if(consultarProdutoNoPedido){
-                    boolean atualizarQuantidadeDoProdutoNoPedido = this.getControle().atualizarQuantidadeDoProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), this.getCategoriaDoProduto(),  codigoDoProduto, Integer.parseInt(quantidade));
-                    if(atualizarQuantidadeDoProdutoNoPedido){
+
+                // Produto encontrado -> Tentativa de atualização da quantidade do produto
+                if (consultarProdutoNoPedido) {
+
+                    // Tentativa de atualização da quantidade do produto
+                    boolean atualizarQuantidadeDoProdutoNoPedido = this.getControle().atualizarQuantidadeDoProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), this.getCategoriaDoProduto(), codigoDoProduto, Integer.parseInt(quantidade));
+
+                    // Quantidade atualizada -> Mensagem de aviso
+                    if (atualizarQuantidadeDoProdutoNoPedido) {
                         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else{
+                    } // Quantidade não atualizada -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível atualizar a quantidade do produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                else{
+                } // Produto não encontrado -> Tentativa de inserção do produto
+                else {
                     boolean inserirProduto = false;
-                    if(this.getCategoriaDoProduto().equals("Pizza")){
+
+                    // Verificação da categoria do produto
+                    // Categoria Pizza
+                    if (this.getCategoriaDoProduto().equals("Pizza")) {
+
+                        // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
                         String tamanho = (String) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 1);
                         float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 3);
                         inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), tamanho, preco);
-                    }
-                    else{
+                    } // Demais Categorias (Lanches, Bebida, Outros)
+                    else {
+
+                        // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
                         float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 2);
                         inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), "-", preco);
                     }
 
-                    if(inserirProduto){
+                    // Verificação de inserção do produto no pedido
+                    // Produto inserido -> Mensagem de aviso
+                    if (inserirProduto) {
                         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    }
-                    else{
+                    } // Produto não inserido -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível inserir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+
+                // Habilitar visualização da Tela de Cardápio e fechar tela atual
                 this.getTelaCardapio().setVisible(true);
                 this.dispose();
             }
         }
     }//GEN-LAST:event_botaoIncluirActionPerformed
 
+    /*
+     Descrição: Evento ao clicar na tabela de opções disponíveis
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaOpcoesDisponiveisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaOpcoesDisponiveisMouseClicked
-        // TODO add your handling code here:
+        // Habilitar campo para inserção da quantidade
         this.textFieldQuantidade.setEnabled(true);
+
+        // Recuperação do código do produto
         int codigoDoProduto = (Integer) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 0);
-        if(this.getCategoriaDoProduto().equals("Pizza")){
+
+        // Verificação da categoria do produto
+        // Categoria Pizza -> Tentativa de exibição dos ingredientes
+        if (this.getCategoriaDoProduto().equals("Pizza")) {
             this.getControle().consultarIngredientes(this.textoIngredientes, this.getAutenticacao(), this.getCategoriaDoProduto(), codigoDoProduto);
+            this.getControle().consultarImagemDaPizza(this.labelFoto, this.getAutenticacao(), codigoDoProduto);
         }
-        if(this.getCategoriaDoProduto().equals("Lanche")){
+        // Categoria Lanche -> Tentativa de exibição dos ingredientes
+        if (this.getCategoriaDoProduto().equals("Lanche")) {
             this.getControle().consultarIngredientes(this.textoIngredientes, this.getAutenticacao(), this.getCategoriaDoProduto(), codigoDoProduto);
         }
     }//GEN-LAST:event_tabelaOpcoesDisponiveisMouseClicked
 
+    /*
+     Descrição: Evento ao digitar um caractere no campo de quantidade
+     Parâmetros:
+     Retorno:
+     */
     private void textFieldQuantidadeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldQuantidadeKeyReleased
-        // TODO add your handling code here:
-        try{
+        // Verificação do caractere digitado
+        try {
+            // Recuperação do caractere digitado
             int quantidade = Integer.parseInt(this.textFieldQuantidade.getText());
-            if(quantidade > 0){
-            this.botaoIncluir.setEnabled(true);
+
+            // Caractere válido -> Habilitar botão Incluir
+            if (quantidade > 0) {
+                this.botaoIncluir.setEnabled(true);
             }
-        }
-        catch(Exception e){
+        } // Caractere inválido
+        catch (Exception e) {
+
+            // Desabilitar botão Incluir e apagar caractere digitado no campo quantidade
             this.botaoIncluir.setEnabled(false);
             this.textFieldQuantidade.setText(null);
         }
@@ -394,50 +458,122 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
     private javax.swing.JTextArea textoIngredientes;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get da telaCardapio
+     Parâmetros:
+     Retorno:
+     telaCardapio (Referência à Tela de Cardápio)
+     */
     public New_TelaCardapio getTelaCardapio() {
         return telaCardapio;
     }
 
+    /*
+     Descrição: Método set da telaCardapio
+     Parâmetros:
+     telaCardapio (Referência à Tela de Cardápio)
+     Retorno:
+     */
     public void setTelaCardapio(New_TelaCardapio telaCardapio) {
         this.telaCardapio = telaCardapio;
     }
 
+    /*
+     Descrição: Método get do nomeDoProduto
+     Parâmetros:
+     Retorno:
+     nomeDoProduto (String contendo o nome do produto selecionado na Tela de Cardápio)
+     */
     public String getNomeDoProduto() {
         return nomeDoProduto;
     }
 
+    /*
+     Descrição: Método set do nomeDoProduto
+     Parâmetros:
+     nomeDoProduto (String contendo o nome do produto selecionado na Tela de Cardápio)
+     Retorno:
+     */
     public void setNomeDoProduto(String nomeDoProduto) {
         this.nomeDoProduto = nomeDoProduto;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do numeroDoPedido
+     Parâmetros:
+     Retorno:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     */
     public int getNumeroDoPedido() {
         return numeroDoPedido;
     }
 
+    /*
+     Descrição: Método set do numeroDoPedido
+     Parâmetros:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     Retorno:
+     */
     public void setNumeroDoPedido(int numeroDoPedido) {
         this.numeroDoPedido = numeroDoPedido;
     }
 
+    /*
+     Descrição: Método get da categoriaDoPedido
+     Parâmetros:
+     Retorno:
+     categoriaDoPedido (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro))
+     */
     public String getCategoriaDoProduto() {
         return categoriaDoProduto;
     }
 
+    /*
+     Descrição: Método set da categoriaDoProduto
+     Parâmetros:
+     categoriaDoProduto (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro))
+     Retorno:
+     */
     public void setCategoriaDoProduto(String categoriaDoProduto) {
         this.categoriaDoProduto = categoriaDoProduto;
     }

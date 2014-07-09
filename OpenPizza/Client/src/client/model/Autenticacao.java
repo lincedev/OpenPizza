@@ -1,11 +1,14 @@
-// Revert
+// Pacote Modelo
 package client.model;
 
+// Importação das bibliotecas necessárias
 import java.io.Serializable;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
 
 /*
- Descrição: Classe de autenticação do usuário com o banco de dados
+ Descrição: Classe de Autenticação do usuário com o banco de dados
  */
 public class Autenticacao implements Serializable {
 

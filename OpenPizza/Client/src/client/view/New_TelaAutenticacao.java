@@ -1,38 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package client.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.control.Controle;
 import client.model.Autenticacao;
 import java.io.Serializable;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-
-/**
- *
- * @author lince
+/*
+ Descrição: Tela de Autenticação
  */
 public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializable {
 
+    // Atributos encapsulados
     private Autenticacao autenticacao;
-    
     private Controle controle;
-    
     private JButton botaoPedido;
-    
-    /**
-     * Creates new form New_TelaAutenticacao
+
+    /*
+     Descrição: Construtor padrão da Tela de Autenticação
+     Parâmetros:
+     Retorno:
      */
     private New_TelaAutenticacao() {
         initComponents();
     }
-    
-    public New_TelaAutenticacao(Autenticacao autenticacao, Controle controle, JButton botaoPedido){
+
+    /*
+     Descrição: Construtor completo da Tela de Autenticação
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     botaoPedido (JButton da Tela Principal)
+     Retorno:
+     */
+    public New_TelaAutenticacao(Autenticacao autenticacao, Controle controle, JButton botaoPedido) {
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
@@ -176,42 +179,63 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento disparado ao clicar no Botão Fechar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
-        // TODO add your handling code here:
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
+    /*
+     Descrição: Evento disparado ao clicar no botão Autenticar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAutenticarActionPerformed
-        // TODO add your handling code here:
+
+        // Verificação dos dados informados pelo usuário
         boolean bancoVazio = this.textFieldBancoDeDados.getText().isEmpty();
         boolean usuarioVazio = this.textFieldUsuario.getText().isEmpty();
         boolean senhaVazia = this.textFieldSenha.getText().isEmpty();
-        if(bancoVazio || usuarioVazio || senhaVazia){
+
+        // Campo(s) vazio(s) -> Mensagem de alerta
+        if (bancoVazio || usuarioVazio || senhaVazia) {
             JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else{
+        } // Campos preenchidos -> Tentativa de autenticação dos dados informados
+        else {
+
+            // Recuperação dos dados informados pelo usuário
             Autenticacao tentativaDeAutenticacao = new Autenticacao();
             tentativaDeAutenticacao.setCaminhoBanco(this.textFieldBancoDeDados.getText());
             tentativaDeAutenticacao.setUsuarioBanco(this.textFieldUsuario.getText());
             tentativaDeAutenticacao.setUsuarioSenha(this.textFieldSenha.getText());
-            
+
+            // Tentativa de verificação da conexão
             boolean verificarConexao = this.getControle().verificarConexao(tentativaDeAutenticacao);
-            if(verificarConexao){
+
+            // Conexão válida -> Tentativa de salvamento dos dados
+            if (verificarConexao) {
+
+                // Tentativa de salvamento dos dados
                 boolean salvarAutenticacao = this.getControle().salvarAutenticacao(tentativaDeAutenticacao);
-                if(salvarAutenticacao){
+
+                // Dados salvos -> Atualização do objeto de autenticação em tempo de execução, habilitação do botão de Pedido na Tela de Pedido e mensagem de aviso
+                if (salvarAutenticacao) {
                     this.getAutenticacao().setCaminhoBanco(tentativaDeAutenticacao.getCaminhoBanco());
                     this.getAutenticacao().setUsuarioBanco(tentativaDeAutenticacao.getUsuarioBanco());
                     this.getAutenticacao().setUsuarioSenha(tentativaDeAutenticacao.getUsuarioSenha());
-                    
                     this.getBotaoPedido().setEnabled(true);
                     JOptionPane.showMessageDialog(null, "Autenticação efetuada com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
-                }
-                else{
+                } // Dados não salvos -> Mensagem de erro
+                else {
                     JOptionPane.showMessageDialog(null, "Não foi possível salvar a autenticação.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
-            }
-            else{
+            } // Conexão inválida -> Reiniciar valores dos campos de texto e mensagem de erro
+            else {
                 this.textFieldBancoDeDados.setText(null);
                 this.textFieldUsuario.setText(null);
                 this.textFieldSenha.setText(null);
@@ -267,26 +291,62 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
     private javax.swing.JTextField textFieldUsuario;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get do botão Pedido
+     Parâmetros:
+     Retorno:
+     botaoPedido (Botão Pedido da Tela Principal)
+     */
     public JButton getBotaoPedido() {
         return botaoPedido;
     }
 
+    /*
+     Descrição: Método set do botaoPedido
+     Parâmetros:
+     botaoPedido (Botão Pedido da Tela Principal)
+     Retorno:
+     */
     public void setBotaoPedido(JButton botaoPedido) {
         this.botaoPedido = botaoPedido;
     }

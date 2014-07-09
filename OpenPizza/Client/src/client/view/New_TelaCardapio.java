@@ -1,10 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Pacote View
 package client.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.control.Controle;
 import client.model.Autenticacao;
 import javax.swing.ImageIcon;
@@ -12,27 +9,35 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- *
- * @author lince
+/*
+ Descrição: Tela de Cardápio
  */
 public class New_TelaCardapio extends javax.swing.JFrame {
 
+    // Atributos encapsulados
     private New_TelaPedido telaPedido;
-
     private Autenticacao autenticacao;
-
     private Controle controle;
-    
     private int numeroDoPedido;
 
-    /**
-     * Creates new form New_TelaCardapio
+    /*
+     Descrição: Construtor padrão da Tela de Cardápio
+     Parâmetros:
+     Retorno:
      */
     private New_TelaCardapio() {
         initComponents();
     }
 
+    /*
+     Descrição: Construtor completo da Tela de Cardápio
+     Parâmetros:
+     telaPedido (Referência da Tela de Pedido)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     Retorno:
+     */
     public New_TelaCardapio(New_TelaPedido telaPedido, Autenticacao autenticacao, Controle controle, int numeroDoPedido) {
         this();
         this.setTelaPedido(telaPedido);
@@ -205,15 +210,25 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento do botão Fechar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
-        // TODO add your handling code here:
+        // Atualizar a tabela de itens do pedido, habilitar visualização da Tela de Pedido e fechar a janela atual
         this.getTelaPedido().formatarTabelaItensDoPedido();
         this.getTelaPedido().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
+    /*
+     Descrição: Evento ao clicar na tabela de Pizzas
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaPizzasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaPizzasMouseClicked
-        // TODO add your handling code here:
+        // Desabilitar a janela atual, recuperar o nome da pizza selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDaPizza = String.valueOf(this.tabelaPizzas.getValueAt(this.tabelaPizzas.getSelectedRow(), 0));
         New_TelaIncluirProduto telaIncluirPizza = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Pizza", nomeDaPizza, this.getNumeroDoPedido());
@@ -221,22 +236,33 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         telaIncluirPizza.setVisible(true);
     }//GEN-LAST:event_tabelaPizzasMouseClicked
 
+    /*
+     Descrição: Evento ao clicar em uma guia de produtos (Pizza, Lanche, Bebida, Outros)
+     Parâmetros:
+     Retorno:
+     */
     private void painelProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelProdutosMouseClicked
-        // TODO add your handling code here:
+        // Recuperação da guia escolhida
         int indiceEscolhido = this.painelProdutos.getSelectedIndex();
+
         JTable tabela;
+
+        // Guia Pizzas -> Exibir cardápio de Pizzas
         if (indiceEscolhido <= 0) {
             this.getControle().consultarCardapio(this.tabelaPizzas, this.getAutenticacao(), "Pizza");
             tabela = this.tabelaPizzas;
-        } else if (indiceEscolhido == 1) {
+        } // Guia Lanches -> Exibir cardápio de Lanches
+        else if (indiceEscolhido == 1) {
             //this.getControle().consultarCardapioLanches(this.tabelaLanches, this.getAutenticacao());
             this.getControle().consultarCardapio(this.tabelaLanches, this.getAutenticacao(), "Lanche");
             tabela = this.tabelaLanches;
-        } else if (indiceEscolhido == 2) {
+        } // Guia Bebidas -> Exibir cardápio de Bebidas
+        else if (indiceEscolhido == 2) {
             //this.getControle().consultarCardapioBebidas(this.tabelaBebidas, this.getAutenticacao());
             this.getControle().consultarCardapio(this.tabelaBebidas, this.getAutenticacao(), "Bebida");
             tabela = this.tabelaBebidas;
-        } else {
+        } // Guia Outros -> Exibir cardápio de Outros
+        else {
             //this.getControle().consultarCardapioOutros(this.tabelaOutros, this.getAutenticacao());
             this.getControle().consultarCardapio(this.tabelaOutros, this.getAutenticacao(), "Outro");
             tabela = this.tabelaOutros;
@@ -251,8 +277,13 @@ public class New_TelaCardapio extends javax.swing.JFrame {
 
     }//GEN-LAST:event_painelProdutosMouseClicked
 
+    /*
+     Descrição: Evento ao clicar na tabela de Lanches
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaLanchesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaLanchesMouseClicked
-        // TODO add your handling code here:
+        // Desabilitar a janela atual, recuperar o nome da lanche selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaLanches.getValueAt(this.tabelaLanches.getSelectedRow(), 0));
         New_TelaIncluirProduto telaIncluirLanche = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Lanche", nomeDoLanche, this.getNumeroDoPedido());
@@ -260,8 +291,13 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         telaIncluirLanche.setVisible(true);
     }//GEN-LAST:event_tabelaLanchesMouseClicked
 
+    /*
+     Descrição: Evento ao clicar na tabela de Bebidas
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaBebidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaBebidasMouseClicked
-        // TODO add your handling code here:
+        // Desabilitar a janela atual, recuperar o nome da bebida selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0));
         New_TelaIncluirProduto telaIncluirBebidas = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Bebida", nomeDoLanche, this.getNumeroDoPedido());
@@ -269,8 +305,13 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         telaIncluirBebidas.setVisible(true);
     }//GEN-LAST:event_tabelaBebidasMouseClicked
 
+    /*
+     Descrição: Evento ao clicar na tabela de Outros
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaOutrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaOutrosMouseClicked
-        // TODO add your handling code here:
+        // Desabilitar a janela atual, recuperar o nome do outro selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaOutros.getValueAt(this.tabelaOutros.getSelectedRow(), 0));
         New_TelaIncluirProduto telaIncluirOutros = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Outro", nomeDoLanche, this.getNumeroDoPedido());
@@ -327,34 +368,82 @@ public class New_TelaCardapio extends javax.swing.JFrame {
     private javax.swing.JTable tabelaPizzas;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get da telaPedido
+     Parâmetros:
+     Retorno:
+     telaPedido (Referência à Tela de Pedido)
+     */
     public New_TelaPedido getTelaPedido() {
         return telaPedido;
     }
 
+    /*
+     Descrição: Método set da telaPedido
+     Parâmetros:
+     telaPedido (Referência à Tela de Pedido)
+     Retorno:
+     */
     public void setTelaPedido(New_TelaPedido telaPedido) {
         this.telaPedido = telaPedido;
     }
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get do numeroDoPedido
+     Parâmetros:
+     Retorno:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     */
     public int getNumeroDoPedido() {
         return numeroDoPedido;
     }
 
+    /*
+     Descrição: Método set do numeroDoPedido
+     Parâmetros:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     Retorno:
+     */
     public void setNumeroDoPedido(int numeroDoPedido) {
         this.numeroDoPedido = numeroDoPedido;
     }

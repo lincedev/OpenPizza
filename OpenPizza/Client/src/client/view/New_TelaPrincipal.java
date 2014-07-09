@@ -1,39 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package client.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.control.Controle;
 import client.model.Autenticacao;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lince
+/*
+ Descrição: Tela Principal
  */
 public class New_TelaPrincipal extends javax.swing.JFrame {
 
+    // Atributos encapsulados
     private Autenticacao autenticacao;
-    
     private Controle controle;
-    
-    /**
-     * Creates new form New_TelaPrincipal
+
+    /*
+     Descrição: Construtor padrão da Tela Principal
+     Parâmetros:
+     Retorno:
      */
     private New_TelaPrincipal() {
         initComponents();
     }
-    
-    public New_TelaPrincipal(Autenticacao autenticacao, Controle controle){
+
+    /*
+     Descrição: Construtor completo da Tela Principal
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public New_TelaPrincipal(Autenticacao autenticacao, Controle controle) {
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
         boolean verificarAutenticacao = this.getControle().verificarAutenticacao(this.botaoAutenticar, this.botaoPedido, this.getAutenticacao());
-        if(!verificarAutenticacao){
+        if (!verificarAutenticacao) {
             JOptionPane.showMessageDialog(null, "Sua conexão não foi autenticada automaticamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
@@ -145,29 +149,48 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Sair
+     Parâmetros:
+     Retorno:
+     */
     private void botaoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSairActionPerformed
-        // TODO add your handling code here:
+        // Finalizar aplicação
         System.exit(0);
     }//GEN-LAST:event_botaoSairActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Pedido
+     Parâmetros:
+     Retorno:
+     */
     private void botaoPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoPedidoActionPerformed
-        // TODO add your handling code here:
+        // Recuperação dos dados de autenticação
+        this.getControle().recuperarDadosAutenticacao(this.getAutenticacao());
 
-        this.setAutenticacao(this.getControle().recuperarDadosAutenticacao());
+        // Tentativa de verificação dos dados salvos
         boolean verificarAutenticacao = this.getControle().verificarConexao(autenticacao);
+
+        // Autenticação válida -> Desabilitar visualização da tela atual e criar Tela de Pedido
         if (verificarAutenticacao) {
             this.setVisible(false);
             New_TelaPedido telaPedido = new New_TelaPedido(this, this.getAutenticacao(), this.getControle());
             telaPedido.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
             telaPedido.setVisible(true);
-        } else {
+        } // Autenticação inválida -> Mensagem de erro
+        else {
             JOptionPane.showMessageDialog(null, "Sua conexão não foi autenticada.\nUtilize o menu para fazê-la.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_botaoPedidoActionPerformed
 
+    /*
+     Descrição: Evento do botão Autenticar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAutenticarActionPerformed
-        // TODO add your handling code here:
+        // Criar e habilitar visualização da Tela de Autenticação
         New_TelaAutenticacao telaAutenticacao = new New_TelaAutenticacao(this.getAutenticacao(), this.getControle(), this.botaoPedido);
         telaAutenticacao.setVisible(true);
     }//GEN-LAST:event_botaoAutenticarActionPerformed
@@ -215,18 +238,42 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel painel;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }

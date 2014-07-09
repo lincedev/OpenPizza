@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package client.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import client.control.Controle;
 import client.model.Autenticacao;
 import javax.swing.ImageIcon;
@@ -13,59 +9,81 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 
-/**
- *
- * @author lince
+/*
+ Descrição: Tela de Pedido
  */
 public class New_TelaPedido extends javax.swing.JFrame {
 
+    // Atributos encapsulados
     private New_TelaPrincipal telaPrincipal;
-
     private Autenticacao autenticacao;
-    
     private Controle controle;
-    
     private int numeroDoPedido;
-    
-    /**
-     * Creates new form New_TelaPedido
+
+    /*
+     Descrição: Construtor padrão da Tela de Pedido
+     Parâmetros:
+     Retorno:
      */
     private New_TelaPedido() {
         initComponents();
     }
-    
-    public New_TelaPedido(New_TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle){
+
+    /*
+     Descrição: Construtor completo da Tela de Pedido
+     Parâmetros:
+     telaPrincipal (Referência à Tela Principal)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para conexão com o banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public New_TelaPedido(New_TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
         this.setTelaPrincipal(telaPrincipal);
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
         boolean preencherComboboxDasMesas = controle.preencherComboboxDasMesas(this.comboboxMesas, autenticacao);
-        if(!preencherComboboxDasMesas){
+        if (!preencherComboboxDasMesas) {
             JOptionPane.showMessageDialog(null, "Não foi possível recuperar as mesas cadastradas.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public void formatarTabelaItensDoPedido(){
+
+    /*
+     Descrição: Método para formatação da tabela de itens do pedido
+     Parâmetros:
+     Retorno:
+     */
+    public void formatarTabelaItensDoPedido() {
+
+        // Atualização da label de número do pedido
         this.labelNumeroDoPedido.setText(String.valueOf(this.getNumeroDoPedido()));
+
+        // Recuperação dos itens referentes ao número do pedido
         this.controle.consultarItensDoPedido(this.tabelaItensDoPedido, getNumeroDoPedido(), this.getAutenticacao());
 
+        // Centralizar texto da tabela
         DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
         centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
 
+        // Coluna Produto
         this.tabelaItensDoPedido.getColumnModel().getColumn(0).setHeaderValue("Produto");
 
+        // Coluna Tamanho
         this.tabelaItensDoPedido.getColumnModel().getColumn(1).setHeaderValue("Tamanho");
         this.tabelaItensDoPedido.getColumnModel().getColumn(1).setPreferredWidth(12);
         this.tabelaItensDoPedido.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
 
+        // Coluna Qtde
         this.tabelaItensDoPedido.getColumnModel().getColumn(2).setHeaderValue("Qtde");
         this.tabelaItensDoPedido.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
         this.tabelaItensDoPedido.getColumnModel().getColumn(2).setPreferredWidth(6);
 
+        // Coluna Preço
         this.tabelaItensDoPedido.getColumnModel().getColumn(3).setHeaderValue("Preço");
         this.tabelaItensDoPedido.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
         this.tabelaItensDoPedido.getColumnModel().getColumn(3).setPreferredWidth(10);
 
+        // Recuperação e atualização da label com o valor total do pedido
         float valorDoPedido = this.controle.consultarValorDoPedido(getNumeroDoPedido(), this.getAutenticacao());
         this.labelTotalDoPedido.setText(String.valueOf(valorDoPedido));
     }
@@ -245,86 +263,142 @@ public class New_TelaPedido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Fechar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
-        // TODO add your handling code here:
+        // Habilitar visualização da Tela Principal e fechar janela atual
         this.getTelaPrincipal().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botaoFecharActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Cardápio
+     Parâmetros:
+     Retorno:
+     */
     private void botaoCardapioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCardapioActionPerformed
-        // TODO add your handling code here:
+        // Desabilitar visualização da janela atual e criar Tela de Cardápio
         this.setVisible(false);
         New_TelaCardapio telaCardapio = new New_TelaCardapio(this, this.getAutenticacao(), this.getControle(), this.getNumeroDoPedido());
         telaCardapio.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaCardapio.setVisible(true);
     }//GEN-LAST:event_botaoCardapioActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Finalizar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFinalizarActionPerformed
-        // TODO add your handling code here:
+        // Recuperação do valor total do pedido
         float valorDoPedido = this.getControle().consultarValorDoPedido(this.getNumeroDoPedido(), this.getAutenticacao());
-        if(valorDoPedido > 0){
+
+        // Verificação do valor do pedido
+        // Valor válido (maior do que zero) -> Confirmação de finalização do pedido
+        if (valorDoPedido > 0) {
+
+            // Mensagem de confirmação
             int confirmacaoDeFinalizacao = JOptionPane.showConfirmDialog(null, "Deseja finalizar o pedido atual?\nEssa ação não poderá ser desfeita.", "Confirmação", JOptionPane.OK_CANCEL_OPTION);
-            if(confirmacaoDeFinalizacao == JOptionPane.OK_OPTION){
+
+            // Confirmação válida -> Escolha da forma de pagamento
+            if (confirmacaoDeFinalizacao == JOptionPane.OK_OPTION) {
+
+                // Opções de pagamento
                 Object[] formaDePagamento = {"Dinheiro", "Cartão"};
+
+                // Confirmação da forma de pagamento
                 int opcaoDePagamento = JOptionPane.showOptionDialog(null, "Escolha a forma de pagamento:", "Forma de Pagamento", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, formaDePagamento, null);
+
+                // Tentativa de finalização de pedido
                 boolean finalizarPedido = this.getControle().finalizarPedido(this.getAutenticacao(), this.getNumeroDoPedido(), String.valueOf(formaDePagamento[opcaoDePagamento]), valorDoPedido);
-                if(finalizarPedido){
+
+                // Pedido finalizado -> Mensagem de aviso
+                if (finalizarPedido) {
                     JOptionPane.showMessageDialog(null, "Pedido finalizado com sucesso", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     this.comboboxMesas.setSelectedIndex(0);
-                }
-                else{
+                } // Pedido não finalizado -> Mensagem de erro
+                else {
                     JOptionPane.showMessageDialog(null, "Não foi possível finalizar o pedido atual.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
-        }
-        else{
+        } // Valor inválido (menor ou igual a zero) -> Confirmação de cancelamento do pedido
+        else {
+
+            // Mensagem de confirmação
             int confirmacaoDeCancelamento = JOptionPane.showConfirmDialog(null, "O pedido atual não contém itens.\nDeseja cancelar o pedido?", "Cancelar Pedido", JOptionPane.OK_CANCEL_OPTION);
-            if(confirmacaoDeCancelamento == JOptionPane.OK_OPTION){
+
+            // Confirmação válida -> Tentativa de cancelamento do pedido
+            if (confirmacaoDeCancelamento == JOptionPane.OK_OPTION) {
                 boolean cancelarPedido = this.getControle().cancelarPedido(this.getAutenticacao(), this.getNumeroDoPedido());
-                if(cancelarPedido){
+
+                // Pedido cancelado -> Mensagem de aviso
+                if (cancelarPedido) {
                     JOptionPane.showMessageDialog(null, "Pedido cancelado com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     this.comboboxMesas.setSelectedIndex(0);
-                }
-                else{
+                } // Pedido não cancelado -> Mensagem de erro
+                else {
                     JOptionPane.showMessageDialog(null, "Não foi possível cancelar o pedido atual.", "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
     }//GEN-LAST:event_botaoFinalizarActionPerformed
 
+    /*
+     Descrição: Evento ao selecionar uma mesa da combobox
+     Parâmetros:
+     Retorno:
+     */
     private void comboboxMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboboxMesasActionPerformed
-        // TODO add your handling code here:
-        if(this.comboboxMesas.getSelectedIndex() > 0){
+        // Verificação da opção escolhida da combobox
+        // Opção diferente da primeira
+        if (this.comboboxMesas.getSelectedIndex() > 0) {
+
+            // Habilitar tabela de exibição de itens do pedido, botões Cardápio e Finalizar
             this.tabelaItensDoPedido.setVisible(true);
             this.botaoCardapio.setEnabled(true);
             this.botaoFinalizar.setEnabled(true);
+
+            // Tentativa de recuperação do número do pedido
             int consultarNumeroDoPedido = this.controle.consultarNumeroDoPedido(this.comboboxMesas.getSelectedIndex(), this.getAutenticacao());
             this.setNumeroDoPedido(consultarNumeroDoPedido);
-            if(this.getNumeroDoPedido() >= 0){
+
+            // Pedido encontrado -> Exibição dos itens referentes ao pedido
+            if (this.getNumeroDoPedido() >= 0) {
                 this.formatarTabelaItensDoPedido();
-            }
-            else{
+            } // Pedido não encontrado -> Tentativa de abertura de novo pedido
+            else {
                 this.botaoCardapio.setEnabled(false);
+
+                // Confirmação de novo pedido
                 int confirmacaoDeNovoPedido = JOptionPane.showConfirmDialog(null, "A mesa informada não tem pedido em aberto.\nDeseja abrir um novo pedido?", "Aviso", JOptionPane.OK_CANCEL_OPTION);
-                if(confirmacaoDeNovoPedido == JOptionPane.OK_OPTION){
+
+                // Confirmação válida -> Abrir novo pedido
+                if (confirmacaoDeNovoPedido == JOptionPane.OK_OPTION) {
+
+                    // Tentativa de inserção de novo pedido
                     boolean inserirPedido = this.getControle().inserirPedido(this.comboboxMesas.getSelectedIndex(), this.getAutenticacao());
-                    if(inserirPedido){
+
+                    // Pedido inserido -> Atualizar label do número do pedido, consultar e exibir itens do pedido e habilitar botão Cardápio
+                    if (inserirPedido) {
                         consultarNumeroDoPedido = this.controle.consultarNumeroDoPedido(this.comboboxMesas.getSelectedIndex(), this.getAutenticacao());
                         this.setNumeroDoPedido(consultarNumeroDoPedido);
                         this.getControle().consultarItensDoPedido(this.tabelaItensDoPedido, getNumeroDoPedido(), this.getAutenticacao());
                         this.formatarTabelaItensDoPedido();
                         this.botaoCardapio.setEnabled(true);
-                    }
-                    else{
+                    } // Pedido não inserido -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível inserir um novo pedido.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
-                }
-                else{
+                } // Confirmação inválida -> Selecionar primeiro elemento da combobox
+                else {
                     this.comboboxMesas.setSelectedIndex(0);
                 }
             }
-        }
-        else{
+        } // Primeira opção escolhida -> Reiniciar labels de número do pedido e valor do pedido, desabilitar tabela de itens do pedido, botões Cardápio e Finalizar
+        else {
             this.labelNumeroDoPedido.setText("----------");
             this.tabelaItensDoPedido.setVisible(false);
             this.labelTotalDoPedido.setText("0.00");
@@ -383,34 +457,82 @@ public class New_TelaPedido extends javax.swing.JFrame {
     private javax.swing.JTable tabelaItensDoPedido;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get da telaPrincipal
+     Parâmetros:
+     Retorno:
+     telaPrincipal (Referência à Tela Principal)
+     */
     public New_TelaPrincipal getTelaPrincipal() {
         return telaPrincipal;
     }
 
+    /*
+     Descrição: Método set da telaPrincipal
+     Parâmetros:
+     telaCardapio (Referência à Tela Principal)
+     Retorno:
+     */
     public void setTelaPrincipal(New_TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
     }
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get do numeroDoPedido
+     Parâmetros:
+     Retorno:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     */
     public int getNumeroDoPedido() {
         return numeroDoPedido;
     }
 
+    /*
+     Descrição: Método set do numeroDoPedido
+     Parâmetros:
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     Retorno:
+     */
     public void setNumeroDoPedido(int numeroDoPedido) {
         this.numeroDoPedido = numeroDoPedido;
     }
