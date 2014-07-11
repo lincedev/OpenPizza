@@ -102,6 +102,7 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
         buttonCancelarCadastroOutros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OpenPizza - Novo Outro");
         setMaximumSize(new java.awt.Dimension(270, 300));
         setMinimumSize(new java.awt.Dimension(270, 300));
 
@@ -195,6 +196,7 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textDescricaoOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoOutrosActionPerformed

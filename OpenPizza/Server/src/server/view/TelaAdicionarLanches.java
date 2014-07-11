@@ -113,7 +113,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         buttonCancelarCadastroLanche = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar - Lanches");
+        setTitle("OpenPizza - Novo Lanche");
         setMaximumSize(new java.awt.Dimension(270, 300));
         setMinimumSize(new java.awt.Dimension(270, 300));
         setPreferredSize(new java.awt.Dimension(270, 300));
@@ -232,6 +232,7 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textDescricaoLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoLancheActionPerformed

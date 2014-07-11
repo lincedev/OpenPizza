@@ -1,62 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela de CRUD das Mesas
  */
 public class TelaCRUDMesas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCRUDMesas
-     */
-    
+    // Variáveis encapsuladas
     private Controle controle;
-    
-    // Variável para armazenar a tela CRUDOutros
     private TelaPrincipal janelaPrincipal;
-    
-    // Variável para armazenar a autenticação do banco de dados
-    private Autenticacao autenticacaoServer;
-    
-    
+    private Autenticacao autenticacao;
+
     /*
      Descrição: Construtor padrão da Tela CRUD Mesas.
      Parâmetros:
      Retorno:
-     Data Última Alteração: 03/07/2014 
      */
     private TelaCRUDMesas() {
         initComponents();
     }
 
-    public TelaCRUDMesas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
+    /*
+     Descrição: Construtor completo da Tela CRUD Mesas
+     Parâmetros:
+     janelaPrincipal (Referência à TelaPrincipal)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaCRUDMesas(TelaPrincipal janelaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
-        this.setAutenticacaoServer(autenticacaoServer);
+        this.setAutenticacao(autenticacao);
         this.setJanelaPrincipal(janelaPrincipal);
         this.setControle(controle);
-        this.getControle().exibirProdutos(this.getAutenticacaoServer(), this.tabelaCRUDMesas, "Mesa");
+        this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
     }
-
-    
+   
     /*
      Descrição: Método para exibição de Outros cadastrados
      Parâmetros:
@@ -71,10 +62,10 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
             String query = null;
             JTable tabelaMesas = null;
             
-            query = "SELECT m.numero FROM Mesa AS m";
+            query = "SELECT * FROM Mesa";
             
             // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
-            Connection con = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
+            Connection con = DriverManager.getConnection(this.getAutenticacao().getCaminhoBanco(), this.getAutenticacao().getUsuarioBanco(), this.getAutenticacao().getUsuarioSenha());
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -275,11 +266,14 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoVoltarTelaCRUDMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaCRUDMesasActionPerformed
-            // TODO add your handling code here:
+        // Fechar janela atual
         this.dispose();
-        
-        
     }//GEN-LAST:event_botaoVoltarTelaCRUDMesasActionPerformed
 
     /**
@@ -348,11 +342,11 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         this.janelaPrincipal = janelaPrincipal;
     }
 
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
     }
 
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
     }
 }

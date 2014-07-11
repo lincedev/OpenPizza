@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package server.view;
 
 import java.sql.Connection;
@@ -28,14 +27,13 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     /**
      * Creates new form TelaCRUDOutros
      */
-    
     private Controle controle;
-     // Variável para armazenamento da tela principal.
+    // Variável para armazenamento da tela principal.
     private TelaPrincipal janelaPrincipal;
 
     // Variável para armazenamento dos dados de autenticação do banco de dados.
-    private Autenticacao autenticacaoServer;    
-    
+    private Autenticacao autenticacaoServer;
+
     /*
      Descrição: Construtor padrão da janela de CRUD Outros.
      Parâmetros:
@@ -45,14 +43,14 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     private TelaCRUDOutros() {
         initComponents();
     }
-    
+
     /*
      Descrição: Construtor completo da janela de CRUD de pizzas.
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
+     autenticacao (Necessário para realizar operações no banco de dados)
      Retorno:
      Data Última Alteração: 22/05/2014 
-    */
+     */
     public TelaCRUDOutros(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
         this();
         this.setJanelaPrincipal(janelaPrincipal);
@@ -60,28 +58,26 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         this.setControle(controle);
         this.getControle().exibirProdutos(autenticacaoServer, tabelaOutros, "Outro");
     }
-    
+
     /*
      Descrição: Método set para a variável janelaPrincipal.
      Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     janelaPrincipal (Necessário para controle dos métodos da janela principal)
      Retorno:
-     Data Última Alteração: 22/05/2014
-    */
+     */
     public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
-    
+
     /*
      Descrição: Método get para a variável janelaPrincipal
      Parâmetros:
      Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 22/05/2014 
-    */
+     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
-    }        
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,7 +88,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        oainel = new javax.swing.JPanel();
+        painel = new javax.swing.JPanel();
         painelOutros = new javax.swing.JScrollPane();
         tabelaOutros = new javax.swing.JTable();
         JPanelMenuCRUDOutros = new javax.swing.JPanel();
@@ -111,11 +107,6 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         tabelaOutros.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tabelaOutros.setRowHeight(25);
@@ -223,22 +214,22 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout oainelLayout = new javax.swing.GroupLayout(oainel);
-        oainel.setLayout(oainelLayout);
-        oainelLayout.setHorizontalGroup(
-            oainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(oainelLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addGap(85, 85, 85)
                 .addComponent(JPanelMenuCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(oainelLayout.createSequentialGroup()
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelOutros, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        oainelLayout.setVerticalGroup(
-            oainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(oainelLayout.createSequentialGroup()
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -250,42 +241,46 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(oainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(oainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-             
+
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
-        this.getJanelaPrincipal().setVisible(true);
-        this.getJanelaPrincipal().setEnabled(true);
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Adicionar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
+        // Criar e habilitar visualização da Tela para Adicionar Outros
         TelaAdicionarOutros addOutros = new TelaAdicionarOutros(this, this.autenticacaoServer);
         addOutros.setVisible(true);
-        addOutros.setEnabled(true);
-        this.setEnabled(false);
-        addOutros.setLocationRelativeTo(null);
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
         controle.exibirOutrosCadastrados(this.autenticacaoServer, this.tabelaOutros);
     }//GEN-LAST:event_botaoAtualizarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        this.dispose();
-        this.getJanelaPrincipal().setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -332,7 +327,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     private javax.swing.JLabel labelAtualizar;
     private javax.swing.JLabel labelExcluir;
     private javax.swing.JLabel labelVoltar;
-    private javax.swing.JPanel oainel;
+    private javax.swing.JPanel painel;
     private javax.swing.JScrollPane painelOutros;
     private javax.swing.JTable tabelaOutros;
     // End of variables declaration//GEN-END:variables

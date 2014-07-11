@@ -79,19 +79,19 @@ public class Banco {
         try{
             String query;
             if(categoriaDoProduto.equals("Pizza")){
-                query = "SELECT p.descricao, pp.preco, pp.tamanho , pp.fatias FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
+                query = "SELECT p.descricao AS 'Descrição', pp.preco AS 'Preço', pp.tamanho AS 'Tamanho' , pp.fatias AS 'Fatias' FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
             }
             else if(categoriaDoProduto.equals("Lanche")){
-                query = "SELECT p.descricao, l.preco FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
+                query = "SELECT p.descricao AS 'Descrição', l.preco AS 'Preço' FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
             }
             else if(categoriaDoProduto.equals("Bebida")){
-                query = "SELECT p.codigo, p.descricao, b.preco FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
+                query = "SELECT p.codigo, p.descricao AS 'Descrição', b.preco AS 'Preço' FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
             }
             else if(categoriaDoProduto.equals("Outro")){
-                query = "SELECT p.descricao, o.preco FROM Produto AS p JOIN Outros AS o ON p.codigo = o.codProduto";
+                query = "SELECT p.descricao AS 'Descrição', o.preco AS 'Preço' FROM Produto AS p JOIN Outros AS o ON p.codigo = o.codProduto";
             }
             else{
-                query = "SELECT m.numero FROM Mesa AS m";
+                query = "SELECT numero AS 'Número', ativo AS 'Ativo' FROM Mesa";
             }
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();

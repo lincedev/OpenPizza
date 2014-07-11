@@ -142,7 +142,7 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
         comboBoxTamanhoPizzas = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar - Pizza");
+        setTitle("OpenPizza - Nova Pizza");
         setMaximumSize(new java.awt.Dimension(300, 300));
         setMinimumSize(new java.awt.Dimension(300, 300));
         setPreferredSize(new java.awt.Dimension(300, 300));

@@ -103,7 +103,7 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         buttonCancelarCadastroBebida = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Adicionar - Bebidas");
+        setTitle("OpenPizza - Nova Bebida");
         setMaximumSize(new java.awt.Dimension(270, 300));
         setMinimumSize(new java.awt.Dimension(270, 300));
         setPreferredSize(new java.awt.Dimension(270, 300));
@@ -198,6 +198,7 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         painelCadastroBebidas.getAccessibleContext().setAccessibleName("");
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void textDescricaoBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoBebidaActionPerformed
