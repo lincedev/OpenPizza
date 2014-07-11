@@ -6,17 +6,30 @@
 
 package server.view;
 
+import server.controle.Controle;
+import server.modelo.Autenticacao;
+
 /**
  *
  * @author Gustavo
  */
 public class ExibirProdutosCadastrados extends javax.swing.JFrame {
 
+    private Autenticacao autenticacao;
+    private Controle controle;
+    
     /**
      * Creates new form produtosCadastrados
      */
-    public ExibirProdutosCadastrados() {
+    private ExibirProdutosCadastrados() {
         initComponents();
+    }
+    
+    public ExibirProdutosCadastrados(Autenticacao autenticacao, Controle controle){
+        this();
+        this.setAutenticacao(autenticacao);
+        this.setControle(controle);
+        this.painelProdutosMouseClicked(null);
     }
 
     /**
@@ -28,45 +41,171 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botãoVoltarTelaProdutosCadastrados = new javax.swing.JButton();
+        painel = new javax.swing.JPanel();
+        botaoVoltar = new javax.swing.JButton();
+        painelProdutos = new javax.swing.JTabbedPane();
+        painelPizzas = new javax.swing.JScrollPane();
+        tabelaPizzas = new javax.swing.JTable();
+        painelLanches = new javax.swing.JScrollPane();
+        tabelaLanches = new javax.swing.JTable();
+        painelBebidas = new javax.swing.JScrollPane();
+        tabelaBebidas = new javax.swing.JTable();
+        painelOutros = new javax.swing.JScrollPane();
+        tabelaOutros = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Produtos Cadastrados");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OpenPizza - Produtos Cadastrados");
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
-        botãoVoltarTelaProdutosCadastrados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botãoVoltarTelaProdutosCadastrados.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botãoVoltarTelaProdutosCadastradosActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
+
+        painelProdutos.setFont(new java.awt.Font("Cantarell", 0, 17)); // NOI18N
+        painelProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                painelProdutosMouseClicked(evt);
+            }
+        });
+
+        tabelaPizzas.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        tabelaPizzas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaPizzas.setRowHeight(25);
+        tabelaPizzas.setRowMargin(5);
+        painelPizzas.setViewportView(tabelaPizzas);
+
+        painelProdutos.addTab("Pizzas", painelPizzas);
+
+        tabelaLanches.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        tabelaLanches.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaLanches.setRowHeight(25);
+        tabelaLanches.setRowMargin(5);
+        painelLanches.setViewportView(tabelaLanches);
+
+        painelProdutos.addTab("Lanches", painelLanches);
+
+        tabelaBebidas.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        tabelaBebidas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaBebidas.setRowHeight(25);
+        tabelaBebidas.setRowMargin(5);
+        painelBebidas.setViewportView(tabelaBebidas);
+
+        painelProdutos.addTab("Bebidas", painelBebidas);
+
+        tabelaOutros.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        tabelaOutros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaOutros.setRowHeight(25);
+        tabelaOutros.setRowMargin(5);
+        painelOutros.setViewportView(tabelaOutros);
+
+        painelProdutos.addTab("Outros", painelOutros);
+
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(painelProdutos, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botãoVoltarTelaProdutosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(439, Short.MAX_VALUE)
-                .addComponent(botãoVoltarTelaProdutosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botãoVoltarTelaProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botãoVoltarTelaProdutosCadastradosActionPerformed
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_botãoVoltarTelaProdutosCadastradosActionPerformed
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    private void painelProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelProdutosMouseClicked
+        // TODO add your handling code here:
+        switch(this.painelProdutos.getSelectedIndex()){
+            case 0:
+                this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaPizzas, "Pizza");
+                this.tabelaPizzas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+                break;
+               
+            case 1:
+                this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaLanches, "Lanche");
+                this.tabelaLanches.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+                break;
+               
+            case 2:
+                this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaBebidas, "Bebida");
+                this.tabelaBebidas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+                break;
+               
+            case 3:
+                this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaOutros, "Outro");
+                this.tabelaOutros.getColumnModel().getColumn(0).setHeaderValue("Descrição");
+                break;
+        }
+    }//GEN-LAST:event_painelProdutosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -104,6 +243,32 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botãoVoltarTelaProdutosCadastrados;
+    private javax.swing.JButton botaoVoltar;
+    private javax.swing.JPanel painel;
+    private javax.swing.JScrollPane painelBebidas;
+    private javax.swing.JScrollPane painelLanches;
+    private javax.swing.JScrollPane painelOutros;
+    private javax.swing.JScrollPane painelPizzas;
+    private javax.swing.JTabbedPane painelProdutos;
+    private javax.swing.JTable tabelaBebidas;
+    private javax.swing.JTable tabelaLanches;
+    private javax.swing.JTable tabelaOutros;
+    private javax.swing.JTable tabelaPizzas;
     // End of variables declaration//GEN-END:variables
+
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

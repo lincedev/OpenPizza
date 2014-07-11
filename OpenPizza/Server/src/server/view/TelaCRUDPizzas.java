@@ -6,18 +6,10 @@
 
 package server.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import net.proteanit.sql.DbUtils;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
 
 /**
  *
@@ -51,13 +43,12 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014 
     */
-    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer) {                
+    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer, Controle controle) {                
         this();                        
         this.setJanelaPrincipal(telaPrincipal);
-        this.getJanelaPrincipal().setEnabled(false);  
-        controle = new Controle();
-        controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
+        this.setAutenticacaoServer(autenticacaoServer);
+        this.setControle(controle);
+        this.botaoAtualizarActionPerformed(null);
     }
 
     /*
@@ -93,19 +84,21 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        painel = new javax.swing.JPanel();
+        painelPizzas = new javax.swing.JScrollPane();
         tabelaCRUDPizza = new javax.swing.JTable();
-        labelImagemPizza = new javax.swing.JLabel();
         descricaoPizza = new javax.swing.JLabel();
         jPanelMenuCRUDPizzas = new javax.swing.JPanel();
-        botaoExcluirCRUDPizzas = new javax.swing.JButton();
-        botaoAdicionarCRUDPizzas = new javax.swing.JButton();
-        botaoVoltarCRUDPizzas = new javax.swing.JButton();
-        botaoEditarCRUDPizzas = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        botaoExcluir = new javax.swing.JButton();
+        botaoAdicionar = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
+        labelAtualizar = new javax.swing.JLabel();
+        labelExcluir = new javax.swing.JLabel();
+        labelVoltar = new javax.swing.JLabel();
+        labelAdicionar = new javax.swing.JLabel();
+        textoIngredientes = new javax.swing.JScrollPane();
+        textAreaIngredientes = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("CRUD Pizza");
@@ -119,65 +112,81 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
             }
         });
 
-        tabelaCRUDPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(tabelaCRUDPizza);
+        tabelaCRUDPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tabelaCRUDPizza.setRowHeight(25);
+        tabelaCRUDPizza.setRowMargin(5);
+        tabelaCRUDPizza.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaCRUDPizzaMouseClicked(evt);
+            }
+        });
+        painelPizzas.setViewportView(tabelaCRUDPizza);
 
-        labelImagemPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelImagemPizza.setText("Imagem");
+        descricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        descricaoPizza.setText("Ingredientes:");
 
-        descricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        descricaoPizza.setText("Descrição:");
-
-        botaoExcluirCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
-        botaoExcluirCRUDPizzas.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        botaoExcluirCRUDPizzas.setBorderPainted(false);
-        botaoExcluirCRUDPizzas.setContentAreaFilled(false);
-        botaoExcluirCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDPizzas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDPizzas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDPizzas.addActionListener(new java.awt.event.ActionListener() {
+        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
+        botaoExcluir.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botaoExcluir.setBorderPainted(false);
+        botaoExcluir.setContentAreaFilled(false);
+        botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoExcluirCRUDPizzasActionPerformed(evt);
+                botaoExcluirActionPerformed(evt);
             }
         });
 
-        botaoAdicionarCRUDPizzas.setForeground(new java.awt.Color(240, 240, 240));
-        botaoAdicionarCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
-        botaoAdicionarCRUDPizzas.setBorderPainted(false);
-        botaoAdicionarCRUDPizzas.setContentAreaFilled(false);
-        botaoAdicionarCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDPizzas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDPizzas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDPizzas.addActionListener(new java.awt.event.ActionListener() {
+        botaoAdicionar.setForeground(new java.awt.Color(240, 240, 240));
+        botaoAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
+        botaoAdicionar.setBorderPainted(false);
+        botaoAdicionar.setContentAreaFilled(false);
+        botaoAdicionar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAdicionarCRUDPizzasActionPerformed(evt);
+                botaoAdicionarActionPerformed(evt);
             }
         });
 
-        botaoVoltarCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botaoVoltarCRUDPizzas.setBorderPainted(false);
-        botaoVoltarCRUDPizzas.setContentAreaFilled(false);
-        botaoVoltarCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDPizzas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDPizzas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDPizzas.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setContentAreaFilled(false);
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoVoltarCRUDPizzasActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
-        botaoEditarCRUDPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
-        botaoEditarCRUDPizzas.setBorderPainted(false);
-        botaoEditarCRUDPizzas.setContentAreaFilled(false);
-        botaoEditarCRUDPizzas.setDefaultCapable(false);
-        botaoEditarCRUDPizzas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDPizzas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDPizzas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDPizzas.addActionListener(new java.awt.event.ActionListener() {
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setBorderPainted(false);
+        botaoAtualizar.setContentAreaFilled(false);
+        botaoAtualizar.setDefaultCapable(false);
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoEditarCRUDPizzasActionPerformed(evt);
+                botaoAtualizarActionPerformed(evt);
             }
         });
+
+        labelAtualizar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAtualizar.setText("Atualizar");
+
+        labelExcluir.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelExcluir.setText("Excluir");
+
+        labelVoltar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelVoltar.setText("Voltar");
+
+        labelAdicionar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAdicionar.setText("Adicionar");
 
         javax.swing.GroupLayout jPanelMenuCRUDPizzasLayout = new javax.swing.GroupLayout(jPanelMenuCRUDPizzas);
         jPanelMenuCRUDPizzas.setLayout(jPanelMenuCRUDPizzasLayout);
@@ -185,84 +194,104 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
             jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(botaoVoltarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(labelVoltar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelAdicionar))
+                    .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoAdicionarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoExcluirCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoEditarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 138, 138))
+                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(labelExcluir)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAtualizar)))
         );
         jPanelMenuCRUDPizzasLayout.setVerticalGroup(
             jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelMenuCRUDPizzasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoExcluirCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoAdicionarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoVoltarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoEditarCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMenuCRUDPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelVoltar)
+                    .addComponent(labelAdicionar)
+                    .addComponent(labelExcluir)
+                    .addComponent(labelAtualizar))
+                .addContainerGap())
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Voltar");
+        textAreaIngredientes.setColumns(20);
+        textAreaIngredientes.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        textAreaIngredientes.setLineWrap(true);
+        textAreaIngredientes.setRows(5);
+        textoIngredientes.setViewportView(textAreaIngredientes);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Adicionar");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Excluir");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Atualizar");
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(textoIngredientes))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addGap(97, 97, 97)
+                                .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 125, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(painelPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap(191, Short.MAX_VALUE)
+                .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textoIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(painelPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(253, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(107, 107, 107)
-                        .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel2)
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel3)
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel4)))
-                .addContainerGap(127, Short.MAX_VALUE))
+                .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(descricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(64, 64, 64)
-                        .addComponent(labelImagemPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMenuCRUDPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addContainerGap(17, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -270,6 +299,34 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
    
        
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        // TODO add your handling code here:
+        this.dispose();
+        this.getJanelaPrincipal().setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        // Talves seja necessário colocar o método de testarAutenticação
+        //controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
+        this.getControle().exibirProdutos(this.getAutenticacaoServer(), tabelaCRUDPizza, "Pizza");
+        
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setHeaderValue("Produto");
+        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setMinWidth(120);
+        
+        this.tabelaCRUDPizza.getColumnModel().getColumn(1).setHeaderValue("Preço");
+        this.tabelaCRUDPizza.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
+        
+        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
+        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+        
+        this.tabelaCRUDPizza.getColumnModel().getColumn(3).setHeaderValue("Fatias");
+        this.tabelaCRUDPizza.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
+
     /*
      Descrição: Método para voltar a janela anterior.
      Parâmetros: 
@@ -278,34 +335,25 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     
      Data Última Alteração: 22/05/2014 
     */
-    private void botaoVoltarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDPizzasActionPerformed
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
         // TODO add your handling code here:
-        this.getJanelaPrincipal().setVisible(true);
-        this.getJanelaPrincipal().setEnabled(true);
         this.dispose();
-    }//GEN-LAST:event_botaoVoltarCRUDPizzasActionPerformed
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
-    private void botaoExcluirCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirCRUDPizzasActionPerformed
-       //System.exit(0);        // TODO add your handling code here:
-    }//GEN-LAST:event_botaoExcluirCRUDPizzasActionPerformed
-
-    private void botaoEditarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDPizzasActionPerformed
-        // Talves seja necessário colocar o método de testarAutenticação
-        controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
-    }//GEN-LAST:event_botaoEditarCRUDPizzasActionPerformed
-
-    private void botaoAdicionarCRUDPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDPizzasActionPerformed
-        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas(this, this.autenticacaoServer);
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
+        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas(this, this.getAutenticacaoServer());
         addPizza.setVisible(true);
-        this.setEnabled(false);
-        addPizza.setLocationRelativeTo(null);
-    }//GEN-LAST:event_botaoAdicionarCRUDPizzasActionPerformed
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        //
+    }//GEN-LAST:event_botaoExcluirActionPerformed
+
+    private void tabelaCRUDPizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCRUDPizzaMouseClicked
         // TODO add your handling code here:
-        this.dispose();
-        this.getJanelaPrincipal().setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+        String nomeDoProduto = String.valueOf(this.tabelaCRUDPizza.getValueAt(this.tabelaCRUDPizza.getSelectedRow(), 0));
+        this.getControle().consultarIngredientes(this.textAreaIngredientes, this.getAutenticacaoServer(), "Pizza", nomeDoProduto);
+    }//GEN-LAST:event_tabelaCRUDPizzaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -343,19 +391,37 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAdicionarCRUDPizzas;
-    private javax.swing.JButton botaoEditarCRUDPizzas;
-    private javax.swing.JButton botaoExcluirCRUDPizzas;
-    private javax.swing.JButton botaoVoltarCRUDPizzas;
+    private javax.swing.JButton botaoAdicionar;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JLabel descricaoPizza;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanelMenuCRUDPizzas;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JLabel labelImagemPizza;
+    private javax.swing.JLabel labelAdicionar;
+    private javax.swing.JLabel labelAtualizar;
+    private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelVoltar;
+    private javax.swing.JPanel painel;
+    private javax.swing.JScrollPane painelPizzas;
     private javax.swing.JTable tabelaCRUDPizza;
+    private javax.swing.JTextArea textAreaIngredientes;
+    private javax.swing.JScrollPane textoIngredientes;
     // End of variables declaration//GEN-END:variables
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
 }

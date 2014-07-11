@@ -29,58 +29,14 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
      * Creates new form TelaCRUDMesas
      */
     
+    private Controle controle;
+    
     // Variável para armazenar a tela CRUDOutros
     private TelaPrincipal janelaPrincipal;
     
     // Variável para armazenar a autenticação do banco de dados
     private Autenticacao autenticacaoServer;
     
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
-    
-    /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 03/07/2014 
-    */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método get para a variável janelaPrincipal
-     Parâmetros:
-     Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 03/07/2014  
-    */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 03/07/2014  
-    */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-    Data Última Alteração: 03/07/2014  
-    */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
     
     /*
      Descrição: Construtor padrão da Tela CRUD Mesas.
@@ -88,16 +44,16 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 03/07/2014 
      */
-    public TelaCRUDMesas() {
+    private TelaCRUDMesas() {
         initComponents();
     }
 
-    public TelaCRUDMesas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+    public TelaCRUDMesas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
         this();
         this.setAutenticacaoServer(autenticacaoServer);
         this.setJanelaPrincipal(janelaPrincipal);
-        this.exibirMesas(autenticacaoServer);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setControle(controle);
+        this.getControle().exibirProdutos(this.getAutenticacaoServer(), this.tabelaCRUDMesas, "Mesa");
     }
 
     
@@ -287,6 +243,7 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botaoVoltarTelaCRUDMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarTelaCRUDMesasActionPerformed
@@ -343,4 +300,28 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabelaCRUDMesas;
     // End of variables declaration//GEN-END:variables
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
 }

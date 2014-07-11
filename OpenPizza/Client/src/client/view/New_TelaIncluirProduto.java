@@ -81,16 +81,30 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
             // Campo de preço da pizza
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Preço");
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
-        } // Formatação dos campos da tabela para as categorias Lanches, Bebidas e Outros
-        else {
+        } // Formatação dos campos da tabela Lanches
+        else if(this.getCategoriaDoProduto().equals("Lanche")){
+            
+            // Campo do nome do lanche
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Descrição");
 
+            // Campo do preço do lanche
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Preço");
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+            
+        } // Formatação dos campos das Bebidas e Outros
+        else {
+            
+            // Campo do nome das Bebidas e Outros
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Descrição");
+
+            // Campo do preço das Bebidas e Outros
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Preço");
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setMinWidth(70);
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setMaxWidth(70);
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setPreferredWidth(70);
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
             
+            // Campo do estoque disponível das Bebidas e Outros
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Estoque");
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setMinWidth(70);
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setMaxWidth(70);

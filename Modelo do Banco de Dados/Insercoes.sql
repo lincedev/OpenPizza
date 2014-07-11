@@ -338,52 +338,52 @@ INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER
 ##----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Barra de Cereal',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Chicletinho',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.10);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.10, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Halls',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Kit Kat',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Sorvetinho',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Trident',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.50);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.50, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Pirulito',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.30);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.30, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Todyinho',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.75);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.75, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Danone',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Bolacha Aymoré',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Bolacha Agua e Sal',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.90);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.90, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Chokito',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Kinder Ovo',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),100.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),100.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Look',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Bubaloo',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.25);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.25, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Batata Ruffles',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.20);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.20, 0);
 
 INSERT INTO Produto(descricao,ativo) VALUES ('Fandangos',1);
-INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.30);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.30, 0);

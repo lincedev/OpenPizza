@@ -1,9 +1,10 @@
 package server.view;
 
+import java.io.Serializable;
 import javax.swing.*;
 import server.modelo.Autenticacao;
 import server.persistencia.Arquivos;
-import java.io.*;
+
 
 /*
  Descrição: Classe de autenticação com o banco de dados
@@ -297,9 +298,13 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         // Tentativa de autenticação utilizando os parâmetros do arquivo de autenticação
         try {
             autenticar.testarAutenticacao(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
+            
 
             // Tentativa de arquivar os parâmetros de acesso ao banco no arquivo Autenticacao.txt
             try {
+                autenticacaoServer.setCaminhoBanco(this.caminhoBanco.getText());
+                autenticacaoServer.setUsuarioBanco(this.usuarioBanco.getText());
+                autenticacaoServer.setUsuarioSenha(this.senhaBanco.getText());
                 arquivo.salvarArquivo(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
                 JOptionPane.showMessageDialog(null, "Autenticação salva com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.barraExibir.setEnabled(true);

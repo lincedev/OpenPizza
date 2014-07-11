@@ -1,8 +1,9 @@
 package server.view;
 
-import javax.swing.*;
-import server.persistencia.Arquivos;
-import java.io.*;
+
+import java.io.Serializable;
+import server.controle.Controle;
+import server.modelo.Autenticacao;
 
 /*
  Descrição: Classe principal do servidor
@@ -16,23 +17,17 @@ public class Server implements Serializable {
      */
     public static void main(String[] args) {
 
-        /*
-         * Parâmetros para conexão no banco de dados
-         * 
-         String banco = "jdbc:mysql://localhost:3306/projetosin143";
-         String usuario = "projeto";
-         String senha = "projeto";
-         */
-        // Checagem da existência dos arquivos necessários
-        Arquivos arquivo = new Arquivos();
-        try {
-            arquivo.checarArquivos();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível criar os arquivos necessários.", "Erro", JOptionPane.ERROR_MESSAGE);            
+        Controle controle = new Controle();
+        Autenticacao autenticacao = new Autenticacao();
+        try{
+            autenticacao = controle.recuperarDadosDeAutenticacao();
         }
-
+        catch(Exception e){
+            
+        }
+        
         // Criação da tela principal
-        TelaPrincipal telaPrincipal = new TelaPrincipal();
+        TelaPrincipal telaPrincipal = new TelaPrincipal(autenticacao, controle);
         telaPrincipal.setResizable(false);
         telaPrincipal.setVisible(true);
     }

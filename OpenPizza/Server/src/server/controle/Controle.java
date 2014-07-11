@@ -16,6 +16,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableCellRenderer;
 import net.proteanit.sql.DbUtils;
@@ -29,9 +30,40 @@ import server.persistencia.Banco;
  */
 public class Controle {
     
+    private final Banco banco = new Banco();
+    private final Arquivos arquivo = new Arquivos();
+    
+    public void exibirPedidosEmAberto(Autenticacao autenticacao, JTable tabelaPedidosEmAberto){
+        this.banco.exibirPedidosEmAberto(autenticacao, tabelaPedidosEmAberto);
+    }
+    
+    public Autenticacao recuperarDadosDeAutenticacao(){
+        Arquivos arquivo = new Arquivos();
+        Autenticacao autenticacao = null;
+        try{
+            autenticacao = arquivo.lerArquivo();
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        return autenticacao;
+    }
+    
+    public void consultarCardapio(Autenticacao autenticacao, JTable tabelaProduto, String categoriaDoProduto){
+        this.banco.consultarCardapio(tabelaProduto, autenticacao, categoriaDoProduto);
+    }
+    
+    public void exibirProdutos(Autenticacao autenticacao, JTable tabelaProduto, String categoriaDoProduto){
+        this.banco.exibirProdutos(autenticacao, tabelaProduto, categoriaDoProduto);
+    }
+    
+    public void consultarIngredientes(JTextArea textoIngredientes, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto){
+        this.banco.consultarIngredientes(textoIngredientes, autenticacao, categoriaDoProduto, nomeDoProduto);
+    }
+    
+    
     //Telas CRUD
-    private Autenticacao autenticacaoServer;
-    private Banco banco = new Banco(autenticacaoServer);   
+    private Autenticacao autenticacaoServer;  
     private Statement statement;
     private JMenu menuExibir;
     private JMenu menuProdutos;
@@ -239,8 +271,7 @@ public class Controle {
         try {
             autenticacaoServer = arquivo.lerArquivo();
             try {
-                // Se a conexão foi efetuada, o botão de autenticação é desabilitado e o botão para abrir pedido é habilitado.
-                Connection conexao = DriverManager.getConnection(autenticacaoServer.getCaminhoBanco(), autenticacaoServer.getUsuarioBanco(), autenticacaoServer.getUsuarioSenha());
+                Connection conexao = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
                 conexao.close();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -262,11 +293,9 @@ public class Controle {
      Data Última Alteração: 07/06/2014
      */
     public void exibirPizzasCadastradas(Autenticacao autenticacaoServer, JTable tabelaCRUDPizza) {
+
+        this.banco.exibirProdutos(autenticacaoServer, tabelaCRUDPizza, "Pizza");
         
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.setTabelaCRUDPizza(tabelaCRUDPizza);        
-        
-        this.verificarAutenticacao();
         try {
             String query = null;
             //int indiceTabela = this.tabelaCardapio.getSelectedIndex();
@@ -294,14 +323,6 @@ public class Controle {
             tabelaPizzas.getColumnModel().getColumn(1).setHeaderValue("Preço");
             tabelaPizzas.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
             tabelaPizzas.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
-
-            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            //if (indiceTabela != 0) {
-            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
-            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            //}
 
             con.close();
 
@@ -348,16 +369,6 @@ public class Controle {
             // Formatação das colunas da tabela de exibição
             tabelaLanches.getColumnModel().getColumn(0).setHeaderValue("Descrição");
             tabelaLanches.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //tabelaOutros.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
-            //tabelaOutros.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
-
-            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            //if (indiceTabela != 0) {
-            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
-            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            //}
 
             con.close();
 
@@ -454,16 +465,6 @@ public class Controle {
             // Formatação das colunas da tabela de exibição
             tabelaOutros.getColumnModel().getColumn(0).setHeaderValue("Descrição");
             tabelaOutros.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //tabelaOutros.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
-            //tabelaOutros.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-            //tabelaPizzas.getColumnModel().getColumn(4).setHeaderValue("Ingredientes");
-
-            // Formatação das demais tabelas de produtos (Lanches, Bebidas, Outros)
-            //if (indiceTabela != 0) {
-            //    tabela.getColumnModel().getColumn(1).setHeaderValue("Preço");
-            //    tabela.getColumnModel().getColumn(1).setMaxWidth(70);
-            //    tabela.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
-            //}
 
             con.close();
 
@@ -481,32 +482,21 @@ public class Controle {
         this.setQuantidadeFatiasPizza(comboBoxQuantidadeFatiasPizza.getSelectedIndex());
         this.setIngredientesPizza(textIngredientesPizza.getText());
         this.setPrecoPizza(textPrecoPizza.getText());
-                                  
-        JOptionPane.showMessageDialog(null, "Primeiro");
-        JOptionPane.showMessageDialog(null, this.getDescricaoPizza());
-        JOptionPane.showMessageDialog(null, this.getTamanhoPizza());
-        JOptionPane.showMessageDialog(null, this.getQuantidadeFatiasPizza());
-        JOptionPane.showMessageDialog(null, this.getIngredientesPizza());
-        JOptionPane.showMessageDialog(null, this.getPrecoPizza());
         
-        
-        
-        
-        
-        if(this.getDescricaoPizza().equals("")){
+        if (this.getDescricaoPizza().equals("")) {
             JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
-        } else if(this.getIngredientesPizza().equals("")){
-                    JOptionPane.showMessageDialog(null, "Preencha o campo 'Ingredientes'");
-                } else if(this.getPrecoPizza().equals("")){
-                            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo 'Preço'");                                                                                                            
-                        } else {
-                            this.setPrecoPizzaFinal(Float.parseFloat(textPrecoPizza.getText()));
-                            if(this.getPrecoPizzaFinal() <= 0.00){
-                                JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
-                            }
-                    }
+        } else if (this.getIngredientesPizza().equals("")) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo 'Ingredientes'");
+        } else if (this.getPrecoPizza().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo 'Preço'");
+        } else {
+            this.setPrecoPizzaFinal(Float.parseFloat(textPrecoPizza.getText()));
+            if (this.getPrecoPizzaFinal() <= 0.00) {
+                JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
+            }
+        }
 
-        switch(this.getTamanhoPizza()){            
+        switch (this.getTamanhoPizza()) {
             case -1:
                 this.tamanhoPizzaFinal = "Mini";
                 break;
@@ -514,7 +504,7 @@ public class Controle {
                 this.tamanhoPizzaFinal = "Pequena";
                 break;
             case 1:
-                this.tamanhoPizzaFinal = "Média";                
+                this.tamanhoPizzaFinal = "Média";
                 break;
             case 2:
                 this.tamanhoPizzaFinal = "Grande";

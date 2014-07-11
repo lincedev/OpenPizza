@@ -6,6 +6,9 @@
 
 package server.view;
 
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Banco;
 
@@ -25,8 +28,6 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
     // Variável para armazenamento dos dados de autenticação do banco de dados.
     private Autenticacao autenticacaoServer;
     
-    // Objeto para realização de operações no banco de dados.
-    private Banco banco = new Banco();
     
     /*
      Descrição: Construtor padrão da janela de CRUD Pizza.
@@ -34,10 +35,9 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
      Retorno:
      
      */
-    public ExibirPedidosEmAberto() {
+    private ExibirPedidosEmAberto() {
         initComponents();
     }
-    
     
     /*
      Descrição: Construtor completo da janela de CRUD de pizzas.
@@ -50,8 +50,8 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
         this();
         this.setAutenticacaoServer(autenticacaoServer);
         this.setJanelaPrincipal(janelaPrincipal);
-        this.getJanelaPrincipal().setEnabled(false);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.botaoAtualizarActionPerformed(null);
+        this.formatarTabelaPedidosEmAberto();
     }
 
     /*
@@ -98,6 +98,37 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
         return autenticacaoServer;
     }
     
+    public void formatarTabelaPedidosEmAberto(){
+        
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(0).setHeaderValue("Nº");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(1).setHeaderValue("Mesa");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(2).setHeaderValue("Data");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(3).setHeaderValue("Início");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(4).setHeaderValue("Fim");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(4).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(5).setHeaderValue("Valor");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(5).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(6).setHeaderValue("Pagamento");
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(6).setCellRenderer(centralizarLabel);
+        
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setMaxWidth(0);
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setMinWidth(0);
+        this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setPreferredWidth(0);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,46 +138,115 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        botãoVoltarTelaPedidosEmAberto = new javax.swing.JButton();
+        painel = new javax.swing.JPanel();
+        painelTabela = new javax.swing.JScrollPane();
+        tabelaPedidosEmAberto = new javax.swing.JTable();
+        botãoVoltar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pedidos em Aberto");
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("OpenPizza - Pedidos Em Aberto");
         setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
-        botãoVoltarTelaPedidosEmAberto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botãoVoltarTelaPedidosEmAberto.addActionListener(new java.awt.event.ActionListener() {
+        painel.setMaximumSize(new java.awt.Dimension(800, 500));
+        painel.setMinimumSize(new java.awt.Dimension(800, 500));
+        painel.setPreferredSize(new java.awt.Dimension(800, 500));
+
+        tabelaPedidosEmAberto.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        tabelaPedidosEmAberto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        tabelaPedidosEmAberto.setRowHeight(25);
+        tabelaPedidosEmAberto.setRowMargin(5);
+        painelTabela.setViewportView(tabelaPedidosEmAberto);
+
+        botãoVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        botãoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botãoVoltar.setText("Voltar");
+        botãoVoltar.setMaximumSize(new java.awt.Dimension(130, 80));
+        botãoVoltar.setMinimumSize(new java.awt.Dimension(130, 80));
+        botãoVoltar.setPreferredSize(new java.awt.Dimension(130, 80));
+        botãoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botãoVoltarTelaPedidosEmAbertoActionPerformed(evt);
+                botãoVoltarActionPerformed(evt);
             }
         });
+
+        botaoAtualizar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setText("Atualizar");
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(130, 80));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(130, 80));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(130, 80));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(botãoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTabela, javax.swing.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botãoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botãoVoltarTelaPedidosEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(740, Short.MAX_VALUE))
+                .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(439, Short.MAX_VALUE)
-                .addComponent(botãoVoltarTelaPedidosEmAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botãoVoltarTelaPedidosEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botãoVoltarTelaPedidosEmAbertoActionPerformed
+    private void botãoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botãoVoltarActionPerformed
         // TODO add your handling code here:
         this.getJanelaPrincipal().setEnabled(true);
         this.dispose();
-    }//GEN-LAST:event_botãoVoltarTelaPedidosEmAbertoActionPerformed
+    }//GEN-LAST:event_botãoVoltarActionPerformed
+
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        // TODO add your handling code here:
+        Controle controle = new Controle();
+        controle.exibirPedidosEmAberto(this.getAutenticacaoServer(), this.tabelaPedidosEmAberto);
+        
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -184,6 +284,10 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botãoVoltarTelaPedidosEmAberto;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botãoVoltar;
+    private javax.swing.JPanel painel;
+    private javax.swing.JScrollPane painelTabela;
+    private javax.swing.JTable tabelaPedidosEmAberto;
     // End of variables declaration//GEN-END:variables
 }

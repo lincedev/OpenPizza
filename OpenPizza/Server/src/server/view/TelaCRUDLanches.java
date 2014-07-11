@@ -6,18 +6,9 @@
 
 package server.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import net.proteanit.sql.DbUtils;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
+
 
 /**
  *
@@ -40,7 +31,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014
      */
-    public TelaCRUDLanches() {
+    private TelaCRUDLanches() {
         initComponents();
     }
     
@@ -51,35 +42,14 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014 
     */
-    public TelaCRUDLanches(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+    public TelaCRUDLanches(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
         this();
-        this.setJanelaPrincipal(janelaPrincipal);        
-        this.getJanelaPrincipal().setEnabled(false);
-        controle = new Controle();
-        controle.exibirLanchesCadastrados(this.autenticacaoServer, this.tabelaCRUDLanches);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setJanelaPrincipal(janelaPrincipal);
+        this.setAutenticacaoServer(autenticacaoServer);
+        this.setControle(controle);
+        this.getControle().exibirProdutos(this.getAutenticacaoServer(), this.tabelaCRUDLanches, "Lanche");
     }
-    /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 22/05/2014
-    */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método get para a variável janelaPrincipal
-     Parâmetros:
-     Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 22/05/2014 
-    */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -247,6 +217,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
   
     private void botaoVoltarCRUDLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDLanchesActionPerformed
@@ -323,4 +294,28 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     private javax.swing.JLabel labelDescriçãoLanches;
     private javax.swing.JTable tabelaCRUDLanches;
     // End of variables declaration//GEN-END:variables
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
 }

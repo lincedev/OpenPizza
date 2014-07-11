@@ -1,11 +1,9 @@
 package server.view;
 
-import java.io.*;
-import java.sql.*;
-import javax.swing.*;
+import java.io.Serializable;
+import javax.swing.ImageIcon;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Arquivos;
 
 /*
  Descrição: Tela principal do servidor
@@ -13,19 +11,23 @@ import server.persistencia.Arquivos;
 public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     // Variável para armazenamento dos dados de autenticação do banco de dados
-    public Autenticacao autenticacaoServer;
-    public Controle controle;
+    private Autenticacao autenticacaoServer;
+    private Controle controle;
 
     /*
      Descrição: Criação da tela principal do servidor.
      Parâmetros: 
      Retorno:
      */
-    public TelaPrincipal() {        
-        initComponents();        
+    private TelaPrincipal() {        
+        initComponents();
+    }
+    
+    public TelaPrincipal(Autenticacao autenticacao, Controle controle){
+        this();
+        this.setAutenticacaoServer(autenticacao);
+        this.setControle(controle);
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
-        controle = new Controle();
-        controle.verificarAutenticacao();
     }
     
     /**
@@ -39,11 +41,11 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jFrame1 = new javax.swing.JFrame();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         barraMenus = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         itemMenuAutenticarBanco = new javax.swing.JMenuItem();
-        itemMenuImprimir = new javax.swing.JMenuItem();
         itemMenuSair = new javax.swing.JMenuItem();
         menuExibir = new javax.swing.JMenu();
         itemMenuExibirPedidosEmAberto = new javax.swing.JMenuItem();
@@ -72,22 +74,38 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenPizza - Server");
+        setMaximumSize(new java.awt.Dimension(900, 600));
         setMinimumSize(new java.awt.Dimension(900, 600));
         setName("FramePrincipal"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(900, 600));
         setResizable(false);
-        getContentPane().setLayout(null);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/logo.png"))); // NOI18N
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(310, 150, 300, 240);
+        jLabel1.setIcon(new javax.swing.ImageIcon("/home/lince/Documents/Copy/UFV/SIN143 - Laboratório de Programação/OpenPizza/OpenPizza/Client/src/client/view/OpenPizzaLogoMini.png")); // NOI18N
 
-        barraMenus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(313, 313, 313)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(407, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(248, Short.MAX_VALUE))
+        );
+
+        barraMenus.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
 
         menuArquivo.setText("Arquivo");
-        menuArquivo.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuArquivo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         itemMenuAutenticarBanco.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_MASK));
-        itemMenuAutenticarBanco.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuAutenticarBanco.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuAutenticarBanco.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Database.png"))); // NOI18N
         itemMenuAutenticarBanco.setText("Autenticar Banco de Dados");
         itemMenuAutenticarBanco.addActionListener(new java.awt.event.ActionListener() {
@@ -97,13 +115,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuArquivo.add(itemMenuAutenticarBanco);
 
-        itemMenuImprimir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        itemMenuImprimir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        itemMenuImprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Print.png"))); // NOI18N
-        itemMenuImprimir.setText("Imprimir");
-        menuArquivo.add(itemMenuImprimir);
-
-        itemMenuSair.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuSair.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Log_Out.png"))); // NOI18N
         itemMenuSair.setText("Sair");
         itemMenuSair.addActionListener(new java.awt.event.ActionListener() {
@@ -116,10 +128,10 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         barraMenus.add(menuArquivo);
 
         menuExibir.setText("Exibir");
-        menuExibir.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuExibir.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
         itemMenuExibirPedidosEmAberto.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
-        itemMenuExibirPedidosEmAberto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuExibirPedidosEmAberto.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuExibirPedidosEmAberto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Note.png"))); // NOI18N
         itemMenuExibirPedidosEmAberto.setText("Pedidos em Aberto");
         itemMenuExibirPedidosEmAberto.addActionListener(new java.awt.event.ActionListener() {
@@ -129,7 +141,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuExibir.add(itemMenuExibirPedidosEmAberto);
 
-        itemMenuExibirProdutosCadastrados.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuExibirProdutosCadastrados.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuExibirProdutosCadastrados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/product.png"))); // NOI18N
         itemMenuExibirProdutosCadastrados.setText("Produtos Cadastrados");
         itemMenuExibirProdutosCadastrados.addActionListener(new java.awt.event.ActionListener() {
@@ -140,7 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         menuExibir.add(itemMenuExibirProdutosCadastrados);
 
         menuItemExibirRelatorios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemExibirRelatorios.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuItemExibirRelatorios.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         menuItemExibirRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Stats.png"))); // NOI18N
         menuItemExibirRelatorios.setText("Relatórios");
         menuItemExibirRelatorios.addActionListener(new java.awt.event.ActionListener() {
@@ -153,9 +165,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         barraMenus.add(menuExibir);
 
         menuProdutos.setText("Produtos");
-        menuProdutos.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuProdutos.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        itemMenuProdutosPizzas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuProdutosPizzas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuProdutosPizzas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/pizza.png"))); // NOI18N
         itemMenuProdutosPizzas.setText("Pizzas");
         itemMenuProdutosPizzas.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +177,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuProdutos.add(itemMenuProdutosPizzas);
 
-        itemMenuProdutosLanches.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuProdutosLanches.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuProdutosLanches.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/burger.png"))); // NOI18N
         itemMenuProdutosLanches.setText("Lanches");
         itemMenuProdutosLanches.addActionListener(new java.awt.event.ActionListener() {
@@ -175,7 +187,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuProdutos.add(itemMenuProdutosLanches);
 
-        itemMenuProdutosBebidas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuProdutosBebidas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuProdutosBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/bebidas.png"))); // NOI18N
         itemMenuProdutosBebidas.setText("Bebidas");
         itemMenuProdutosBebidas.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +197,8 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuProdutos.add(itemMenuProdutosBebidas);
 
-        itemMenuProdutosOutros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuProdutosOutros.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        itemMenuProdutosOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/chocolate.png"))); // NOI18N
         itemMenuProdutosOutros.setText("Outros");
         itemMenuProdutosOutros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,9 +210,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         barraMenus.add(menuProdutos);
 
         menuMesas.setText("Mesas");
-        menuMesas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        menuMesas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
 
-        itemMenuMesasGerenciar.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        itemMenuMesasGerenciar.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         itemMenuMesasGerenciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/gerenciar.png"))); // NOI18N
         itemMenuMesasGerenciar.setText("Gerenciar");
         itemMenuMesasGerenciar.setActionCommand("itemMenuMesasGerenciar");
@@ -213,6 +226,22 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         barraMenus.add(menuMesas);
 
         setJMenuBar(barraMenus);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         pack();
         setLocationRelativeTo(null);
@@ -236,76 +265,56 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private void itemMenuAutenticarBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAutenticarBancoActionPerformed
         // Criação da janela de autenticação do banco de dados
         TelaAutenticacao telaAutenticacao = new TelaAutenticacao(this, this.autenticacaoServer,this.menuExibir,this.menuProdutos,this.menuMesas);
-        telaAutenticacao.setResizable(false);
         telaAutenticacao.setVisible(true);
     }//GEN-LAST:event_itemMenuAutenticarBancoActionPerformed
 
     private void itemMenuProdutosPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosPizzasActionPerformed
         // Criação da janela de CRUD para Pizzas
-        TelaCRUDPizzas tpizza = new TelaCRUDPizzas(this, this.autenticacaoServer);
-        //this.setVisible(false);
-        tpizza.setVisible(true);
-        tpizza.setResizable(false);
-        tpizza.setSize(800, 500);
-        tpizza.setVisible(true);
+        TelaCRUDPizzas telaPizza = new TelaCRUDPizzas(this, this.getAutenticacaoServer(), this.getControle());
+        telaPizza.setVisible(true);
+
     }//GEN-LAST:event_itemMenuProdutosPizzasActionPerformed
 
     private void itemMenuProdutosOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosOutrosActionPerformed
         // TODO add your handling code here:
-        TelaCRUDOutros tOutros = new TelaCRUDOutros(this,this.autenticacaoServer);
+        TelaCRUDOutros tOutros = new TelaCRUDOutros(this, this.getAutenticacaoServer(), this.getControle());
         tOutros.setVisible(true);
-        tOutros.setLocationRelativeTo(null);
-        //this.setVisible(false);
-        tOutros.setResizable(false);
-        tOutros.setSize(800, 500);
     }//GEN-LAST:event_itemMenuProdutosOutrosActionPerformed
 
     private void itemMenuProdutosLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosLanchesActionPerformed
         // TODO add your handling code here:
-        TelaCRUDLanches tLanches = new TelaCRUDLanches(this,this.autenticacaoServer);
-        tLanches.setVisible(true);
-        tLanches.setLocationRelativeTo(null);
-        tLanches.setResizable(false);
-        tLanches.setSize(800,500);        
+        TelaCRUDLanches tLanches = new TelaCRUDLanches(this,this.getAutenticacaoServer(), this.getControle());
+        tLanches.setVisible(true);     
     }//GEN-LAST:event_itemMenuProdutosLanchesActionPerformed
 
     private void itemMenuProdutosBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosBebidasActionPerformed
         // TODO add your handling code here:
         TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.autenticacaoServer);
         tBebidas.setVisible(true);
-        tBebidas.setLocationRelativeTo(null);
-        tBebidas.setResizable(false);
-        tBebidas.setSize(800,500);
     }//GEN-LAST:event_itemMenuProdutosBebidasActionPerformed
 
     private void itemMenuExibirPedidosEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirPedidosEmAbertoActionPerformed
         // TODO add your handling code here:
         ExibirPedidosEmAberto pedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacaoServer);
         pedidosEmAberto.setVisible(true);
-        pedidosEmAberto.setLocationRelativeTo(null);
-        
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados();
+        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados(this.getAutenticacaoServer(), this.getControle());
         produtosCadastrados.setVisible(true);
-        produtosCadastrados.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed
 
     private void menuItemExibirRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExibirRelatoriosActionPerformed
         // TODO add your handling code here:
         ExibirRelatorio relatorioProdutos = new ExibirRelatorio();
         relatorioProdutos.setVisible(true);
-        relatorioProdutos.setLocationRelativeTo(null);
     }//GEN-LAST:event_menuItemExibirRelatoriosActionPerformed
 
     private void itemMenuMesasGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuMesasGerenciarActionPerformed
         // TODO add your handling code here:
-        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.autenticacaoServer);
+        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.getAutenticacaoServer(), this.getControle());
         telaMesas.setVisible(true);
-        telaMesas.setEnabled(true);
-        telaMesas.setLocationRelativeTo(null);
     }//GEN-LAST:event_itemMenuMesasGerenciarActionPerformed
 
     /**
@@ -348,7 +357,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private javax.swing.JMenuItem itemMenuAutenticarBanco;
     private javax.swing.JMenuItem itemMenuExibirPedidosEmAberto;
     private javax.swing.JMenuItem itemMenuExibirProdutosCadastrados;
-    private javax.swing.JMenuItem itemMenuImprimir;
     private javax.swing.JMenuItem itemMenuMesasGerenciar;
     private javax.swing.JMenuItem itemMenuProdutosBebidas;
     private javax.swing.JMenuItem itemMenuProdutosLanches;
@@ -358,10 +366,27 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuExibir;
     private javax.swing.JMenuItem menuItemExibirRelatorios;
     private javax.swing.JMenu menuMesas;
     private javax.swing.JMenu menuProdutos;
     // End of variables declaration//GEN-END:variables
+
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

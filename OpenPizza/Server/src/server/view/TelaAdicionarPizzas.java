@@ -230,9 +230,6 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addComponent(comboBoxTamanhoPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
                                 .addComponent(textPrecoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(labelFatiasPizza)
@@ -241,14 +238,13 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
                                 .addGap(14, 14, 14))
                             .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
                                 .addComponent(textDescricaoPizza)
-                                .addContainerGap())))
+                                .addContainerGap())
+                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
+                                .addComponent(comboBoxTamanhoPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
                         .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textIngredientesPizza)
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addComponent(buttonCancelarCadastroPizza)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(buttonCadastrarPizza))
                             .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
                                 .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labelIngredientesPizza)
@@ -257,7 +253,13 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonProcurarArquivo)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(buttonCancelarCadastroPizza)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCadastrarPizza)
+                        .addGap(44, 44, 44))))
         );
         painelAdicionarPizzasLayout.setVerticalGroup(
             painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,29 +281,27 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(labelIngredientesPizza)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelImagemPizza)
                     .addComponent(buttonProcurarArquivo))
-                .addGap(19, 19, 19)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCancelarCadastroPizza)
                     .addComponent(buttonCadastrarPizza))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleDescription("");

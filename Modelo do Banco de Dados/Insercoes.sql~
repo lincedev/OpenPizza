@@ -1,0 +1,389 @@
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##										Mesas
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+INSERT INTO Mesa(ativo) VALUES(1);
+INSERT INTO Mesa(ativo) VALUES(1);
+INSERT INTO Mesa(ativo) VALUES(1);
+INSERT INTO Mesa(ativo) VALUES(1);
+INSERT INTO Mesa(ativo) VALUES(1);
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##										Produtos
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##										 Pizza
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Peperonni',1) ;
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),35.50,'Grande',8,'Combinação irresistível da exclusiva mussarela e do legítimo pepperoni, coberto com tomates cereja marinados no azeite extravirgem e manjericão.','../Imagens/Pizzas/peperoni.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Peperonni',1) ;
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),24.00,'Media',8,'Combinação irresistível da exclusiva mussarela e do legítimo pepperoni, coberto com tomates cereja marinados no azeite extravirgem e manjericão.','../Imagens/Pizzas/peperoni.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Peperonni',1) ;
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),20.00,'Pequena',8,'Combinação irresistível da exclusiva mussarela e do legítimo pepperoni, coberto com tomates cereja marinados no azeite extravirgem e manjericão.','../Imagens/Pizzas/peperoni.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Peperonni',1) ;
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),10.00,'Mini',4,'Combinação irresistível da exclusiva mussarela e do legítimo pepperoni, coberto com tomates cereja marinados no azeite extravirgem e manjericão.','../Imagens/Pizzas/peperoni.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Supreme',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),36.00,'Grande',8,'Combinação perfeita de pepperoni, cebola, pimentão, seleção de carnes e mussarela.','../Imagens/Pizzas/supreme.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Supreme',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),30.00,'Media',8,'Combinação perfeita de pepperoni, cebola, pimentão, seleção de carnes e mussarela.','../Imagens/Pizzas/supreme.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Supreme',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),25.50,'Pequena',8,'Combinação perfeita de pepperoni, cebola, pimentão, seleção de carnes e mussarela.','../Imagens/Pizzas/supreme.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Supreme',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),20.00,'Mini',4,'Combinação perfeita de pepperoni, cebola, pimentão, seleção de carnes e mussarela.','../Imagens/Pizzas/supreme.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Philadelphia',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),56.00,'Grande',8,'Receita exclusiva preparada com frango temperado, mussarela e o inconfundível cream cheese Philadelphia.','../Imagens/Pizzas/frangoPhi.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Philadelphia',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),36.00,'Media',8,'Receita exclusiva preparada com frango temperado, mussarela e o inconfundível cream cheese Philadelphia.','../Imagens/Pizzas/frangoPhi.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Philadelphia',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),26.00,'Pequena',8,'Receita exclusiva preparada com frango temperado, mussarela e o inconfundível cream cheese Philadelphia.','../Imagens/Pizzas/frangoPhi.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Philadelphia',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),16.00,'Mini',8,'Receita exclusiva preparada com frango temperado, mussarela e o inconfundível cream cheese Philadelphia.','../Imagens/Pizzas/frangoPhi.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Mussarela',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),46.00,'Grande',8,'A melhor das mussarelas servida sobre molho de tomates especial, com orégano e pimentão','../Imagens/Pizzas/mussarela.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Mussarela',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),26.00,'Media',8,'A melhor das mussarelas servida sobre molho de tomates especial, com orégano e pimentão','../Imagens/Pizzas/mussarela.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Mussarela',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),14.50,'Pequena',8,'A melhor das mussarelas servida sobre molho de tomates especial, com orégano e pimentão','../Imagens/Pizzas/mussarela.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Mussarela',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),10.50,'Mini',4,'A melhor das mussarelas servida sobre molho de tomates especial, com orégano e pimentão','../Imagens/Pizzas/mussarela.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Calabresa',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),30.50,'Grande',8,'Calabresa fatiada, cebola, azeitonas e a especial mussarela Pizza Hut','../Imagens/Pizzas/calabresa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Calabresa',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),20.40,'Media',8,'Calabresa fatiada, cebola, azeitonas e a especial mussarela Pizza Hut','../Imagens/Pizzas/calabresa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Calabresa',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),16.50,'Pequena',8,'Calabresa fatiada, cebola, azeitonas e a especial mussarela Pizza Hut','../Imagens/Pizzas/calabresa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Calabresa',1);
+INSERT INTO Pizza VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),10.00,'Grande',8,'Calabresa fatiada, cebola, azeitonas e a especial mussarela Pizza Hut','../Imagens/Pizzas/calabresa.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Catupiry',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),40.30,'Grande',8,'Frango, queijo, catupiry, milho, azeitona, manjericão',' ../Imagens/Pizzas/cat.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Catupiry',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),34.30,'Media',8,'Frango, queijo, catupiry, milho, azeitona, manjericão',' ../Imagens/Pizzas/cat.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Catupiry',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),22.30,'Pequena',8,'Frango, queijo, catupiry, milho, azeitona, manjericão',' ../Imagens/Pizzas/cat.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Frango com Catupiry',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),12.30,'Mini',4,'Frango, queijo, catupiry, milho, azeitona, manjericão',' ../Imagens/Pizzas/cat.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Lombinho',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),34.90,'Grande',8,'Lombinho, queijo pamersão, milho, cebola.', '../Imagens/Pizzas/lombinho.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Lombinho',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),22.90,'Media',8,'Lombinho, queijo pamersão, milho, cebola.', '../Imagens/Pizzas/lombinho.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Lombinho',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),18.70,'Pequena',8,'Lombinho, queijo pamersão, milho, cebola.',' ../Imagens/Pizzas/lombinho.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Lombinho',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),10.40,'Mini',4,'Lombinho, queijo pamersão, milho, cebola.', '../Imagens/Pizzas/lombinho.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Brigadeiro',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),35.0,'Grande',8,'Pizza com brigadeiro granulado, com bordas recheadas de leite condensado.','../Imagens/Pizzas/brigadeiro.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Brigadeiro',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),30.0,'Media',8,'Pizza com brigadeiro granulado, com bordas recheadas de leite condensado.','../Imagens/Pizzas/brigadeiro.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Brigadeiro',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),22.0,'Pequena',8,'Pizza com brigadeiro granulado, com bordas recheadas de leite condensado.','../Imagens/Pizzas/brigadeiro.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Brigadeiro',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),14.0,'Mini',4,'Pizza com brigadeiro granulado, com bordas recheadas de leite condensado.','../Imagens/Pizzas/brigadeiro.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Portuguesa',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),38.0,'Grande',8,'Presunto acompanhado de cebola e azeitonas, coberto pela exclusiva mussarela.','../Imagens/Pizzas/portuguesa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Portuguesa',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),30.0,'Media',8,'Presunto acompanhado de cebola e azeitonas, coberto pela exclusiva mussarela..','../Imagens/Pizzas/portuguesa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Portuguesa',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),22.5,'Pequena',8,'Presunto acompanhado de cebola e azeitonas, coberto pela exclusiva mussarela.','../Imagens/Pizzas/portuguesa.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Portuguesa',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),13.0,'Mini',4,'Presunto acompanhado de cebola e azeitonas, coberto pela exclusiva mussarela.','../Imagens/Pizzas/portuguesa.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Vegetariana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),23.0,'Grande',8,'Saborosa combinação de mussarela, tomates selecionados, champignon, pimentão, cebola e azeitonas verdes.','../Imagens/Pizzas/vegetariana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Vegetariana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),13.0,'Media',8,'Saborosa combinação de mussarela, tomates selecionados, champignon, pimentão, cebola e azeitonas verdes.','../Imagens/Pizzas/vegetariana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Vegetariana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),9.0,'Pequena',8,'Saborosa combinação de mussarela, tomates selecionados, champignon, pimentão, cebola e azeitonas verdes.','../Imagens/Pizzas/vegetariana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Vegetariana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),4.0,'Mini',4,'Saborosa combinação de mussarela, tomates selecionados, champignon, pimentão, cebola e azeitonas verdes.','../Imagens/Pizzas/vegetariana.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Moda',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),33.0,'Grande',8,'A receita mais vendida no Brasil. Mussarela, exclusivo requeijão, presunto e azeitonas verdes.','../Imagens/Pizzas/moda.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Moda',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),23.0,'Media',8,'A receita mais vendida no Brasil. Mussarela, exclusivo requeijão, presunto e azeitonas verdes.','../Imagens/Pizzas/moda.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Moda',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),12.0,'Pequena',8,'A receita mais vendida no Brasil. Mussarela, exclusivo requeijão, presunto e azeitonas verdes.','../Imagens/Pizzas/moda.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Moda',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),9.5,'Mini',4,'A receita mais vendida no Brasil. Mussarela, exclusivo requeijão, presunto e azeitonas verdes.','../Imagens/Pizzas/moda.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Primavera',1); 
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),33.2,'Grande',8,'A receita mais classica no Brasil. Pimentão, exclusivo requeijão, presunto e alfaces verdes.','../Imagens/Pizzas/primavera.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Primavera',1); 
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),25.4,'Media',8,'A receita mais classica no Brasil. Pimentão, exclusivo requeijão, presunto e alfaces verdes.','../Imagens/Pizzas/primavera.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Primavera',1); 
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),19.2,'Pequena',8,'A receita mais classica no Brasil. Pimentão, exclusivo requeijão, presunto e alfaces verdes..','../Imagens/Pizzas/primavera.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Primavera',1); 
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),14.5,'Mini',4,'A receita mais classica no Brasil. Pimentão, exclusivo requeijão, presunto e alfaces verdes.','../Imagens/Pizzas/primavera.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Banana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),32.2,'Grande',8,'Deliciosa pizza de banana, com seu caldo.','../Imagens/Pizzas/banana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Banana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),22.2,'Media',8,'Deliciosa pizza de banana, com seu caldo.','../Imagens/Pizzas/banana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Banana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),18.2,'Pequena',8,'Deliciosa pizza de banana, com seu caldo.','../Imagens/Pizzas/banana.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Banana',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),15.2,'Mini',4,'Deliciosa pizza de banana, com seu caldo.','../Imagens/Pizzas/banana.JPG');
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Massa Pan',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),32.14,'Grande',8,'A famosa e exclusiva massa pan. Alta e crocante por fora, leve e macia por dentro.','../Imagens/Pizzas/massapan.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Massa Pan',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),23.12,'Media',8,'A famosa e exclusiva massa pan. Alta e crocante por fora, leve e macia por dentro..','../Imagens/Pizzas/massapan.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Massa Pan',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),16.32,'Pequena',8,'A famosa e exclusiva massa pan. Alta e crocante por fora, leve e macia por dentro.','../Imagens/Pizzas/massapan.JPG');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Massa Pan',1);
+INSERT INTO Pizza VALUES((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.33,'Mini',8,'A famosa e exclusiva massa pan. Alta e crocante por fora, leve e macia por dentro..','../Imagens/Pizzas/massapan.JPG');
+
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##									Lanche
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Bacon',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),7.50,'Pão, hambúrguer, presunto, mussarela, bacon.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Tudo',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),8.50,'Pão, hambúrguer, presunto, mussarela, milho, frango, lombo, ovo, alface, tomate.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Salada',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),4.50,'Pão, hambúrguer, alface, tomate, milho verde, orégano, molho madera.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Frango',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),6.75,'Pão, hambúrguer, presunto, mussarela, double frango, queijo pamersão.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Lombo',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),8.50,'Pão, hambúrguer, presunto, mussarela, lombinho, ovo, batata palha, tomate.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Cavalo',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),11.00,'Pão, hambúrguer, presunto, mussarela, bacon, lombo, alface, tomate, molho inglês, batata palha, ovo.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Terabyte',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),11.00,'Pão, hambúrguer, presunto, mussarela, bacon, lombo, alface, tomate, molho inglês, batata palha, ovo, queijo, molho alemão');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Megabyte',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),13.00,'Pão, hambúrguer, presunto, mussarela, alface, tomate, molho inglês, batata palha, ovo.');
+
+INSERT INTO Produto(descricao,ativo) VALUES ('X-Kybyte',1);
+INSERT INTO Lanche VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),11.00,'Pão, hambúrguer, presunto, mussarela, ovo');
+
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##									Bebidas
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Coca-Cola 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Coca-Cola 600ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Coca-Cola Lata',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Coca-Cola 3L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),7.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Laranja 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Laranja 600ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Laranja Lata',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Uva 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Uva 600 ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),4.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fanta Uva Lata',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Sprite 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Sprite Lata',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Sprite 2L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Guarana Antartica 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Guarana Antartica 600ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Guarana Lata',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Suco Del Valle - Laranja',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Suco Del Valle - Abacaxi',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Suco Del Valle - Manga',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Suco Del Valle - Goiaba',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Agua 1L',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Agua 600ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Cerveja Bhrama litrão',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),6.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Cerveja Skol litrão',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Cerveja Skol garrafa',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),6.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Vodka Absolut',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),64.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Conhaque Red',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),32.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Red Bull 600 ml',1);
+INSERT INTO Bebidas(codProduto, preco) VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),5.00);
+
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+##									Outros
+##----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Barra de Cereal',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Chicletinho',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.10);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Halls',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Kit Kat',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Sorvetinho',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Trident',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.50);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Pirulito',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.30);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Todyinho',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.75);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Danone',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Bolacha Aymoré',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Bolacha Agua e Sal',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),1.90);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Chokito',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),2.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Kinder Ovo',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),100.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Look',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.00);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Bubaloo',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),0.25);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Batata Ruffles',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.20);
+
+INSERT INTO Produto(descricao,ativo) VALUES ('Fandangos',1);
+INSERT INTO Outros VALUES ((SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1),3.30);

@@ -5,6 +5,7 @@ import javax.swing.*;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
+import net.proteanit.sql.DbUtils;
 import server.modelo.*;
 import server.modelo.*;
 
@@ -12,6 +13,137 @@ import server.modelo.*;
  Descrição: Classe de persistência com o banco de dados
  */
 public class Banco {
+    
+    public void exibirPedidosEmAberto(Autenticacao autenticacao, JTable tabelaPedidosEmAberto){
+        Connection conexao = null;
+        try{
+            
+            String query = "SELECT * FROM Pedido WHERE pedidoFinalizado = false";
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            tabelaPedidosEmAberto.setModel(DbUtils.resultSetToTableModel(resultado));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+            
+        }
+    }
+    
+    /*
+     Descrição: Método para tentativa de consulta dos produtos disponíveis no banco de dados (cardápio)
+     Parâmetros:
+     tabelaProdutos (JTable que será preenchida com os produtos disponíveis)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     categoriaDoProduto (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro)
+     Retorno:
+     */
+    public void consultarCardapio(JTable tabelaProdutos, Autenticacao autenticacao, String categoriaDoProduto) {
+        Connection conexao = null;
+        try {
+            String query;
+            if (categoriaDoProduto.equals("Pizza")) {
+                query = "SELECT P.descricao FROM Produto AS P JOIN Pizza AS PZ ON P.codigo = PZ.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+            } else if (categoriaDoProduto.equals("Lanche")) {
+                query = "SELECT P.descricao FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+            } else if (categoriaDoProduto.equals("Bebida")) {
+                query = "SELECT P.descricao FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+            } else {
+                query = "SELECT P.descricao FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            tabelaProdutos.setModel(DbUtils.resultSetToTableModel(resultado));
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e) {
+
+            }
+        }
+    }
+    
+    public void exibirProdutos(Autenticacao autenticacao, JTable tabelaProdutos, String categoriaDoProduto){
+        Connection conexao = null;
+        try{
+            String query;
+            if(categoriaDoProduto.equals("Pizza")){
+                query = "SELECT p.descricao, pp.preco, pp.tamanho , pp.fatias FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
+            }
+            else if(categoriaDoProduto.equals("Lanche")){
+                query = "SELECT p.descricao, l.preco FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
+            }
+            else if(categoriaDoProduto.equals("Bebida")){
+                query = "SELECT p.codigo, p.descricao, b.preco FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
+            }
+            else if(categoriaDoProduto.equals("Outro")){
+                query = "SELECT p.descricao, o.preco FROM Produto AS p JOIN Outros AS o ON p.codigo = o.codProduto";
+            }
+            else{
+                query = "SELECT m.numero FROM Mesa AS m";
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            tabelaProdutos.setModel(DbUtils.resultSetToTableModel(resultado));
+        }
+        catch(Exception e){
+            
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+    }
+    
+    /*
+     Descrição: Método para consulta dos ingredientes referentes à um determinado produto
+     Parâmetros:
+     textoIngredientes (JTextArea que será preenchida com os ingredientes do produto)
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     categoriaDoProduto (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro)
+     codigoDoProduto (Inteiro contendo o código do produto selecionado na Tela de Inclusão de Produtos)
+     Retorno:
+     */
+    public void consultarIngredientes(JTextArea textoIngredientes, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto) {
+        Connection conexao = null;
+        try {
+            String query;
+            if (categoriaDoProduto.equals("Pizza")) {
+                query = "SELECT PZ.ingredientes FROM Pizza AS PZ JOIN Produto AS P ON PZ.codProduto = P.codigo WHERE P.descricao LIKE '" + nomeDoProduto + "'";
+            } else {
+                query = "SELECT L.ingredientesLanche FROM Lanche AS L JOIN Produto AS P ON L.codProduto = P.codigo WHERE P.descricao LIKE '" + nomeDoProduto + "'";
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            if (resultado.next()) {
+                if (categoriaDoProduto.equals("Pizza")) {
+                    textoIngredientes.setText(resultado.getString("ingredientes"));
+                } else {
+                    textoIngredientes.setText(resultado.getString("ingredientesLanches"));
+                }
+            }
+        } catch (Exception e) {
+
+        }
+    }
+    
     
     private String queryProduto;
     private Statement statement;
@@ -40,23 +172,21 @@ public class Banco {
         this.autenticacaoServer = autenticacaoServer;
     }        
     
-    public void abrirConexao(Autenticacao autenticacaoServer){
-        Connection cn = null;
+    public Connection abrirConexao(Autenticacao autenticacaoServer){
+        Connection conexao = null;
         try{
-            //cn = DriverManager.getConnection(autenticacaoServer.getCaminhoBanco(), autenticacaoServer.getUsuarioBanco(), autenticacaoServer.getUsuarioSenha());
-            cn = DriverManager.getConnection(this.getAutenticacaoServer().getCaminhoBanco(), this.getAutenticacaoServer().getUsuarioBanco(), this.getAutenticacaoServer().getUsuarioSenha());
-            //return cn;
+            conexao = DriverManager.getConnection(autenticacaoServer.getCaminhoBanco(), autenticacaoServer.getUsuarioBanco(), autenticacaoServer.getUsuarioSenha());
+            return conexao;
         }catch(Exception e){
-            //return cn;
+            return conexao;
         }
     } 
     
-    public void fecharConexao(){
+    public void fecharConexao(Connection conexao){
         try{
-            connection.close();
+            conexao.close();
         } catch(Exception e){
             JOptionPane.showMessageDialog(null, "Não foi possível encerrar a conexão");
-            e.printStackTrace();
         }                       
     }
     
@@ -74,13 +204,13 @@ public class Banco {
             this.statement.executeUpdate(this.queryProduto);            
             queryPizza = "insert into pizza (codProduto, preco, tamanho, fatias, ingredientes) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoPizza + "', '" + tamanhoPizza + "', '" + quantidadeFatiasPizza + "', '" + ingredientesPizza + "')";
             this.statement.executeUpdate(queryPizza);
-            this.fecharConexao();            
+            this.fecharConexao(connection);            
             return(true);
         } catch (Exception e) {
             e.printStackTrace();
             return(false);
         } finally {
-            this.fecharConexao();                        
+            this.fecharConexao(connection);                        
         }
     }                               
         
@@ -94,13 +224,13 @@ public class Banco {
             this.statement.executeUpdate(this.queryProduto);                       
             queryLanche = "insert into lanche (codProduto, preco, ingredientesLanche) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoLanche + "', '" + ingredientesLanche + "')";
             this.statement.executeUpdate(queryLanche);
-            this.fecharConexao();            
+            this.fecharConexao(connection);            
             return(true);
         } catch (Exception e) {
             e.printStackTrace();
             return(false);
         } finally {
-            this.fecharConexao();                        
+            this.fecharConexao(connection);                        
         }
     }                         
 
@@ -114,13 +244,13 @@ public class Banco {
             this.statement.executeUpdate(this.queryProduto);            
             queryBebida = "insert into bebidas (codProduto, preco) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoBebida + "')";
             this.statement.executeUpdate(queryBebida);
-            this.fecharConexao();            
+            this.fecharConexao(connection);            
             return(true);
         } catch (Exception e) {
             e.printStackTrace();
             return(false);
         } finally {
-            this.fecharConexao();                        
+            this.fecharConexao(connection);                        
         }
     }
     
@@ -134,13 +264,13 @@ public class Banco {
             this.statement.executeUpdate(this.queryProduto);                                    
             queryOutros = "insert into outros (codProduto, preco) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoOutros + "')";
             this.statement.executeUpdate(queryOutros);
-            this.fecharConexao();            
+            this.fecharConexao(connection);            
             return(true);
         } catch (Exception e) {
             e.printStackTrace();
             return(false);
         } finally {
-            this.fecharConexao();                        
+            this.fecharConexao(connection);                        
         }
     }
     

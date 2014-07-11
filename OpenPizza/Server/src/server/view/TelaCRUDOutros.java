@@ -42,7 +42,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014
      */
-    public TelaCRUDOutros() {
+    private TelaCRUDOutros() {
         initComponents();
     }
     
@@ -53,13 +53,12 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 22/05/2014 
     */
-    public TelaCRUDOutros(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+    public TelaCRUDOutros(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
         this();
-        this.setJanelaPrincipal(janelaPrincipal);        
-        this.getJanelaPrincipal().setEnabled(false);
-        controle = new Controle();
-        controle.exibirOutrosCadastrados(this.autenticacaoServer, this.tabelaCRUDOutros);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setJanelaPrincipal(janelaPrincipal);
+        this.setAutenticacaoServer(autenticacaoServer);
+        this.setControle(controle);
+        this.getControle().exibirProdutos(autenticacaoServer, tabelaCRUDOutros, "Outro");
     }
     
     /*
@@ -257,6 +256,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
              
     private void botaoVoltarCRUDOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDOutrosActionPerformed
@@ -334,4 +334,20 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     private javax.swing.JLabel labelDescriçãoOutros;
     private javax.swing.JTable tabelaCRUDOutros;
     // End of variables declaration//GEN-END:variables
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    public Autenticacao getAutenticacaoServer() {
+        return autenticacaoServer;
+    }
+
+    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
+        this.autenticacaoServer = autenticacaoServer;
+    }
 }
