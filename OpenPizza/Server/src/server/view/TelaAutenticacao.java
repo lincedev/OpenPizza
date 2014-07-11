@@ -163,6 +163,7 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        painel = new javax.swing.JPanel();
         labelBancoDeDados = new javax.swing.JLabel();
         labelUsuario = new javax.swing.JLabel();
         labelSenha = new javax.swing.JLabel();
@@ -173,38 +174,48 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Autenticação");
+        setTitle("OpenPizza - Autenticação");
+        setMaximumSize(new java.awt.Dimension(350, 250));
+        setMinimumSize(new java.awt.Dimension(350, 250));
+        setPreferredSize(new java.awt.Dimension(350, 250));
+        setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
         });
 
-        labelBancoDeDados.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelBancoDeDados.setText("Banco de Dados:");
+        painel.setMaximumSize(new java.awt.Dimension(350, 250));
+        painel.setMinimumSize(new java.awt.Dimension(350, 250));
+        painel.setPreferredSize(new java.awt.Dimension(350, 250));
 
-        labelUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelUsuario.setText("Usuário:");
+        labelBancoDeDados.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelBancoDeDados.setText("Banco de Dados: *");
 
-        labelSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelSenha.setText("Senha:");
+        labelUsuario.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelUsuario.setText("Usuário: *");
 
-        caminhoBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelSenha.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelSenha.setText("Senha: *");
+
+        caminhoBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         caminhoBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 caminhoBancoActionPerformed(evt);
             }
         });
 
-        usuarioBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        usuarioBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         usuarioBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usuarioBancoActionPerformed(evt);
             }
         });
 
-        autenticarBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        autenticarBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         autenticarBanco.setText("Autenticar");
+        autenticarBanco.setMaximumSize(new java.awt.Dimension(110, 30));
+        autenticarBanco.setMinimumSize(new java.awt.Dimension(110, 30));
         autenticarBanco.setPreferredSize(new java.awt.Dimension(110, 30));
         autenticarBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,10 +223,12 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
             }
         });
 
-        senhaBanco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        senhaBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
 
-        cancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        cancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cancelar.setText("Cancelar");
+        cancelar.setMaximumSize(new java.awt.Dimension(110, 30));
+        cancelar.setMinimumSize(new java.awt.Dimension(110, 30));
         cancelar.setPreferredSize(new java.awt.Dimension(110, 30));
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -223,53 +236,75 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
             }
         });
 
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(painelLayout.createSequentialGroup()
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelUsuario)
+                        .addGap(85, 85, 85)
+                        .addComponent(usuarioBanco))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelSenha)
+                        .addGap(97, 97, 97)
+                        .addComponent(senhaBanco)))
+                .addContainerGap())
+            .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(painelLayout.createSequentialGroup()
+                            .addGap(163, 163, 163)
+                            .addComponent(caminhoBanco))
+                        .addGroup(painelLayout.createSequentialGroup()
+                            .addComponent(labelBancoDeDados)
+                            .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()))
+        );
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelUsuario)
+                    .addComponent(usuarioBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(senhaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelSenha))
+                .addGap(26, 26, 26)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
+            .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelBancoDeDados)
+                        .addComponent(caminhoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap(207, Short.MAX_VALUE)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelUsuario)
-                            .addComponent(labelSenha))
-                        .addGap(85, 85, 85)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(usuarioBanco)
-                            .addComponent(caminhoBanco, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
-                            .addComponent(senhaBanco)
-                            .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelBancoDeDados)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
-                                .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelBancoDeDados)
-                            .addComponent(caminhoBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(45, 45, 45)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelUsuario)
-                            .addComponent(usuarioBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(senhaBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelSenha))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -390,6 +425,7 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     private javax.swing.JLabel labelBancoDeDados;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelUsuario;
+    private javax.swing.JPanel painel;
     private javax.swing.JTextField senhaBanco;
     private javax.swing.JTextField usuarioBanco;
     // End of variables declaration//GEN-END:variables

@@ -295,19 +295,19 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     private void itemMenuExibirPedidosEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirPedidosEmAbertoActionPerformed
         // TODO add your handling code here:
-        ExibirPedidosEmAberto pedidosEmAberto = new ExibirPedidosEmAberto(this,this.autenticacaoServer);
+        TelaExibirPedidosEmAberto pedidosEmAberto = new TelaExibirPedidosEmAberto(this,this.autenticacaoServer);
         pedidosEmAberto.setVisible(true);
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        ExibirProdutosCadastrados produtosCadastrados = new ExibirProdutosCadastrados(this.getAutenticacaoServer(), this.getControle());
+        TelaExibirProdutosCadastrados produtosCadastrados = new TelaExibirProdutosCadastrados(this.getAutenticacaoServer(), this.getControle());
         produtosCadastrados.setVisible(true);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed
 
     private void menuItemExibirRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExibirRelatoriosActionPerformed
         // TODO add your handling code here:
-        ExibirRelatorio relatorioProdutos = new ExibirRelatorio();
+        TelaExibirRelatorio relatorioProdutos = new TelaExibirRelatorio();
         relatorioProdutos.setVisible(true);
     }//GEN-LAST:event_menuItemExibirRelatoriosActionPerformed
 

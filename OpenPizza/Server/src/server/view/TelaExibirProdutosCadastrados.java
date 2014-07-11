@@ -13,7 +13,7 @@ import server.modelo.Autenticacao;
  *
  * @author Gustavo
  */
-public class ExibirProdutosCadastrados extends javax.swing.JFrame {
+public class TelaExibirProdutosCadastrados extends javax.swing.JFrame {
 
     private Autenticacao autenticacao;
     private Controle controle;
@@ -21,11 +21,11 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
     /**
      * Creates new form produtosCadastrados
      */
-    private ExibirProdutosCadastrados() {
+    private TelaExibirProdutosCadastrados() {
         initComponents();
     }
     
-    public ExibirProdutosCadastrados(Autenticacao autenticacao, Controle controle){
+    public TelaExibirProdutosCadastrados(Autenticacao autenticacao, Controle controle){
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
@@ -55,9 +55,7 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Produtos Cadastrados");
-        setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         botaoVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
@@ -224,20 +222,20 @@ public class ExibirProdutosCadastrados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirProdutosCadastrados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirProdutosCadastrados().setVisible(true);
+                new TelaExibirProdutosCadastrados().setVisible(true);
             }
         });
     }

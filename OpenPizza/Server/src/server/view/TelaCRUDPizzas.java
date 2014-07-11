@@ -101,7 +101,7 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         textAreaIngredientes = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CRUD Pizza");
+        setTitle("OpenPizza - Pizzas");
         setMaximumSize(new java.awt.Dimension(540, 400));
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));

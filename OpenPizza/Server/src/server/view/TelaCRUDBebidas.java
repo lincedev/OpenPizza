@@ -54,7 +54,7 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         this.setJanelaPrincipal(janelaPrincipal);        
         this.getJanelaPrincipal().setEnabled(false);
         controle = new Controle();
-        controle.exibirBebidasCadastrados(autenticacaoServer, tabelaCRUDBebidas);
+        controle.exibirBebidasCadastrados(autenticacaoServer, tabelaBebidas);
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -89,25 +89,25 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCRUDBebidas = new javax.swing.JTable();
-        labelDescriçãoBebidas = new javax.swing.JLabel();
+        painel = new javax.swing.JPanel();
         jPanelMenuCRUDBebidas = new javax.swing.JPanel();
-        botaoAdicionarCRUDBebidas = new javax.swing.JButton();
-        botaoExcluirCRUDBebidas = new javax.swing.JButton();
-        botaoVoltarCRUDBebidas = new javax.swing.JButton();
-        botatoEditarCRUDBebidas = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        botaoAdicionar = new javax.swing.JButton();
+        botaoExcluir = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
+        labelVoltar = new javax.swing.JLabel();
+        labelAdicionar = new javax.swing.JLabel();
+        labelExcluir = new javax.swing.JLabel();
+        labelAtualizar = new javax.swing.JLabel();
+        painelBebidas = new javax.swing.JScrollPane();
+        tabelaBebidas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CRUD Bebidas");
+        setTitle("OpenPizza - Bebidas");
         setBounds(new java.awt.Rectangle(0, 0, 400, 380));
-        setMaximumSize(new java.awt.Dimension(150, 150));
-        setMinimumSize(new java.awt.Dimension(150, 150));
-        setPreferredSize(new java.awt.Dimension(150, 150));
+        setMaximumSize(new java.awt.Dimension(540, 400));
+        setMinimumSize(new java.awt.Dimension(540, 400));
+        setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -115,157 +115,163 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
             }
         });
 
-        tabelaCRUDBebidas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(tabelaCRUDBebidas);
-
-        labelDescriçãoBebidas.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDescriçãoBebidas.setText("Descrição:");
-
         jPanelMenuCRUDBebidas.setPreferredSize(new java.awt.Dimension(353, 85));
 
-        botaoAdicionarCRUDBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
-        botaoAdicionarCRUDBebidas.setContentAreaFilled(false);
-        botaoAdicionarCRUDBebidas.setDefaultCapable(false);
-        botaoAdicionarCRUDBebidas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDBebidas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDBebidas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDBebidas.addActionListener(new java.awt.event.ActionListener() {
+        botaoAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
+        botaoAdicionar.setContentAreaFilled(false);
+        botaoAdicionar.setDefaultCapable(false);
+        botaoAdicionar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAdicionarCRUDBebidasActionPerformed(evt);
+                botaoAdicionarActionPerformed(evt);
             }
         });
 
-        botaoExcluirCRUDBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
-        botaoExcluirCRUDBebidas.setBorderPainted(false);
-        botaoExcluirCRUDBebidas.setContentAreaFilled(false);
-        botaoExcluirCRUDBebidas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDBebidas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDBebidas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDBebidas.addActionListener(new java.awt.event.ActionListener() {
+        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
+        botaoExcluir.setBorderPainted(false);
+        botaoExcluir.setContentAreaFilled(false);
+        botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoExcluirCRUDBebidasActionPerformed(evt);
+                botaoExcluirActionPerformed(evt);
             }
         });
 
-        botaoVoltarCRUDBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botaoVoltarCRUDBebidas.setBorderPainted(false);
-        botaoVoltarCRUDBebidas.setContentAreaFilled(false);
-        botaoVoltarCRUDBebidas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDBebidas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDBebidas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDBebidas.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setContentAreaFilled(false);
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoVoltarCRUDBebidasActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
-        botatoEditarCRUDBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
-        botatoEditarCRUDBebidas.setBorderPainted(false);
-        botatoEditarCRUDBebidas.setContentAreaFilled(false);
-        botatoEditarCRUDBebidas.setMaximumSize(new java.awt.Dimension(63, 63));
-        botatoEditarCRUDBebidas.setMinimumSize(new java.awt.Dimension(63, 63));
-        botatoEditarCRUDBebidas.setPreferredSize(new java.awt.Dimension(63, 63));
-        botatoEditarCRUDBebidas.addActionListener(new java.awt.event.ActionListener() {
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setBorderPainted(false);
+        botaoAtualizar.setContentAreaFilled(false);
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botatoEditarCRUDBebidasActionPerformed(evt);
+                botaoAtualizarActionPerformed(evt);
             }
         });
+
+        labelVoltar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelVoltar.setText("Voltar");
+
+        labelAdicionar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAdicionar.setText("Adicionar");
+
+        labelExcluir.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelExcluir.setText("Excluir");
+
+        labelAtualizar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAtualizar.setText("Atualizar");
 
         javax.swing.GroupLayout jPanelMenuCRUDBebidasLayout = new javax.swing.GroupLayout(jPanelMenuCRUDBebidas);
         jPanelMenuCRUDBebidas.setLayout(jPanelMenuCRUDBebidasLayout);
         jPanelMenuCRUDBebidasLayout.setHorizontalGroup(
             jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMenuCRUDBebidasLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoVoltarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoAdicionarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botaoExcluirCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(botatoEditarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57))
+                .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(labelVoltar)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelAdicionar)
+                        .addGap(18, 18, 18)
+                        .addComponent(labelExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelAtualizar)))
+                .addGap(45, 45, 45))
         );
         jPanelMenuCRUDBebidasLayout.setVerticalGroup(
             jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanelMenuCRUDBebidasLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botaoAdicionarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botaoVoltarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(botatoEditarCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(botaoExcluirCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelMenuCRUDBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelVoltar)
+                    .addComponent(labelAdicionar)
+                    .addComponent(labelExcluir)
+                    .addComponent(labelAtualizar))
+                .addContainerGap())
         );
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Voltar");
+        tabelaBebidas.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tabelaBebidas.setRowHeight(25);
+        tabelaBebidas.setRowMargin(5);
+        painelBebidas.setViewportView(tabelaBebidas);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Adicionar");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Excluir");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Atualizar");
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(painelLayout.createSequentialGroup()
+                .addGap(101, 101, 101)
+                .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(113, 113, 113)
-                        .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(135, 135, 135)
-                        .addComponent(jLabel1)
-                        .addGap(27, 27, 27)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel3)
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel4)))
-                .addContainerGap(114, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescriçãoBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanelMenuCRUDBebidas, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addContainerGap(13, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
     
-    private void botaoVoltarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDBebidasActionPerformed
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
 
         this.getJanelaPrincipal().setVisible(true);
         this.getJanelaPrincipal().setEnabled(true);
         this.dispose();
-    }//GEN-LAST:event_botaoVoltarCRUDBebidasActionPerformed
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
-    private void botaoExcluirCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirCRUDBebidasActionPerformed
-        int codigoProduto = (Integer) this.tabelaCRUDBebidas.getValueAt(this.tabelaCRUDBebidas.getSelectedRow(), 0);
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        int codigoProduto = (Integer) this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0);
         if (codigoProduto > -1) {
             JOptionPane.showMessageDialog(null, "Deseja excluir o item selecionado?", "Confirmação", JOptionPane.QUESTION_MESSAGE);
             System.out.println(codigoProduto);
@@ -273,19 +279,19 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
             
         }
 
-    }//GEN-LAST:event_botaoExcluirCRUDBebidasActionPerformed
+    }//GEN-LAST:event_botaoExcluirActionPerformed
 
-    private void botaoAdicionarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDBebidasActionPerformed
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
         // TODO add your handling code here:
         TelaAdicionarBebidas addBebida = new TelaAdicionarBebidas(this, this.autenticacaoServer);
         addBebida.setVisible(true);
         this.setEnabled(false);
         addBebida.setLocationRelativeTo(null);
-    }//GEN-LAST:event_botaoAdicionarCRUDBebidasActionPerformed
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
 
-    private void botatoEditarCRUDBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botatoEditarCRUDBebidasActionPerformed
-        controle.exibirBebidasCadastrados(this.autenticacaoServer, this.tabelaCRUDBebidas);
-    }//GEN-LAST:event_botatoEditarCRUDBebidasActionPerformed
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        controle.exibirBebidasCadastrados(this.autenticacaoServer, this.tabelaBebidas);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -329,17 +335,17 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoAdicionarCRUDBebidas;
-    private javax.swing.JButton botaoExcluirCRUDBebidas;
-    private javax.swing.JButton botaoVoltarCRUDBebidas;
-    private javax.swing.JButton botatoEditarCRUDBebidas;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton botaoAdicionar;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JPanel jPanelMenuCRUDBebidas;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelDescriçãoBebidas;
-    private javax.swing.JTable tabelaCRUDBebidas;
+    private javax.swing.JLabel labelAdicionar;
+    private javax.swing.JLabel labelAtualizar;
+    private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelVoltar;
+    private javax.swing.JPanel painel;
+    private javax.swing.JScrollPane painelBebidas;
+    private javax.swing.JTable tabelaBebidas;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,7 +16,7 @@ import server.persistencia.Banco;
  *
  * @author Gustavo
  */
-public class ExibirPedidosEmAberto extends javax.swing.JFrame {
+public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
 
     /**
      * Creates new form pedidosEmAberto
@@ -35,7 +35,7 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
      Retorno:
      
      */
-    private ExibirPedidosEmAberto() {
+    private TelaExibirPedidosEmAberto() {
         initComponents();
     }
     
@@ -46,7 +46,7 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
      Retorno:
      Data Última Alteração: 24/05/2014 
     */
-    public ExibirPedidosEmAberto(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+    public TelaExibirPedidosEmAberto(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
         this();
         this.setAutenticacaoServer(autenticacaoServer);
         this.setJanelaPrincipal(janelaPrincipal);
@@ -146,7 +146,6 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Pedidos Em Aberto");
-        setMaximumSize(new java.awt.Dimension(800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
@@ -265,20 +264,20 @@ public class ExibirPedidosEmAberto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaExibirPedidosEmAberto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ExibirPedidosEmAberto().setVisible(true);
+                new TelaExibirPedidosEmAberto().setVisible(true);
             }
         });
     }

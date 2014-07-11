@@ -58,7 +58,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         this.setJanelaPrincipal(janelaPrincipal);
         this.setAutenticacaoServer(autenticacaoServer);
         this.setControle(controle);
-        this.getControle().exibirProdutos(autenticacaoServer, tabelaCRUDOutros, "Outro");
+        this.getControle().exibirProdutos(autenticacaoServer, tabelaOutros, "Outro");
     }
     
     /*
@@ -92,21 +92,21 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaCRUDOutros = new javax.swing.JTable();
-        labelDescriçãoOutros = new javax.swing.JLabel();
+        oainel = new javax.swing.JPanel();
+        painelOutros = new javax.swing.JScrollPane();
+        tabelaOutros = new javax.swing.JTable();
         JPanelMenuCRUDOutros = new javax.swing.JPanel();
-        botaoAdicionarCRUDOutros = new javax.swing.JButton();
-        botaoExcluirCRUDOutros = new javax.swing.JButton();
-        botaoVoltarCRUDOutros = new javax.swing.JButton();
-        botaoEditarCRUDOutros = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        botaoAdicionar = new javax.swing.JButton();
+        botaoExcluir = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
+        labelVoltar = new javax.swing.JLabel();
+        labelAdicionar = new javax.swing.JLabel();
+        labelExcluir = new javax.swing.JLabel();
+        labelAtualizar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("CRUD Outros");
+        setTitle("OpenPizza - Outros");
         setMaximumSize(new java.awt.Dimension(540, 400));
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));
@@ -117,66 +117,65 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
             }
         });
 
-        tabelaCRUDOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(tabelaCRUDOutros);
+        tabelaOutros.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tabelaOutros.setRowHeight(25);
+        tabelaOutros.setRowMargin(5);
+        painelOutros.setViewportView(tabelaOutros);
 
-        labelDescriçãoOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDescriçãoOutros.setText("Descrição: ");
-
-        botaoAdicionarCRUDOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
-        botaoAdicionarCRUDOutros.setBorderPainted(false);
-        botaoAdicionarCRUDOutros.setContentAreaFilled(false);
-        botaoAdicionarCRUDOutros.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDOutros.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDOutros.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoAdicionarCRUDOutros.addActionListener(new java.awt.event.ActionListener() {
+        botaoAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
+        botaoAdicionar.setBorderPainted(false);
+        botaoAdicionar.setContentAreaFilled(false);
+        botaoAdicionar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoAdicionarCRUDOutrosActionPerformed(evt);
+                botaoAdicionarActionPerformed(evt);
             }
         });
 
-        botaoExcluirCRUDOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
-        botaoExcluirCRUDOutros.setBorderPainted(false);
-        botaoExcluirCRUDOutros.setContentAreaFilled(false);
-        botaoExcluirCRUDOutros.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDOutros.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoExcluirCRUDOutros.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
+        botaoExcluir.setBorderPainted(false);
+        botaoExcluir.setContentAreaFilled(false);
+        botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
 
-        botaoVoltarCRUDOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botaoVoltarCRUDOutros.setBorderPainted(false);
-        botaoVoltarCRUDOutros.setContentAreaFilled(false);
-        botaoVoltarCRUDOutros.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDOutros.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDOutros.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoVoltarCRUDOutros.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setContentAreaFilled(false);
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoVoltarCRUDOutrosActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
-        botaoEditarCRUDOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
-        botaoEditarCRUDOutros.setBorderPainted(false);
-        botaoEditarCRUDOutros.setContentAreaFilled(false);
-        botaoEditarCRUDOutros.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDOutros.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDOutros.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoEditarCRUDOutros.addActionListener(new java.awt.event.ActionListener() {
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setBorderPainted(false);
+        botaoAtualizar.setContentAreaFilled(false);
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoEditarCRUDOutrosActionPerformed(evt);
+                botaoAtualizarActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setText("Voltar");
+        labelVoltar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelVoltar.setText("Voltar");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("Adicionar");
+        labelAdicionar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAdicionar.setText("Adicionar");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setText("Excluir");
+        labelExcluir.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelExcluir.setText("Excluir");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Atualizar");
+        labelAtualizar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelAtualizar.setText("Atualizar");
 
         javax.swing.GroupLayout JPanelMenuCRUDOutrosLayout = new javax.swing.GroupLayout(JPanelMenuCRUDOutros);
         JPanelMenuCRUDOutros.setLayout(JPanelMenuCRUDOutrosLayout);
@@ -185,99 +184,102 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
             .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoVoltarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoAdicionarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel2)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoExcluirCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelVoltar)))
                 .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel4))
-                    .addComponent(botaoEditarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
+                        .addComponent(labelAdicionar))
+                    .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelExcluir))
+                .addGap(18, 18, 18)
+                .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAtualizar))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         JPanelMenuCRUDOutrosLayout.setVerticalGroup(
             JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(JPanelMenuCRUDOutrosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(botaoEditarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoAdicionarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoVoltarCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoExcluirCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(JPanelMenuCRUDOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(labelVoltar)
+                    .addComponent(labelAdicionar)
+                    .addComponent(labelExcluir)
+                    .addComponent(labelAtualizar))
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout oainelLayout = new javax.swing.GroupLayout(oainel);
+        oainel.setLayout(oainelLayout);
+        oainelLayout.setHorizontalGroup(
+            oainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oainelLayout.createSequentialGroup()
+                .addGap(85, 85, 85)
+                .addComponent(JPanelMenuCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(oainelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelOutros, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        oainelLayout.setVerticalGroup(
+            oainelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(oainelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(JPanelMenuCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelDescriçãoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(JPanelMenuCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(123, Short.MAX_VALUE))
+            .addComponent(oainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelDescriçãoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JPanelMenuCRUDOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addComponent(oainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
              
-    private void botaoVoltarCRUDOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarCRUDOutrosActionPerformed
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
         // TODO add your handling code here:
         this.getJanelaPrincipal().setVisible(true);
         this.getJanelaPrincipal().setEnabled(true);
         this.dispose();
-    }//GEN-LAST:event_botaoVoltarCRUDOutrosActionPerformed
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
-    private void botaoAdicionarCRUDOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarCRUDOutrosActionPerformed
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
         // TODO add your handling code here:
         TelaAdicionarOutros addOutros = new TelaAdicionarOutros(this, this.autenticacaoServer);
         addOutros.setVisible(true);
         addOutros.setEnabled(true);
         this.setEnabled(false);
         addOutros.setLocationRelativeTo(null);
-    }//GEN-LAST:event_botaoAdicionarCRUDOutrosActionPerformed
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
 
-    private void botaoEditarCRUDOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarCRUDOutrosActionPerformed
-        controle.exibirOutrosCadastrados(this.autenticacaoServer, this.tabelaCRUDOutros);
-    }//GEN-LAST:event_botaoEditarCRUDOutrosActionPerformed
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        controle.exibirOutrosCadastrados(this.autenticacaoServer, this.tabelaOutros);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
@@ -322,17 +324,17 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel JPanelMenuCRUDOutros;
-    private javax.swing.JButton botaoAdicionarCRUDOutros;
-    private javax.swing.JButton botaoEditarCRUDOutros;
-    private javax.swing.JButton botaoExcluirCRUDOutros;
-    private javax.swing.JButton botaoVoltarCRUDOutros;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel labelDescriçãoOutros;
-    private javax.swing.JTable tabelaCRUDOutros;
+    private javax.swing.JButton botaoAdicionar;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoVoltar;
+    private javax.swing.JLabel labelAdicionar;
+    private javax.swing.JLabel labelAtualizar;
+    private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelVoltar;
+    private javax.swing.JPanel oainel;
+    private javax.swing.JScrollPane painelOutros;
+    private javax.swing.JTable tabelaOutros;
     // End of variables declaration//GEN-END:variables
 
     public Controle getControle() {
