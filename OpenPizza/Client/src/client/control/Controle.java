@@ -302,4 +302,34 @@ public class Controle implements Serializable {
     public void consultarImagemDaPizza(JLabel foto, Autenticacao autenticacao, int codigoDoProduto) {
         this.banco.consultarImagemDaPizza(foto, autenticacao, codigoDoProduto);
     }
+
+    /*
+     Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     codigoDoProduto (Inteiro contendo o código do produto selecionado na Tela de Inclusão de Produtos)
+     quantidade (Inteiro contendo a quantidade escolhida pelo usuário na Tela de Inclusão de Produtos)
+     categoriaDoProduto (String contendo a categoria do produto escolhida na Tela de Cardápio)
+     Retorno:
+     true, caso a quantidade em estoque seja menor do que a informada pelo usuário; false, caso contrário
+     */
+    public boolean consultarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto) {
+        boolean consultarEstoque = this.banco.consultarEstoque(autenticacao, codigoDoProduto, quantidade, categoriaDoProduto);
+        return consultarEstoque;
+    }
+    
+    /*
+     Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     codigoDoProduto (Inteiro contendo o código do produto selecionado na Tela de Inclusão de Produtos)
+     quantidade (Inteiro contendo a quantidade escolhida pelo usuário na Tela de Inclusão de Produtos)
+     categoriaDoProduto (String contendo a categoria do produto escolhida na Tela de Cardápio)
+     Retorno:
+     true, caso o estoque seja atualizado; false, caso contrário
+     */
+    public boolean atualizarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto){
+        boolean atualizarEstoque = this.banco.atualizarEstoque(autenticacao, codigoDoProduto, quantidade, categoriaDoProduto);
+        return atualizarEstoque;
+    }
 }

@@ -86,7 +86,16 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(1).setHeaderValue("Descrição");
 
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setHeaderValue("Preço");
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setMinWidth(70);
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setMaxWidth(70);
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setPreferredWidth(70);
             this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+            
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setHeaderValue("Estoque");
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setMinWidth(70);
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setMaxWidth(70);
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setPreferredWidth(70);
+            this.tabelaOpcoesDisponiveis.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
         }
     }
 
@@ -305,55 +314,100 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
             // Confirmação válida -> Tentativa de inclusão do produto no pedido
             if (confirmarInclusao == JOptionPane.OK_OPTION) {
 
-                // Verificação de instância do produto no pedido
-                boolean consultarProdutoNoPedido = this.getControle().consultarProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto);
-
-                // Produto encontrado -> Tentativa de atualização da quantidade do produto
-                if (consultarProdutoNoPedido) {
-
-                    // Tentativa de atualização da quantidade do produto
-                    boolean atualizarQuantidadeDoProdutoNoPedido = this.getControle().atualizarQuantidadeDoProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), this.getCategoriaDoProduto(), codigoDoProduto, Integer.parseInt(quantidade));
-
-                    // Quantidade atualizada -> Mensagem de aviso
-                    if (atualizarQuantidadeDoProdutoNoPedido) {
-                        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    } // Quantidade não atualizada -> Mensagem de erro
-                    else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível atualizar a quantidade do produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
-                    }
-                } // Produto não encontrado -> Tentativa de inserção do produto
-                else {
-                    boolean inserirProduto = false;
-
-                    // Verificação da categoria do produto
-                    // Categoria Pizza
-                    if (this.getCategoriaDoProduto().equals("Pizza")) {
-
-                        // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
-                        String tamanho = (String) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 1);
-                        float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 3);
-                        inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), tamanho, preco);
-                    } // Demais Categorias (Lanches, Bebida, Outros)
-                    else {
-
-                        // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
-                        float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 2);
-                        inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), "-", preco);
-                    }
-
-                    // Verificação de inserção do produto no pedido
-                    // Produto inserido -> Mensagem de aviso
-                    if (inserirProduto) {
-                        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                    } // Produto não inserido -> Mensagem de erro
-                    else {
-                        JOptionPane.showMessageDialog(null, "Não foi possível inserir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                // Parada para verificação do estoque
+                boolean continuar = true;
+                
+                // Verificação da quantidade disponível em estoque, no caso de Bebidas e Outros
+                if ((this.getCategoriaDoProduto().equals("Bebida")) || (this.getCategoriaDoProduto().equals("Outro"))) {
+                    
+                    // Verificação da quantidade disponível em estoque
+                    boolean consultarEstoque = this.getControle().consultarEstoque(this.getAutenticacao(), codigoDoProduto, Integer.parseInt(quantidade), this.getCategoriaDoProduto());
+                    
+                    // Quantidade em estoque é menor do que a desejada -> Mensagem de erro
+                    if (consultarEstoque) {
+                        continuar = false;
+                        JOptionPane.showMessageDialog(null, "A quantidade informada é maior do que a disponível em estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+                // Continuação, caso o estoque esteja disponível ou não seja requisitado
+                if (continuar) {
+                    
+                    // Verificação de instância do produto no pedido
+                    boolean consultarProdutoNoPedido = this.getControle().consultarProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto);
 
-                // Habilitar visualização da Tela de Cardápio e fechar tela atual
-                this.getTelaCardapio().setVisible(true);
-                this.dispose();
+                    // Produto encontrado -> Tentativa de atualização da quantidade do produto
+                    if (consultarProdutoNoPedido) {
+
+                        // Tentativa de atualização da quantidade do produto
+                        boolean atualizarQuantidadeDoProdutoNoPedido = this.getControle().atualizarQuantidadeDoProdutoNoPedido(this.getAutenticacao(), this.getNumeroDoPedido(), this.getCategoriaDoProduto(), codigoDoProduto, Integer.parseInt(quantidade));
+
+                        // Quantidade atualizada -> Mensagem de aviso
+                        if (atualizarQuantidadeDoProdutoNoPedido) {
+                            
+                            // Verificação de categoria do produto (Atualização da quantidade em caso de Bebidas ou Outros)
+                            if ((this.getCategoriaDoProduto().equals("Bebida")) || (this.getCategoriaDoProduto().equals("Outro"))){
+                                
+                                // Tentativa de atualização do estoque, no caso de Bebidas e Outros
+                                boolean atualizarEstoque = this.getControle().atualizarEstoque(this.getAutenticacao(), codigoDoProduto, Integer.parseInt(quantidade), this.getCategoriaDoProduto());
+                                
+                                // Estoque não atualizado -> Mensagem de erro
+                                if(!atualizarEstoque){
+                                    JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar a quantidade em estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                            
+                            JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } // Quantidade não atualizada -> Mensagem de erro
+                        else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível atualizar a quantidade do produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } // Produto não encontrado -> Tentativa de inserção do produto
+                    else {
+                        boolean inserirProduto = false;
+
+                    // Verificação da categoria do produto
+                        // Categoria Pizza
+                        if (this.getCategoriaDoProduto().equals("Pizza")) {
+
+                            // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
+                            String tamanho = (String) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 1);
+                            float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 3);
+                            inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), tamanho, preco);
+                        } // Demais Categorias (Lanches, Bebida, Outros)
+                        else {
+
+                            // Recuperação dos atributos da tabela de opções e tentativa de inserção do produto no pedido
+                            float preco = (Float) this.tabelaOpcoesDisponiveis.getValueAt(this.tabelaOpcoesDisponiveis.getSelectedRow(), 2);
+                            inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), this.getNumeroDoPedido(), codigoDoProduto, Integer.parseInt(quantidade), "-", preco);
+                        }
+
+                    // Verificação de inserção do produto no pedido
+                        // Produto inserido -> Mensagem de aviso
+                        if (inserirProduto) {
+                            
+                            // Verificação de categoria do produto (Atualização da quantidade em caso de Bebidas ou Outros)
+                            if ((this.getCategoriaDoProduto().equals("Bebida")) || (this.getCategoriaDoProduto().equals("Outro"))){
+                                
+                                // Tentativa de atualização do estoque, no caso de Bebidas e Outros
+                                boolean atualizarEstoque = this.getControle().atualizarEstoque(this.getAutenticacao(), codigoDoProduto, Integer.parseInt(quantidade), this.getCategoriaDoProduto());
+                                
+                                // Estoque não atualizado -> Mensagem de erro
+                                if(!atualizarEstoque){
+                                    JOptionPane.showMessageDialog(null, "Ocorreu um erro ao atualizar a quantidade em estoque.", "Erro", JOptionPane.ERROR_MESSAGE);
+                                }
+                            }
+                            
+                            JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        } // Produto não inserido -> Mensagem de erro
+                        else {
+                            JOptionPane.showMessageDialog(null, "Não foi possível inserir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+
+                    // Habilitar visualização da Tela de Cardápio e fechar tela atual
+                    this.getTelaCardapio().setVisible(true);
+                    this.dispose();
+                }
             }
         }
     }//GEN-LAST:event_botaoIncluirActionPerformed

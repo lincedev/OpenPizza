@@ -271,9 +271,9 @@ public class Banco {
             } else if (categoriaDoProduto.equals("Lanche")) {
                 query = "SELECT P.codigo, P.descricao, L.preco FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto WHERE P.ativo = true AND P.descricao LIKE '" + nomeDoProduto + "' ORDER BY P.descricao";
             } else if (categoriaDoProduto.equals("Bebida")) {
-                query = "SELECT P.codigo, P.descricao, B.preco FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto WHERE P.ativo = true AND P.descricao LIKE '" + nomeDoProduto + "' ORDER BY P.descricao";
+                query = "SELECT P.codigo, P.descricao, B.preco, B.quantidade FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto WHERE P.ativo = true AND P.descricao LIKE '" + nomeDoProduto + "' ORDER BY P.descricao";
             } else {
-                query = "SELECT P.codigo, P.descricao, O.preco FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto WHERE P.ativo = true AND P.descricao LIKE '" + nomeDoProduto + "' ORDER BY P.descricao";
+                query = "SELECT P.codigo, P.descricao, O.preco, O.quantidade FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto WHERE P.ativo = true AND P.descricao LIKE '" + nomeDoProduto + "' ORDER BY P.descricao";
             }
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
@@ -507,5 +507,85 @@ public class Banco {
 
             }
         }
+    }
+    
+    /*
+     Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     codigoDoProduto (Inteiro contendo o código do produto selecionado na Tela de Inclusão de Produtos)
+     quantidade (Inteiro contendo a quantidade escolhida pelo usuário na Tela de Inclusão de Produtos)
+     categoriaDoProduto (String contendo a categoria do produto escolhida na Tela de Cardápio)
+     Retorno:
+     true, caso a quantidade em estoque seja menor do que a informada pelo usuário; false, caso contrário
+     */
+    public boolean consultarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto) {
+        Connection conexao = null;
+        boolean consultarEstoque = false;
+        try {
+            String query;
+            if (categoriaDoProduto.equals("Bebida")) {
+                query = "SELECT quantidade FROM Bebidas WHERE codProduto = " + codigoDoProduto;
+            } else {
+                query = "SELECT quantidade FROM Outros WHERE codProduto = " + codigoDoProduto;
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            if (resultado.next()) {;
+                if (resultado.getInt("quantidade") < quantidade) {
+                    consultarEstoque = true;
+                }
+            }
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e) {
+
+            }
+        }
+        return consultarEstoque;
+    }
+    
+    /*
+     Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     codigoDoProduto (Inteiro contendo o código do produto selecionado na Tela de Inclusão de Produtos)
+     quantidade (Inteiro contendo a quantidade escolhida pelo usuário na Tela de Inclusão de Produtos)
+     categoriaDoProduto (String contendo a categoria do produto escolhida na Tela de Cardápio)
+     Retorno:
+     true, caso o estoque seja atualizado; false, caso contrário
+     */
+    public boolean atualizarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto){
+        Connection conexao = null;
+        boolean atualizarEstoque = false;
+        try{
+            String query;
+            if(categoriaDoProduto.equals("Bebida")){
+                query = "UPDATE Bebidas SET quantidade = quantidade - " + quantidade + " WHERE codProduto = " + codigoDoProduto;
+            }
+            else{
+                query = "UPDATE Outros SET quantidade = quantidade - " + quantidade + " WHERE codProduto = " + codigoDoProduto;
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            atualizarEstoque = true;
+        }
+        catch(Exception e){
+            
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+        return atualizarEstoque;
     }
 }
