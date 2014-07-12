@@ -39,6 +39,36 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
         this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDPizza, "Pizza");
+        this.formatarTabelaCRUDPizzas();
+    }
+    
+    /*
+     Descrição: Método para formatação da tabela de pizzas
+     Parâmetros:
+     Retorno:
+     */
+    public void formatarTabelaCRUDPizzas() {
+
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        // Coluna Código
+        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setMaxWidth(50);
+
+        // Coluna Descrição
+        // Formatação padrão
+
+        // Coluna Preço
+        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setMaxWidth(70);
+
+        // Coluna Tamanho
+        this.tabelaCRUDPizza.getColumnModel().getColumn(3).setMaxWidth(100);
+
+        // Coluna Fatias
+        this.tabelaCRUDPizza.getColumnModel().getColumn(4).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDPizza.getColumnModel().getColumn(4).setMaxWidth(50);
     }
 
     /**
@@ -73,11 +103,6 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         tabelaCRUDPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tabelaCRUDPizza.setRowHeight(25);
@@ -266,12 +291,6 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        this.dispose();
-        this.getJanelaPrincipal().setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
-
     /*
      Descrição: Evento ao clicar no botão Atualizar
      Parâmetros:
@@ -280,6 +299,7 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
         // Recuperar e exibir as Pizzas cadastradas
         this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDPizza, "Pizza");
+        this.formatarTabelaCRUDPizzas();
         this.textAreaIngredientes.setText(null);
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 

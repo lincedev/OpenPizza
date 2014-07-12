@@ -2,7 +2,9 @@
 package server.view;
 
 // Importação dos pacotes e bibliotecas necessárias
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
@@ -39,6 +41,22 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         this.setJanelaPrincipal(janelaPrincipal);
         this.setControle(controle);
         this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
+        this.formatarTabelaDeMesas();
+    }
+
+    /*
+     Descrição: Método para formatação da tabela de mesas
+     Parâmetros:
+     Retorno:
+     */
+    public void formatarTabelaDeMesas(){
+
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        this.tabelaCRUDMesas.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+
+        this.tabelaCRUDMesas.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
     }
     
     /**
@@ -246,11 +264,10 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
         // TODO add your handling code here:
         boolean inserirMesa = this.getControle().inserirMesa(this.getAutenticacao());
-        if(inserirMesa){
+        if (inserirMesa) {
             JOptionPane.showMessageDialog(null, "Mesa inserida com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma nova mesa.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_botaoAdicionarActionPerformed
@@ -261,18 +278,26 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        // Confirmação de exclusão
+        // Recuperar item selecionado
         int indice = this.tabelaCRUDMesas.getSelectedRow();
         if (indice >= 0) {
+
+            // Confirmação de exclusão
             int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+
+            // Confirmação válida -> Recuperação e exclusão da mesa
             if (confirmacao == JOptionPane.OK_OPTION) {
                 int numeroDaMesa = Integer.parseInt(String.valueOf(this.tabelaCRUDMesas.getValueAt(this.tabelaCRUDMesas.getSelectedRow(), 0)));
                 if (numeroDaMesa >= 0) {
-                    boolean desativarProduto = this.getControle().desativarMesa(this.getAutenticacao(), numeroDaMesa);
-                    if (desativarProduto) {
+
+                    boolean desativarMesa = this.getControle().desativarMesa(this.getAutenticacao(), numeroDaMesa);
+
+                    // Exclusão válida -> Mensagem de aviso
+                    if (desativarMesa) {
                         JOptionPane.showMessageDialog(null, "Mesa excluída com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                         this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDMesas, "Mesa");
-                    } else {
+                    } // Exclusão inválida -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível excluir a mesa selecionadas.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -379,7 +404,7 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         this.janelaPrincipal = janelaPrincipal;
     }
 
-   /*
+    /*
      Descrição: Método get da autenticacao
      Parâmetros:
      Retorno:

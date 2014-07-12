@@ -8,7 +8,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.modelo.Lanche;
 import server.modelo.Pizza;
 
 /*
@@ -238,6 +237,11 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Método para obter uma imagem do sistema
+     Parâmetros:
+     Retorno:
+     */
     private void buttonProcurarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarArquivoActionPerformed
         try {
             //Criação do FileChooser  
@@ -268,8 +272,12 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+
+        // Validação dos campos informados
         boolean verificarCampos = this.getControle().verificarCamposPizza(this.textDescricaoPizza, this.textPrecoPizza, this.comboBoxTamanhoPizzas);
-        if(verificarCampos){
+
+        // Campos válidos -> Tentativa de inserção
+        if (verificarCampos) {
             String descricao = this.textDescricaoPizza.getText();
             float preco = Float.parseFloat(this.textPrecoPizza.getText());
             String tamanho = String.valueOf(this.comboBoxTamanhoPizzas.getSelectedIndex());
@@ -278,6 +286,8 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
             String imagem = null;
             Pizza novaPizza = new Pizza(descricao, preco, tamanho, fatias, ingredientes, imagem);
             boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novaPizza);
+
+            // Inserção válida -> Mensagem de aviso
             if (inserirProduto) {
                 JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.textDescricaoPizza.setText(null);
@@ -285,12 +295,13 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
                 this.textIngredientesPizza.setText(null);
                 this.comboBoxQuantidadeFatiasPizza.setSelectedIndex(0);
                 this.comboBoxTamanhoPizzas.setSelectedIndex(0);
-                
-            } else {
+
+            } // Inserção inválida -> Mensagem de erro
+            else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else{
+        } // Campos inválidos -> Mensagem de alerta
+        else {
             JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed

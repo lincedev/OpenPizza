@@ -1,134 +1,82 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela de Exibição de Pedidos em Aberto
  */
 public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form pedidosEmAberto
-     */
-    // Variável para armazenamento da tela principal.
+    // Variáveis encapsuladas
     private TelaPrincipal janelaPrincipal;
+    private Autenticacao autenticacao;
+    private Controle controle;
 
-    
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
-    private Autenticacao autenticacaoServer;
-    
-    
     /*
-     Descrição: Construtor padrão da janela de CRUD Pizza.
+     Descrição: Construtor padrão da Tela de Exibição de Pedidos em Aberto
      Parâmetros:
      Retorno:
-     
      */
     private TelaExibirPedidosEmAberto() {
         initComponents();
     }
-    
+
     /*
-     Descrição: Construtor completo da janela de CRUD de pizzas.
+     Descrição: Construtor completo da Tela de Exibição de Pedidos em Aberto
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
+     autenticacao (Necessário para realizar operações no banco de dados)
      Retorno:
-     Data Última Alteração: 24/05/2014 
-    */
-    public TelaExibirPedidosEmAberto(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+     */
+    public TelaExibirPedidosEmAberto(TelaPrincipal janelaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
-        this.setAutenticacaoServer(autenticacaoServer);
+        this.setAutenticacao(autenticacao);
         this.setJanelaPrincipal(janelaPrincipal);
+        this.setControle(controle);
         this.botaoAtualizarActionPerformed(null);
         this.formatarTabelaPedidosEmAberto();
     }
 
     /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 24/05/2014
-    */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método get para a variável janelaPrincipal
+     Descrição: Método para formatação da tabela de pedidos em aberto
      Parâmetros:
      Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 24/05/2014 
-    */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método set para a variável autenticação.
-     Parâmetros: 
-     *           autenticacao (Caminho para o banco de dados)
-     Retorno:
-     Data Última Alteração: 24/05/2014 
-    */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-    
-    /*
-     Descrição: Método get para a variável autenticação
-     Parâmetros:
-     Retorno: 
-     *           autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
-    Data Última Alteração: 24/05/2014 
-    */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-    
-    public void formatarTabelaPedidosEmAberto(){
-        
+     */
+    public void formatarTabelaPedidosEmAberto() {
+
         DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
         centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(0).setHeaderValue("Nº");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(1).setHeaderValue("Mesa");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(2).setHeaderValue("Data");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(3).setHeaderValue("Início");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(4).setHeaderValue("Fim");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(4).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(5).setHeaderValue("Valor");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(5).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(6).setHeaderValue("Pagamento");
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(6).setCellRenderer(centralizarLabel);
-        
+
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setMaxWidth(0);
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setMinWidth(0);
         this.tabelaPedidosEmAberto.getColumnModel().getColumn(7).setPreferredWidth(0);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -141,7 +89,7 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
         painel = new javax.swing.JPanel();
         painelTabela = new javax.swing.JScrollPane();
         tabelaPedidosEmAberto = new javax.swing.JTable();
-        botãoVoltar = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
         botaoAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -166,15 +114,15 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
         tabelaPedidosEmAberto.setRowMargin(5);
         painelTabela.setViewportView(tabelaPedidosEmAberto);
 
-        botãoVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        botãoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        botãoVoltar.setText("Voltar");
-        botãoVoltar.setMaximumSize(new java.awt.Dimension(130, 80));
-        botãoVoltar.setMinimumSize(new java.awt.Dimension(130, 80));
-        botãoVoltar.setPreferredSize(new java.awt.Dimension(130, 80));
-        botãoVoltar.addActionListener(new java.awt.event.ActionListener() {
+        botaoVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setText("Voltar");
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(130, 80));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botãoVoltarActionPerformed(evt);
+                botaoVoltarActionPerformed(evt);
             }
         });
 
@@ -196,9 +144,9 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
             painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(botãoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28))
             .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
@@ -212,7 +160,7 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
                 .addComponent(painelTabela, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botãoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -234,17 +182,25 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botãoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botãoVoltarActionPerformed
-        // TODO add your handling code here:
-        this.getJanelaPrincipal().setEnabled(true);
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        // Fechar janela atual
         this.dispose();
-    }//GEN-LAST:event_botãoVoltarActionPerformed
+    }//GEN-LAST:event_botaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        // TODO add your handling code here:
-        Controle controle = new Controle();
-        controle.exibirPedidosEmAberto(this.getAutenticacaoServer(), this.tabelaPedidosEmAberto);
-        
+        // Recuperar e exibir os pedidos em aberto
+        this.getControle().exibirPedidosEmAberto(this.getAutenticacao(), this.tabelaPedidosEmAberto);
+        this.formatarTabelaPedidosEmAberto();
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     /**
@@ -284,9 +240,69 @@ public class TelaExibirPedidosEmAberto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAtualizar;
-    private javax.swing.JButton botãoVoltar;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JPanel painel;
     private javax.swing.JScrollPane painelTabela;
     private javax.swing.JTable tabelaPedidosEmAberto;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método set para a variável autenticação.
+     Parâmetros: 
+     autenticacao (Caminho para o banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    /*
+     Descrição: Método get para a variável autenticação
+     Parâmetros:
+     Retorno: 
+     autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

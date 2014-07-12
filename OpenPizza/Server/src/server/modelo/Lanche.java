@@ -1,3 +1,4 @@
+// Pacote Modelo
 package server.modelo;
 
 /*
@@ -20,9 +21,9 @@ public class Lanche extends Produto {
     /*
      Descrição: Construtor completo do objeto lanche
      Parâmetros:
-     *           descricao (Nome do lanche)
-     *           preco (Preço do lanche)
-     *           ingredientesLanche (Ingredientes do lanche)
+     descricao (Nome do lanche)
+     preco (Preço do lanche)
+     ingredientesLanche (Ingredientes do lanche)
      Retorno:
      */
     public Lanche(String descricao, float preco, String ingredientesLanche) {
@@ -35,7 +36,7 @@ public class Lanche extends Produto {
      Descrição: Método get do preço do lanche
      Parâmetros:
      Retorno:
-     *           preco (Preço do lanche)
+     preco (Preço do lanche)
      */
     public float getPreco() {
         return preco;
@@ -44,7 +45,7 @@ public class Lanche extends Produto {
     /*
      Descrição: Método set do preço do lanche
      Parâmetros:
-     *           preco (Preço do lanche)
+     preco (Preço do lanche)
      Retorno:
      */
     public void setPreco(float preco) {
@@ -55,7 +56,7 @@ public class Lanche extends Produto {
      Descrição: Método get dos ingredientes do lanche
      Parâmetros:
      Retorno:
-     *           ingredientesLanche (Ingredientes do lanche)
+     ingredientesLanche (Ingredientes do lanche)
      */
     public String getIngredientesLanche() {
         return ingredientesLanche;
@@ -64,7 +65,7 @@ public class Lanche extends Produto {
     /*
      Descrição: Método set dos ingredientes do lanche
      Parâmetros:
-     *           ingredientesLanche (Ingredientes do lanche)
+     ingredientesLanche (Ingredientes do lanche)
      Retorno:
      */
     public void setIngredientesLanche(String ingredientesLanche) {

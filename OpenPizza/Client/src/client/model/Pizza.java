@@ -32,7 +32,7 @@ public class Pizza extends Produto {
      imagemPizza (Imagem da pizza)
      Retorno:
      */
-    public Pizza(int codigo, String descricao, float preco, String tamanho, int qtdFatias, String ingredientesPizza, String imagemPizza) {
+    public Pizza(String descricao, float preco, String tamanho, int qtdFatias, String ingredientesPizza, String imagemPizza) {
         super(descricao);
         this.setPreco(preco);
         this.setTamanho(tamanho);

@@ -2,7 +2,9 @@
 package server.view;
 
 // Importação dos pacotes e bibliotecas necessárias
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
@@ -39,6 +41,29 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         this.setAutenticacao(autenticacaoServer);
         this.setControle(controle);
         this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDLanches, "Lanche");
+        this.formatarTabelaCRUDLanches();
+    }
+    
+    /*
+     Descrição: Método para formatação da tabela de lanches
+     Parâmetros:
+     Retorno:
+     */
+    public void formatarTabelaCRUDLanches() {
+
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        // Coluna Código
+        this.tabelaCRUDLanches.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDLanches.getColumnModel().getColumn(0).setMaxWidth(50);
+
+        // Coluna Descrição
+        // Formatação padrão
+
+        // Coluna Preço
+        this.tabelaCRUDLanches.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+        this.tabelaCRUDLanches.getColumnModel().getColumn(2).setMaxWidth(70);
     }
 
     /**
@@ -278,6 +303,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
         // Recuperar e exibir os Lanches cadastrados
         this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDLanches, "Lanche");
+        this.formatarTabelaCRUDLanches();
         this.textAreaIngredientes.setText(null);
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
@@ -298,19 +324,27 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        // Confirmação de exclusão
+        // Recuperar item selecionado
         int indice = this.tabelaCRUDLanches.getSelectedRow();
         if (indice >= 0) {
+
+            // Confirmação de exclusão
             int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+
+            // Confirmação válida
             if (confirmacao == JOptionPane.OK_OPTION) {
                 int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaCRUDLanches.getValueAt(this.tabelaCRUDLanches.getSelectedRow(), 0)));
                 if (codigoDoProduto >= 0) {
+
                     boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+
+                    // Exclusão válida -> Mensagem de aviso
                     if (desativarProduto) {
                         JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                         this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDLanches, "Lanche");
                         this.textAreaIngredientes.setText(null);
-                    } else {
+                    } // Exclusão inválida -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }

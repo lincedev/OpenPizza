@@ -8,21 +8,35 @@ import server.modelo.Autenticacao;
 import server.modelo.Bebidas;
 
 /*
-Descrição: Tela Adicionar Bebidas
+ Descrição: Tela Adicionar Bebidas
  */
 public class TelaAdicionarBebidas extends javax.swing.JFrame {
-    
-    private TelaCRUDBebidas telaCrudBebidas;
+
+    // Atributos encapsulados
+    private TelaCRUDBebidas telaCRUDBebidas;
     private Autenticacao autenticacao;
     private Controle controle;
-    
+
+    /*
+     Descrição: Construtor padrão da Tela Adicionar Bebidas
+     Parâmetros:
+     Retorno:
+     */
     private TelaAdicionarBebidas() {
         initComponents();
     }
-    
-    public TelaAdicionarBebidas(TelaCRUDBebidas telaCrudBebidas, Autenticacao autenticacao, Controle controle) {
+
+    /*
+     Descrição: Construtor completo da Tela Adicionar Bebidas
+     Parâmetros:
+     telaCRUDBebidas (Referência à Tela CRUD Bebidas)
+     autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaAdicionarBebidas(TelaCRUDBebidas telaCRUDBebidas, Autenticacao autenticacao, Controle controle) {
         this();
-        this.setTelaCrudBebidas(telaCrudBebidas);
+        this.setTelaCRUDBebidas(telaCRUDBebidas);
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
     }
@@ -155,25 +169,43 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Cancelar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoCancelarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Cadastrar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+
+        // Validação dos campos informados
         boolean verificarCampos = this.getControle().verificarCamposBebidasOutros(this.textDescricao, this.textPreco, this.textEstoque);
+
+        // Campos válidos -> Tentativa de inserção
         if (verificarCampos) {
             Bebidas novaBebida = new Bebidas(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), Integer.parseInt(this.textEstoque.getText()));
             boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novaBebida);
+
+            // Inserção válida -> Mensagem de aviso
             if (inserirProduto) {
                 JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.textDescricao.setText(null);
                 this.textPreco.setText(null);
                 this.textEstoque.setText(null);
-            } else {
+            } // Inserção inválida -> Mensagem de erro
+            else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else{
+        } // Campos inválidos -> Mensagem de alerta
+        else {
             JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
@@ -225,26 +257,62 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
     private javax.swing.JTextField textPreco;
     // End of variables declaration//GEN-END:variables
 
-    public TelaCRUDBebidas getTelaCrudBebidas() {
-        return telaCrudBebidas;
+    /*
+     Descrição: Método get da telaCRUDBebidas
+     Parâmetros:
+     Retorno:
+     telaCRUDBebidas (Referência à Tela CRUD Bebidas)
+     */
+    public TelaCRUDBebidas getTelaCRUDBebidas() {
+        return telaCRUDBebidas;
     }
 
-    public void setTelaCrudBebidas(TelaCRUDBebidas telaCrudBebidas) {
-        this.telaCrudBebidas = telaCrudBebidas;
+    /*
+     Descrição: Método set da telaCRUDBebidas
+     Parâmetros:
+     telaCRUDBebidas (Referência à Tela CRUD Bebidas)
+     Retorno:
+     */
+    public void setTelaCRUDBebidas(TelaCRUDBebidas telaCRUDBebidas) {
+        this.telaCRUDBebidas = telaCRUDBebidas;
     }
 
+    /*
+     Descrição: Método get do objeto Autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set do objeto de Autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do objeto Controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do objeto de Controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }

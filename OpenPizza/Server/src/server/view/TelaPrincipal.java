@@ -2,6 +2,7 @@ package server.view;
 
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
@@ -11,7 +12,7 @@ import server.modelo.Autenticacao;
 public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     // Variável para armazenamento dos dados de autenticação do banco de dados
-    private Autenticacao autenticacaoServer;
+    private Autenticacao autenticacao;
     private Controle controle;
 
     /*
@@ -25,9 +26,16 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     
     public TelaPrincipal(Autenticacao autenticacao, Controle controle){
         this();
-        this.setAutenticacaoServer(autenticacao);
+        this.setAutenticacao(autenticacao);
         this.setControle(controle);
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
+        boolean verificarAutenticacao = this.getControle().verificarAutenticacao(this.getAutenticacao());
+        if(!verificarAutenticacao) {
+            this.menuExibir.setEnabled(false);
+            this.menuProdutos.setEnabled(false);
+            this.menuMesas.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Sua conexão não foi autenticada automaticamente.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
     
     /**
@@ -281,60 +289,60 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
      */
     private void itemMenuAutenticarBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAutenticarBancoActionPerformed
         // Criação da janela de autenticação do banco de dados
-        TelaAutenticacao telaAutenticacao = new TelaAutenticacao(this, this.autenticacaoServer,this.menuExibir,this.menuProdutos,this.menuMesas);
+        TelaAutenticacao telaAutenticacao = new TelaAutenticacao(this, this.getAutenticacao(), this.getControle(), this.menuExibir, this.menuProdutos, this.menuMesas);
         telaAutenticacao.setVisible(true);
     }//GEN-LAST:event_itemMenuAutenticarBancoActionPerformed
 
     private void itemMenuProdutosPizzasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosPizzasActionPerformed
         // Criação da janela de CRUD para Pizzas
-        TelaCRUDPizzas telaPizza = new TelaCRUDPizzas(this, this.getAutenticacaoServer(), this.getControle());
+        TelaCRUDPizzas telaPizza = new TelaCRUDPizzas(this, this.getAutenticacao(), this.getControle());
         telaPizza.setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosPizzasActionPerformed
 
     private void itemMenuProdutosOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosOutrosActionPerformed
         // TODO add your handling code here:
-        TelaCRUDOutros tOutros = new TelaCRUDOutros(this, this.getAutenticacaoServer(), this.getControle());
+        TelaCRUDOutros tOutros = new TelaCRUDOutros(this, this.getAutenticacao(), this.getControle());
         tOutros.setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosOutrosActionPerformed
 
     private void itemMenuProdutosLanchesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosLanchesActionPerformed
         // TODO add your handling code here:
-        TelaCRUDLanches tLanches = new TelaCRUDLanches(this,this.getAutenticacaoServer(), this.getControle());
+        TelaCRUDLanches tLanches = new TelaCRUDLanches(this,this.getAutenticacao(), this.getControle());
         tLanches.setVisible(true);     
     }//GEN-LAST:event_itemMenuProdutosLanchesActionPerformed
 
     private void itemMenuProdutosBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosBebidasActionPerformed
         // TODO add your handling code here:
-        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.getAutenticacaoServer(), this.getControle());
+        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.getAutenticacao(), this.getControle());
         tBebidas.setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosBebidasActionPerformed
 
     private void itemMenuExibirPedidosEmAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirPedidosEmAbertoActionPerformed
         // TODO add your handling code here:
-        TelaExibirPedidosEmAberto pedidosEmAberto = new TelaExibirPedidosEmAberto(this,this.autenticacaoServer);
+        TelaExibirPedidosEmAberto pedidosEmAberto = new TelaExibirPedidosEmAberto(this,this.getAutenticacao(), this.getControle());
         pedidosEmAberto.setVisible(true);
     }//GEN-LAST:event_itemMenuExibirPedidosEmAbertoActionPerformed
 
     private void itemMenuExibirProdutosCadastradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuExibirProdutosCadastradosActionPerformed
         // TODO add your handling code here:
-        TelaExibirProdutosCadastrados produtosCadastrados = new TelaExibirProdutosCadastrados(this.getAutenticacaoServer(), this.getControle());
+        TelaExibirProdutosCadastrados produtosCadastrados = new TelaExibirProdutosCadastrados(this.getAutenticacao(), this.getControle());
         produtosCadastrados.setVisible(true);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed
 
     private void itemMenuMesasGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuMesasGerenciarActionPerformed
         // TODO add your handling code here:
-        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.getAutenticacaoServer(), this.getControle());
+        TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.getAutenticacao(), this.getControle());
         telaMesas.setVisible(true);
     }//GEN-LAST:event_itemMenuMesasGerenciarActionPerformed
 
     private void subItemMenuRelatorioBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subItemMenuRelatorioBebidasActionPerformed
         // TODO add your handling code here:
-        this.getControle().gerarRelatorio(this.getAutenticacaoServer(), "Bebida");
+        this.getControle().gerarRelatorio(this.getAutenticacao(), "Bebida");
     }//GEN-LAST:event_subItemMenuRelatorioBebidasActionPerformed
 
     private void subItemMenuRelatorioOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subItemMenuRelatorioOutrosActionPerformed
         // TODO add your handling code here:
-        this.getControle().gerarRelatorio(this.getAutenticacaoServer(), "Outro");
+        this.getControle().gerarRelatorio(this.getAutenticacao(), "Outro");
     }//GEN-LAST:event_subItemMenuRelatorioOutrosActionPerformed
 
     /**
@@ -396,18 +404,42 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private javax.swing.JMenuItem subItemMenuRelatorioOutros;
     // End of variables declaration//GEN-END:variables
 
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
     }
 
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }

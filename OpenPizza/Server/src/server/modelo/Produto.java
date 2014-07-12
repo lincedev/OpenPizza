@@ -1,9 +1,10 @@
+// Pacote Modelo
 package server.modelo;
 
 /*
  Descrição: Classe Produto
  */
-public class Produto {
+public abstract class Produto {
 
     // Atributos encapsulados
     private int codigo;

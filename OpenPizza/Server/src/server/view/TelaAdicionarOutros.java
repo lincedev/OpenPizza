@@ -5,7 +5,6 @@ package server.view;
 import javax.swing.JOptionPane;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.modelo.Bebidas;
 import server.modelo.Outros;
 
 /*
@@ -30,8 +29,8 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
     /*
      Descrição: Construtor completo da Tela Adicionar Outros
      Parâmetros:
-    telaCRUDOutros (Referência à Tela CRUD Outros)
-    autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     telaCRUDOutros (Referência à Tela CRUD Outros)
+     autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
      controle (Objeto do tipo Controle)
      Retorno:
      */
@@ -181,21 +180,29 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+
+        // Validação dos campos informados
         boolean verificarCampos = this.getControle().verificarCamposBebidasOutros(this.textDescricao, this.textPreco, this.textEstoque);
+
+        // Campos válidos -> Tentativa de inserção
         if (verificarCampos) {
+
             Outros novoOutros = new Outros(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), Integer.parseInt(this.textEstoque.getText()));
             boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novoOutros);
+
+            // Inserção válida -> Mensagem de aviso
             if (inserirProduto) {
                 JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.textDescricao.setText(null);
                 this.textPreco.setText(null);
                 this.textEstoque.setText(null);
-                
-            } else {
+
+            } // Inserção inválida -> Mensagem de erro
+            else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else{
+        } // Campos inválidos -> Mensagem de alerta
+        else {
             JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed

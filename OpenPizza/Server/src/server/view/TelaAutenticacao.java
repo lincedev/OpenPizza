@@ -1,131 +1,27 @@
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import java.io.Serializable;
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JMenu;
+import javax.swing.JOptionPane;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
 import server.persistencia.Arquivos;
-
 
 /*
  Descrição: Classe de autenticação com o banco de dados
  */
 public class TelaAutenticacao extends javax.swing.JFrame implements Serializable {
 
-    // Variável de referência à tela principal
+    // Variáveis encapsuladas
     private TelaPrincipal telaPrincipal;
-
-    // Variável de armazenamento da autenticação do banco de dados
-    private Autenticacao autenticacaoServer;
-    
-    // Variável de armazenamento do Jmenu Exibir
-    private JMenu barraExibir;
-    
-    // Variável de armazenamento do Jmenu Produtos
-    private JMenu barraProdutos;
-
-    
-    // Variável de armazenamento do Jmenu Mesas
-    private JMenu barraMesas;
-    
-    
-    /*
-     Descrição: Método get do componente JMenu Produtos da janela principal
-     Parâmetros: 
-     Retorno: JMenu barraProdutos
-     */
-    public JMenu getBarraProdutos() {
-        return barraProdutos;
-    }
-    
-    /*
-     Descrição: Método get do componente JMenu Produtos da janela principal
-     Parâmetros: JMenu Produtos da janela principal 
-     Retorno: 
-     */
-    public void setBarraProdutos(JMenu barraProdutos) {
-        this.barraProdutos = barraProdutos;
-    }
-    
-    
-    /*
-     Descrição: Método get do componente JMenu Mesas da janela principal
-     Parâmetros: 
-     Retorno: JMenu barraMesas
-     */
-    public JMenu getBarraMesas() {
-        return barraMesas;
-    }
-
-    
-    /*
-     Descrição: Método get do componente JMenu Mesas da janela principal
-     Parâmetros: JMenu Mesas da janela principal
-     Retorno: 
-     */
-    public void setBarraMesas(JMenu barraMesas) {
-        this.barraMesas = barraMesas;
-    }
-    
-    /*
-     Descrição: Método get do componente JMenu Exibir da janela principal
-     Parâmetros: 
-     Retorno: JMenu barraExibir
-     */
-    public JMenu getBarraExibir() {
-        return barraExibir;
-    }
-
-    
-    /*
-     Descrição: Método set do componente JMenu exibir da janela principal
-     Parâmetros: JMenu Exibir da janela principal
-     Retorno:
-     * 
-     */
-    public void setBarraExibir(JMenu barraExibir) {
-        this.barraExibir = barraExibir;
-    }
-    
-
-    /*
-     Descrição: Método get do atributo da janela principal
-     Parâmetros: 
-     Retorno:
-     *           telaPrincipal (Necessário para controle dos métodos da janela anterior)
-     */
-    public TelaPrincipal getTelaPrincipal() {
-        return telaPrincipal;
-    }
-
-    /*
-     Descrição: Método set do atributo da janela principal
-     Parâmetros: 
-     *           telaPrincipal (Janela anterior)
-     Retorno:
-     */
-    public void setTelaPrincipal(TelaPrincipal telaPrincipal) {
-        this.telaPrincipal = telaPrincipal;
-    }
-
-    /*
-     Descrição: Método get do atributo de autenticação
-     Parâmetros: 
-     Retorno:
-     *           autenticacao (Informações de autenticação no banco de dados)
-     */
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    /*
-     Descrição: Método set do atributo de autenticação
-     Parâmetros: 
-     *           autenticacao (Necessário para acesso ao banco de dados)
-     Retorno:
-     */
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
+    private Autenticacao autenticacao;
+    private Controle controle;
+    private JMenu menuExibir;
+    private JMenu menuProdutos;
+    private JMenu menuMesas;
 
     /*
      Descrição: Construtor padrão da janela de autenticação.
@@ -134,7 +30,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      */
     private TelaAutenticacao() {
         initComponents();
-
     }
 
     /*
@@ -144,14 +39,15 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
      *           autenticacao (Necessário para acesso ao banco de dados)
      Retorno:
      */
-    public TelaAutenticacao(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer, JMenu barraExibir, JMenu barraProdutos, JMenu barraMesas) {
+    public TelaAutenticacao(TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle, JMenu menuExibir, JMenu menuProdutos, JMenu menuMesas) {
         this();
         this.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         this.setTelaPrincipal(telaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.setBarraExibir(barraExibir);
-        this.setBarraProdutos(barraProdutos);
-        this.setBarraMesas(barraMesas);
+        this.setAutenticacao(autenticacao);
+        this.setControle(controle);
+        this.setMenuExibir(menuExibir);
+        this.setMenuProdutos(menuProdutos);
+        this.setMenuMesas(menuMesas);
     }
 
     /**
@@ -178,11 +74,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         setMaximumSize(new java.awt.Dimension(350, 250));
         setMinimumSize(new java.awt.Dimension(350, 250));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         painel.setMaximumSize(new java.awt.Dimension(350, 250));
         painel.setMinimumSize(new java.awt.Dimension(350, 250));
@@ -198,18 +89,8 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         labelSenha.setText("Senha: *");
 
         caminhoBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        caminhoBanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                caminhoBancoActionPerformed(evt);
-            }
-        });
 
         usuarioBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        usuarioBanco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usuarioBancoActionPerformed(evt);
-            }
-        });
 
         autenticarBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         autenticarBanco.setText("Autenticar");
@@ -310,56 +191,64 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     }// </editor-fold>//GEN-END:initComponents
 
     /*
-     Descrição: Campo de texto para receber o caminho do banco de dados.
-     Parâmetros:
-     Retorno:
-     */
-    private void caminhoBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caminhoBancoActionPerformed
-        // Campo de texto para receber o caminho do banco de dados.
-    }//GEN-LAST:event_caminhoBancoActionPerformed
-
-    /*
      Descrição: Método de autenticação ao iniciar a aplicação, utilizando os parâmetros salvos no arquivo Autenticacao.txt
      Parâmetros: 
      Retorno:
      */
     private void autenticarBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_autenticarBancoActionPerformed
-        // Criação de objeto para recuperação de parâmetros do arquivo Autenticacao.txt
-        Arquivos arquivo = new Arquivos();
-        Autenticacao autenticar = new Autenticacao();
 
-        // Tentativa de autenticação utilizando os parâmetros do arquivo de autenticação
-        try {
-            autenticar.testarAutenticacao(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
-            
+        // Verificação dos dados informados pelo usuário
+        boolean bancoVazio = this.caminhoBanco.getText().isEmpty();
+        boolean usuarioVazio = this.usuarioBanco.getText().isEmpty();
+        boolean senhaVazia = this.senhaBanco.getText().isEmpty();
 
-            // Tentativa de arquivar os parâmetros de acesso ao banco no arquivo Autenticacao.txt
-            try {
-                autenticacaoServer.setCaminhoBanco(this.caminhoBanco.getText());
-                autenticacaoServer.setUsuarioBanco(this.usuarioBanco.getText());
-                autenticacaoServer.setUsuarioSenha(this.senhaBanco.getText());
-                arquivo.salvarArquivo(this.caminhoBanco.getText(), this.usuarioBanco.getText(), this.senhaBanco.getText());
-                JOptionPane.showMessageDialog(null, "Autenticação salva com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                this.barraExibir.setEnabled(true);
-                this.barraProdutos.setEnabled(true);
-                this.barraMesas.setEnabled(true);
-                this.dispose();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Não foi possível salvar a autenticação.", "Erro", JOptionPane.ERROR_MESSAGE);
+        // Campo(s) vazio(s) -> Mensagem de alerta
+        if (bancoVazio || usuarioVazio || senhaVazia) {
+            JOptionPane.showMessageDialog(null, "Por favor preencha todos os campos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } // Campos preenchidos -> Tentativa de autenticação dos dados informados
+        else {
+
+            // Recuperação dos dados informados pelo usuário
+            Autenticacao tentativaDeAutenticacao = new Autenticacao();
+            tentativaDeAutenticacao.setCaminhoBanco(this.caminhoBanco.getText());
+            tentativaDeAutenticacao.setUsuarioBanco(this.usuarioBanco.getText());
+            tentativaDeAutenticacao.setUsuarioSenha(this.senhaBanco.getText());
+
+            // Tentativa de verificação da conexão
+            boolean verificarConexao = this.getControle().verificarConexao(tentativaDeAutenticacao);
+
+            // Conexão válida -> Tentativa de salvamento dos dados
+            if (verificarConexao) {
+
+                // Tentativa de salvamento dos dados
+                boolean salvarAutenticacao = this.getControle().salvarAutenticacao(tentativaDeAutenticacao);
+
+                // Dados salvos -> Atualização do objeto de autenticação em tempo de execução, habilitação do botão de Pedido na Tela de Pedido e mensagem de aviso
+                if (salvarAutenticacao) {
+                    this.getAutenticacao().setCaminhoBanco(tentativaDeAutenticacao.getCaminhoBanco());
+                    this.getAutenticacao().setUsuarioBanco(tentativaDeAutenticacao.getUsuarioBanco());
+                    this.getAutenticacao().setUsuarioSenha(tentativaDeAutenticacao.getUsuarioSenha());
+                    
+                    JOptionPane.showMessageDialog(null, "Autenticação efetuada com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    
+                    this.getMenuExibir().setEnabled(true);
+                    this.getMenuProdutos().setEnabled(true);
+                    this.getMenuMesas().setEnabled(true);
+                    
+                    this.dispose();
+                } // Dados não salvos -> Mensagem de erro
+                else {
+                    JOptionPane.showMessageDialog(null, "Não foi possível salvar a autenticação.", "Erro", JOptionPane.ERROR_MESSAGE);
+                }
+            } // Conexão inválida -> Reiniciar valores dos campos de texto e mensagem de erro
+            else {
+                this.caminhoBanco.setText(null);
+                this.usuarioBanco.setText(null);
+                this.senhaBanco.setText(null);
+                JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão com o banco de dados.\nUm ou mais dados estão incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível autenticar a conexão.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_autenticarBancoActionPerformed
-
-    /*
-     Descrição: Campo de texto para receber o usuário de acesso ao banco de dados.
-     Parâmetros:
-     Retorno:
-     */
-    private void usuarioBancoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioBancoActionPerformed
-        // Campo de texto para receber usuário de acesso ao banco de dados.
-    }//GEN-LAST:event_usuarioBancoActionPerformed
 
     /*
      Descrição: Método do botão Cancelar.
@@ -370,16 +259,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         // Retorna à janela anterior
         this.dispose();
     }//GEN-LAST:event_cancelarActionPerformed
-
-    /*
-     Descrição: Método do botão Fechar (X).
-     Parâmetros: 
-     Retorno:
-     */
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // Retorna à janela anterior
-        this.dispose();
-    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -427,4 +306,123 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
     private javax.swing.JTextField senhaBanco;
     private javax.swing.JTextField usuarioBanco;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método get do componente JMenu Produtos da janela principal
+     Parâmetros: 
+     Retorno: JMenu barraProdutos
+     */
+    public JMenu getMenuProdutos() {
+        return menuProdutos;
+    }
+    
+    /*
+     Descrição: Método get do componente JMenu Produtos da janela principal
+     Parâmetros: JMenu Produtos da janela principal 
+     Retorno: 
+     */
+    public void setMenuProdutos(JMenu menuProdutos) {
+        this.menuProdutos = menuProdutos;
+    }
+    
+    
+    /*
+     Descrição: Método get do componente JMenu Mesas da janela principal
+     Parâmetros: 
+     Retorno: JMenu barraMesas
+     */
+    public JMenu getMenuMesas() {
+        return menuMesas;
+    }
+
+    
+    /*
+     Descrição: Método get do componente JMenu Mesas da janela principal
+     Parâmetros: JMenu Mesas da janela principal
+     Retorno: 
+     */
+    public void setMenuMesas(JMenu menuMesas) {
+        this.menuMesas = menuMesas;
+    }
+    
+    /*
+     Descrição: Método get do componente JMenu Exibir da janela principal
+     Parâmetros: 
+     Retorno: JMenu barraExibir
+     */
+    public JMenu getMenuExibir() {
+        return menuExibir;
+    }
+
+    
+    /*
+     Descrição: Método set do componente JMenu exibir da janela principal
+     Parâmetros: JMenu Exibir da janela principal
+     Retorno:
+     * 
+     */
+    public void setMenuExibir(JMenu menuExibir) {
+        this.menuExibir = menuExibir;
+    }
+    
+
+    /*
+     Descrição: Método get do atributo da janela principal
+     Parâmetros: 
+     Retorno:
+     *           telaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
+    public TelaPrincipal getTelaPrincipal() {
+        return telaPrincipal;
+    }
+
+    /*
+     Descrição: Método set do atributo da janela principal
+     Parâmetros: 
+     *           telaPrincipal (Janela anterior)
+     Retorno:
+     */
+    public void setTelaPrincipal(TelaPrincipal telaPrincipal) {
+        this.telaPrincipal = telaPrincipal;
+    }
+
+    /*
+     Descrição: Método get do atributo de autenticação
+     Parâmetros: 
+     Retorno:
+     *           autenticacao (Informações de autenticação no banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método set do atributo de autenticação
+     Parâmetros: 
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

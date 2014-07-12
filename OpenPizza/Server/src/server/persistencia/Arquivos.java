@@ -1,5 +1,7 @@
+// Pacote Persistência
 package server.persistencia;
 
+// Importação dos pacotes e bibliotecas necessárias
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,17 +15,16 @@ import java.io.Reader;
 import java.io.Serializable;
 import server.modelo.Autenticacao;
 
-
 /*
  Descrição: Classe de manipulação de arquivos
  */
 public class Arquivos implements Serializable {
 
     // Diretório onde será criado o arquivo de autenticação com o banco de dados
-    public final String caminho = "../Arquivos";
+    public final String caminho = "./Arquivos";
 
     // Localização do arquivo de autenticação
-    public final String documento = "../Arquivos/AutenticacaoServidor.txt";
+    public final String documento = "./Arquivos/AutenticacaoServidor.txt";
 
     /*
      Descrição: Método de verificação da existência dos arquivos necessários
@@ -63,35 +64,36 @@ public class Arquivos implements Serializable {
      Descrição: Método de leitura do arquivo de autenticação
      Parâmetros: 
      Retorno:
-     *           autenticar (Retorna os dados de autenticação armazenados)
+     autenticar (Retorna os dados de autenticação armazenados)
      */
-    public Autenticacao lerArquivo() throws FileNotFoundException, IOException {
+    public void recuperarDadosDeAutenticacao(Autenticacao autenticacao) throws FileNotFoundException, IOException {
         FileInputStream arquivo = new FileInputStream(documento);
         ObjectInputStream objeto = new ObjectInputStream(arquivo);
         Autenticacao autenticar;
         // Tentativa de recuperação de dados do arquivo
         try {
             autenticar = (Autenticacao) objeto.readObject();
-            return autenticar;
+            autenticacao.setCaminhoBanco(autenticar.getCaminhoBanco());
+            autenticacao.setUsuarioBanco(autenticar.getUsuarioBanco());
+            autenticacao.setUsuarioSenha(autenticar.getUsuarioSenha());
+            objeto.close();
+            arquivo.close();
 
         } catch (Exception e) {
-
-        } finally {
             objeto.close();
             arquivo.close();
         }
-        return null;
     }
-
+    
     /*
      Descrição: Método de salvamento da autenticação no arquivo
      Parâmetros: 
-     *           caminho (Caminho do banco de dados)
-     *           usuario (Usuário do banco de dados)
-     *           senha (Senha do banco de dados)
+     caminho (Caminho do banco de dados)
+     usuario (Usuário do banco de dados)
+     senha (Senha do banco de dados)
      Retorno:
      */
-    public void salvarArquivo(String caminho, String usuario, String senha) throws FileNotFoundException, IOException {
+    public boolean salvarAutenticacao(String caminho, String usuario, String senha) throws FileNotFoundException, IOException {
         Autenticacao autenticar = new Autenticacao(caminho, usuario, senha);
         FileOutputStream arquivo = new FileOutputStream(documento);
         ObjectOutputStream objeto = new ObjectOutputStream(arquivo);
@@ -99,11 +101,13 @@ public class Arquivos implements Serializable {
         // Tentativa de salvamento dos dados
         try {
             objeto.writeObject(autenticar);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
             objeto.close();
             arquivo.close();
+            return true;
+        } catch (Exception e) {
+            objeto.close();
+            arquivo.close();
+            return false;
         }
     }
 }

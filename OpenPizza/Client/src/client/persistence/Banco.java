@@ -59,14 +59,25 @@ public class Banco {
      true, caso a conexão seja efetuada com sucesso; false, caso contrário;
      */
     public boolean verificarConexao(Autenticacao autenticacao) {
+        Connection conexao = null;
+        boolean verificarConexao = false;
         try {
-            Connection conexao = this.abrirConexao(autenticacao);
-            this.fecharConexao(conexao);
-            return true;
+            conexao = this.abrirConexao(autenticacao);
+            if(conexao.isValid(1)){
+                verificarConexao = true;
+            }
         } catch (Exception e) {
-            return false;
+           
         }
-
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+        return verificarConexao;
     }
 
     /*

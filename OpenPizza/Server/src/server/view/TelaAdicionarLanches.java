@@ -178,22 +178,29 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        //
+
+        // Validação dos campos informados
         boolean verificarCampos = this.getControle().verificarCamposLanche(this.textDescricao, this.textPreco);
-        if(verificarCampos){
+        
+        // Campos válidos -> Tentativa de inserção
+        if (verificarCampos) {
+
             Lanche novoLanche = new Lanche(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), this.textIngredientes.getText());
             boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novoLanche);
+
+            // Inserção válida -> Mensagem de aviso
             if (inserirProduto) {
                 JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 this.textDescricao.setText(null);
                 this.textPreco.setText(null);
                 this.textIngredientes.setText(null);
-                
-            } else {
+
+            } // Inserção inválida -> Mensagem de erro
+            else {
                 JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        else{
+        } // Campos inválidos -> Mensagem de alerta
+        else {
             JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed

@@ -9,7 +9,8 @@ public class Pedido {
     // Atributos encapsulados
     private int numeroPedido;
     private String data;
-    private String hora;
+    private String horaInicio;
+    private String horaFim;
     private float valor;
     private String formaPagamento;
     private boolean pedidoFinalizado;
@@ -36,7 +37,7 @@ public class Pedido {
     public Pedido(int numeroPedido, String data, String hora, float valor, String formaPagamento, boolean pedidoFinalizado) {
         this.setNumeroPedido(numeroPedido);
         this.setData(data);
-        this.setHora(hora);
+        this.setHoraInicio(hora);
         this.setValor(valor);
         this.setFormaPagamento(formaPagamento);
         this.setPedidoFinalizado(pedidoFinalizado);
@@ -86,20 +87,20 @@ public class Pedido {
      Descrição: Método get da hora do pedido
      Parâmetros:
      Retorno:
-     hora (String contendo a hora do pedido)
+     horaInicio (String contendo a hora do pedido)
      */
-    public String getHora() {
-        return hora;
+    public String getHoraInicio() {
+        return horaInicio;
     }
 
     /*
      Descrição: Método set da hora do pedido
      Parâmetros:
-     hora (String contendo a hora do pedido)
+     horaInicio (String contendo a hora do pedido)
      Retorno:
      */
-    public void setHora(String hora) {
-        this.hora = hora;
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
     }
 
     /*
@@ -160,5 +161,25 @@ public class Pedido {
      */
     public void setPedidoFinalizado(boolean pedidoFinalizado) {
         this.pedidoFinalizado = pedidoFinalizado;
+    }
+
+    /*
+     Descrição: Método get da hora final do pedido
+     Parâmetros:
+     Retorno:
+     horaFinal (String contendo a hora final do pedido)
+     */
+    public String getHoraFim() {
+        return horaFim;
+    }
+
+    /*
+     Descrição: Método set da hora final do pedido
+     Parâmetros:
+     horaFim (String contendo a hora final do pedido)
+     Retorno:
+     */
+    public void setHoraFim(String horaFim) {
+        this.horaFim = horaFim;
     }
 }

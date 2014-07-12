@@ -27,6 +27,35 @@ import server.modelo.Pizza;
 public class Banco {
 
     /*
+     Descrição: Método para verificação do status da conexão.
+     Parâmetros:
+     autenticacao (Objeto com as informações para acesso ao banco de dados)
+     Retorno:
+     true, caso a conexão seja efetuada com sucesso; false, caso contrário;
+     */
+    public boolean verificarConexao(Autenticacao autenticacao) {
+        Connection conexao = null;
+        boolean verificarConexao = false;
+        try {
+            conexao = this.abrirConexao(autenticacao);
+            if(conexao.isValid(1)){
+                verificarConexao = true;
+            }
+        } catch (Exception e) {
+           
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+        return verificarConexao;
+    }
+    
+    /*
      Descrição: Método para tentativa de consulta dos pedidos em aberto no banco de dados
      Parâmetros:
      autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
@@ -43,7 +72,7 @@ public class Banco {
             ResultSet resultado = homologacao.executeQuery(query);
             tabelaPedidosEmAberto.setModel(DbUtils.resultSetToTableModel(resultado));
         } catch (Exception e) {
-            e.printStackTrace();
+            
         } finally {
             try {
                 this.fecharConexao(conexao);
@@ -90,6 +119,14 @@ public class Banco {
         }
     }
 
+    /*
+     Descrição: Método para exibição dos produtos nas telas de CRUD
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+    tabelaProdutos (JTable que será preenchida com os produtos disponíveis)
+     categoriaDoProduto (String contendo a categoria do produto (Pizza, Lanche, Bebida, Outro)
+     Retorno:
+     */
     public void exibirProdutos(Autenticacao autenticacao, JTable tabelaProdutos, String categoriaDoProduto) {
         Connection conexao = null;
         try {
@@ -296,10 +333,18 @@ public class Banco {
         try {
             conexao.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível encerrar a conexão com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
+    /*
+     Descrição: Método para exclusão (desativação) de um produto no banco de dados
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo informações para acesso ao banco de dados)
+     codigoDoProduto (Inteiro contendo o código do produto que será desativado)
+     Retorno:
+     desativarProduto (true, caso os valores sejam válidos; false, caso contrário)
+     */
     public boolean desativarProduto(Autenticacao autenticacao, int codigoDoProduto) {
         Connection conexao = null;
         boolean desativarProduto = false;
@@ -321,6 +366,13 @@ public class Banco {
         return desativarProduto;
     }
 
+    /*
+     Descrição: Método para inserção de uma nova Mesa
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo informações para acesso ao banco de dados)
+     Retorno:
+     inserirMesa (true, caso os valores sejam válidos; false, caso contrário)
+     */
     public boolean inserirMesa(Autenticacao autenticacao) {
         Connection conexao = null;
         boolean inserirMesa = false;
@@ -342,6 +394,14 @@ public class Banco {
         return inserirMesa;
     }
 
+    /*
+     Descrição: Método para excluir (desativar) uma Mesa
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo informações para acesso ao banco de dados)
+     numeroDaMesa (Inteiro contendo o número da mesa que será desativada)
+     Retorno:
+     desativarMesa (true, caso os valores sejam válidos; false, caso contrário)
+     */
     public boolean desativarMesa(Autenticacao autenticacao, int numeroDaMesa) {
         Connection conexao = null;
         boolean desativarMesa = false;
@@ -363,6 +423,13 @@ public class Banco {
         return desativarMesa;
     }
 
+    /*
+     Descrição: Método para geração de relatórios dos itens em estoque
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo informações para acesso ao banco de dados)
+     tipoProduto (String contendo o tipo de relatório que será gerado)
+     Retorno:
+     */
     public void gerarRelatorio(Autenticacao autenticacao, String tipoProduto) {
         String query;
         String caminho;
@@ -379,6 +446,7 @@ public class Banco {
                 JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);
                 JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
                 JasperViewer jv = new JasperViewer(jpPrint, false);
+                jv.setTitle("OpenPizza - Relatório");
                 jv.setVisible(true);
                 jv.toFront();
             } catch (Exception e) {
@@ -400,6 +468,7 @@ public class Banco {
                 JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);
                 JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
                 JasperViewer jv = new JasperViewer(jpPrint, false);
+                jv.setTitle("OpenPizza - Relatório");
                 jv.setVisible(true);
                 jv.toFront();
             } catch (Exception e) {

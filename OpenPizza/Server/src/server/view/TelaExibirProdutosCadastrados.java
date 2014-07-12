@@ -1,31 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes necessários
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela de Exibição de Produtos Cadastrados
  */
 public class TelaExibirProdutosCadastrados extends javax.swing.JFrame {
 
+    // Variáveis encapsuladas
     private Autenticacao autenticacao;
     private Controle controle;
-    
-    /**
-     * Creates new form produtosCadastrados
+
+    /*
+     Descrição: Construtor padrão da Tela de Exibição de Produtos Cadastrados
+     Parâmetros:
+     Retorno:
      */
     private TelaExibirProdutosCadastrados() {
         initComponents();
     }
-    
-    public TelaExibirProdutosCadastrados(Autenticacao autenticacao, Controle controle){
+
+    /*
+     Descrição: Construtor completo da Tela de Exibição de Pedidos em Aberto
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaExibirProdutosCadastrados(Autenticacao autenticacao, Controle controle) {
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
@@ -175,32 +180,38 @@ public class TelaExibirProdutosCadastrados extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no painel de produtos (Exibição dos produtos de acordo com a categoria)
+     Parâmetros:
+     Retorno:
+     */
     private void painelProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelProdutosMouseClicked
-        // TODO add your handling code here:
-        switch(this.painelProdutos.getSelectedIndex()){
+        // Recuperação e exibição dos produtos cadastrados
+        switch (this.painelProdutos.getSelectedIndex()) {
             case 0:
                 this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaPizzas, "Pizza");
-                this.tabelaPizzas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
                 break;
-               
+
             case 1:
                 this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaLanches, "Lanche");
-                this.tabelaLanches.getColumnModel().getColumn(0).setHeaderValue("Descrição");
                 break;
-               
+
             case 2:
                 this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaBebidas, "Bebida");
-                this.tabelaBebidas.getColumnModel().getColumn(0).setHeaderValue("Descrição");
                 break;
-               
+
             case 3:
                 this.getControle().consultarCardapio(this.getAutenticacao(), this.tabelaOutros, "Outro");
-                this.tabelaOutros.getColumnModel().getColumn(0).setHeaderValue("Descrição");
                 break;
         }
     }//GEN-LAST:event_painelProdutosMouseClicked
@@ -254,18 +265,42 @@ public class TelaExibirProdutosCadastrados extends javax.swing.JFrame {
     private javax.swing.JTable tabelaPizzas;
     // End of variables declaration//GEN-END:variables
 
-    public Autenticacao getAutenticacao() {
-        return autenticacao;
-    }
-
+    /*
+     Descrição: Método set para a variável autenticação.
+     Parâmetros: 
+     autenticacao (Caminho para o banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
 
+    /*
+     Descrição: Método get para a variável autenticação
+     Parâmetros:
+     Retorno: 
+     autenticacao (Objeto do tipo Autenticação com os dados de acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }

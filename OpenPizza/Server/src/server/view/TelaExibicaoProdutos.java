@@ -1,17 +1,15 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+// Pacote View
 package server.view;
 
-/**
- *
- * @author Wellington
+/*
+Descrição: Tela de Exibição de Produtos
  */
 public class TelaExibicaoProdutos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaExibicaoProdutos
+    /*
+     Descrição: Construtor padrão da Tela de Exibição de Produtos
+     Parâmetros:
+     Retorno:
      */
     public TelaExibicaoProdutos() {
         initComponents();

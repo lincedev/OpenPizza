@@ -2,12 +2,14 @@
 package server.view;
 
 // Importação dos pacotes e bibliotecas necessárias
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
 /*
-Descrição: Tela CRUD de Outros
+ Descrição: Tela CRUD de Outros
  */
 public class TelaCRUDOutros extends javax.swing.JFrame {
 
@@ -37,26 +39,29 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
         this.getControle().exibirProdutos(autenticacao, tabelaOutros, "Outro");
+        this.formatarTabelaCRUDOutros();
     }
 
     /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-
-    /*
-     Descrição: Método get para a variável janelaPrincipal
+     Descrição: Método para formatação da tabela de bebidas
      Parâmetros:
      Retorno:
-     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
      */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
+    public void formatarTabelaCRUDOutros() {
+
+        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
+        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
+
+        // Coluna Código
+        this.tabelaOutros.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
+        this.tabelaOutros.getColumnModel().getColumn(0).setMaxWidth(50);
+
+        // Coluna Descrição
+        // Formatação padrão
+
+        // Coluna Preço
+        this.tabelaOutros.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
+        this.tabelaOutros.getColumnModel().getColumn(2).setMaxWidth(70);
     }
 
     /**
@@ -264,8 +269,9 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        //
+        // Recuperar e exibir os Outros cadastrados
         this.getControle().exibirProdutos(autenticacao, tabelaOutros, "Outro");
+        this.formatarTabelaCRUDOutros();
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     /*
@@ -274,18 +280,27 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        // Confirmação de exclusão
+        // Recuperar item selecionado
         int indice = this.tabelaOutros.getSelectedRow();
         if (indice >= 0) {
+
+            // Confirmação de exclusão
             int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
             if (confirmacao == JOptionPane.OK_OPTION) {
+
                 int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaOutros.getValueAt(this.tabelaOutros.getSelectedRow(), 0)));
+
+                // Confirmação válida -> Recuperação e exclusão do produto
                 if (codigoDoProduto >= 0) {
+
                     boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+
+                    // Exclusão válida -> Mensagem de aviso
                     if (desativarProduto) {
                         JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                         this.getControle().exibirProdutos(this.getAutenticacao(), tabelaOutros, "Outro");
-                    } else {
+                    } // Exclusão inválida -> Mensagem de erro
+                    else {
                         JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
                     }
                 }
@@ -293,7 +308,6 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
-  
     /**
      * @param args the command line arguments
      */
@@ -344,18 +358,62 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
     private javax.swing.JTable tabelaOutros;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+    
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }
