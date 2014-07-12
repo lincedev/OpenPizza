@@ -32,9 +32,9 @@ public class Autenticacao implements Serializable {
     /*
      Descrição: Construtor completo do objeto autenticação
      Parâmetros: 
-     *           caminhoBanco (Necessário para acesso ao banco de dados)
-     *           usuarioBanco (Necessário para login no banco de dados)
-     *           senhaBanco (Necessário para autenticação no bando de dados)
+     caminhoBanco (Necessário para acesso ao banco de dados)
+     usuarioBanco (Necessário para login no banco de dados)
+     senhaBanco (Necessário para autenticação no bando de dados)
      Retorno:
      */
     public Autenticacao(String caminhoBanco, String usuarioBanco, String senhaBanco) {
@@ -46,9 +46,9 @@ public class Autenticacao implements Serializable {
     /*
      Descrição: Método de teste de autenticação do banco de dados.
      Parâmetros: 
-     *           caminho (Necessário para acesso ao banco de dados)
-     *           usuario (Necessário para login no banco de dados)
-     *           senha (Necessário para autenticação no banco de dados)
+     caminho (Necessário para acesso ao banco de dados)
+     usuario (Necessário para login no banco de dados)
+     senha (Necessário para autenticação no banco de dados)
      Retorno:
      */
     public void testarAutenticacao(String caminho, String usuario, String senha) throws Exception {
@@ -65,7 +65,7 @@ public class Autenticacao implements Serializable {
      Descrição: Método get do caminho do banco de dados
      Parâmetros:
      Retorno:
-     *           caminhoBanco (Caminho do banco de dados)
+     caminhoBanco (Caminho do banco de dados)
      */
     public String getCaminhoBanco() {
         return caminhoBanco;
@@ -84,7 +84,7 @@ public class Autenticacao implements Serializable {
      Descrição: Método get do usuário do banco de dados
      Parâmetros:
      Retorno:
-     *           usuarioBanco (Usuário do banco de dados)
+     usuarioBanco (Usuário do banco de dados)
      */
     public String getUsuarioBanco() {
         return usuarioBanco;
@@ -103,7 +103,7 @@ public class Autenticacao implements Serializable {
      Descrição: Método get da senha do banco de dados
      Parâmetros:
      Retorno:
-     *           usuarioSenha (Senha do usuário do banco de dados)
+     usuarioSenha (Senha do usuário do banco de dados)
      */
     public String getUsuarioSenha() {
         return usuarioSenha;

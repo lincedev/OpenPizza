@@ -12,10 +12,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 /*
  Descrição: Tela de Cardápio
  */
-public class New_TelaCardapio extends javax.swing.JFrame {
+public class TelaCardapio extends javax.swing.JFrame {
 
     // Atributos encapsulados
-    private New_TelaPedido telaPedido;
+    private TelaPedido telaPedido;
     private Autenticacao autenticacao;
     private Controle controle;
     private int numeroDoPedido;
@@ -25,7 +25,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private New_TelaCardapio() {
+    private TelaCardapio() {
         initComponents();
     }
 
@@ -38,7 +38,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
      numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
      Retorno:
      */
-    public New_TelaCardapio(New_TelaPedido telaPedido, Autenticacao autenticacao, Controle controle, int numeroDoPedido) {
+    public TelaCardapio(TelaPedido telaPedido, Autenticacao autenticacao, Controle controle, int numeroDoPedido) {
         this();
         this.setTelaPedido(telaPedido);
         this.setAutenticacao(autenticacao);
@@ -70,7 +70,6 @@ public class New_TelaCardapio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OpenPizza - Cardápio");
-        setMaximumSize(new java.awt.Dimension(400, 700));
         setMinimumSize(new java.awt.Dimension(400, 700));
         setResizable(false);
 
@@ -231,7 +230,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da pizza selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDaPizza = String.valueOf(this.tabelaPizzas.getValueAt(this.tabelaPizzas.getSelectedRow(), 0));
-        New_TelaIncluirProduto telaIncluirPizza = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Pizza", nomeDaPizza, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirPizza = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Pizza", nomeDaPizza, this.getNumeroDoPedido());
         telaIncluirPizza.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirPizza.setVisible(true);
     }//GEN-LAST:event_tabelaPizzasMouseClicked
@@ -286,7 +285,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da lanche selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaLanches.getValueAt(this.tabelaLanches.getSelectedRow(), 0));
-        New_TelaIncluirProduto telaIncluirLanche = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Lanche", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirLanche = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Lanche", nomeDoLanche, this.getNumeroDoPedido());
         telaIncluirLanche.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirLanche.setVisible(true);
     }//GEN-LAST:event_tabelaLanchesMouseClicked
@@ -300,7 +299,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da bebida selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0));
-        New_TelaIncluirProduto telaIncluirBebidas = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Bebida", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirBebidas = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Bebida", nomeDoLanche, this.getNumeroDoPedido());
         telaIncluirBebidas.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirBebidas.setVisible(true);
     }//GEN-LAST:event_tabelaBebidasMouseClicked
@@ -314,7 +313,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome do outro selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaOutros.getValueAt(this.tabelaOutros.getSelectedRow(), 0));
-        New_TelaIncluirProduto telaIncluirOutros = new New_TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Outro", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirOutros = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Outro", nomeDoLanche, this.getNumeroDoPedido());
         telaIncluirOutros.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirOutros.setVisible(true);
     }//GEN-LAST:event_tabelaOutrosMouseClicked
@@ -336,20 +335,20 @@ public class New_TelaCardapio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(New_TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(New_TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(New_TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(New_TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaCardapio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_TelaCardapio().setVisible(true);
+                new TelaCardapio().setVisible(true);
             }
         });
     }
@@ -374,7 +373,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
      Retorno:
      telaPedido (Referência à Tela de Pedido)
      */
-    public New_TelaPedido getTelaPedido() {
+    public TelaPedido getTelaPedido() {
         return telaPedido;
     }
 
@@ -384,7 +383,7 @@ public class New_TelaCardapio extends javax.swing.JFrame {
      telaPedido (Referência à Tela de Pedido)
      Retorno:
      */
-    public void setTelaPedido(New_TelaPedido telaPedido) {
+    public void setTelaPedido(TelaPedido telaPedido) {
         this.telaPedido = telaPedido;
     }
 

@@ -20,8 +20,8 @@ public class Bebidas extends Produto {
     /*
      Descrição: Construtor completo do objeto bebida
      Parâmetros:
-     *           descricao (Nome da bebida)
-     *           preco (Preço da bebida)
+     descricao (Nome da bebida)
+     preco (Preço da bebida)
      Retorno:
      */
     public Bebidas(String descricao, float preco) {
@@ -33,7 +33,7 @@ public class Bebidas extends Produto {
      Descrição: Método get do preço da bebida
      Parâmetros:
      Retorno:
-     *           preco (Preço da bebida)
+     preco (Preço da bebida)
      */
     public float getPreco() {
         return preco;
@@ -42,7 +42,7 @@ public class Bebidas extends Produto {
     /*
      Descrição: Método set do preço da bebida
      Parâmetros:
-     *           preco (Preço da bebida)
+     preco (Preço da bebida)
      Retorno:
      */
     public void setPreco(float preco) {

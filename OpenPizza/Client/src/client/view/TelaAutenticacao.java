@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 /*
  Descrição: Tela de Autenticação
  */
-public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializable {
+public class TelaAutenticacao extends javax.swing.JFrame implements Serializable {
 
     // Atributos encapsulados
     private Autenticacao autenticacao;
@@ -23,7 +23,7 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
      Parâmetros:
      Retorno:
      */
-    private New_TelaAutenticacao() {
+    private TelaAutenticacao() {
         initComponents();
     }
 
@@ -35,7 +35,7 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
      botaoPedido (JButton da Tela Principal)
      Retorno:
      */
-    public New_TelaAutenticacao(Autenticacao autenticacao, Controle controle, JButton botaoPedido) {
+    public TelaAutenticacao(Autenticacao autenticacao, Controle controle, JButton botaoPedido) {
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
@@ -63,9 +63,7 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Autenticação");
-        setMaximumSize(new java.awt.Dimension(400, 500));
         setMinimumSize(new java.awt.Dimension(400, 500));
-        setPreferredSize(new java.awt.Dimension(400, 500));
         setResizable(false);
 
         labelBancoDeDados.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
@@ -261,20 +259,20 @@ public class New_TelaAutenticacao extends javax.swing.JFrame implements Serializ
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(New_TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(New_TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(New_TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(New_TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAutenticacao.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_TelaAutenticacao().setVisible(true);
+                new TelaAutenticacao().setVisible(true);
             }
         });
     }

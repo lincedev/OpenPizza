@@ -64,7 +64,7 @@ public class Arquivos implements Serializable {
      Descrição: Método de leitura do arquivo de autenticação
      Parâmetros: 
      Retorno:
-     *           autenticar (Retorna os dados de autenticação armazenados)
+     autenticar (Retorna os dados de autenticação armazenados)
      */
     public void recuperarDadosDeAutenticacao(Autenticacao autenticacao) throws FileNotFoundException, IOException {
         FileInputStream arquivo = new FileInputStream(documento);
@@ -88,9 +88,9 @@ public class Arquivos implements Serializable {
     /*
      Descrição: Método de salvamento da autenticação no arquivo
      Parâmetros: 
-     *           caminho (Caminho do banco de dados)
-     *           usuario (Usuário do banco de dados)
-     *           senha (Senha do banco de dados)
+     caminho (Caminho do banco de dados)
+     usuario (Usuário do banco de dados)
+     senha (Senha do banco de dados)
      Retorno:
      */
     public boolean salvarAutenticacao(String caminho, String usuario, String senha) throws FileNotFoundException, IOException {

@@ -24,9 +24,9 @@ public class Banco {
     /*
      Descrição: Método para abertura de conexão com o banco de dados
      Parâmetros:
-                autenticacao (Necessário para acesso ao banco de dados)
+     autenticacao (Necessário para acesso ao banco de dados)
      Retorno:
-                conexao (Conexão com o banco de dados)
+     conexao (Conexão com o banco de dados)
      */
     public Connection abrirConexao(Autenticacao autenticacao) throws Exception {
         try {
@@ -40,7 +40,7 @@ public class Banco {
     /*
      Descrição: Método para finalização de conexão com o banco de dados.
      Parâmetros:
-                conexao (Conexão que será fechada)
+     conexao (Conexão que será fechada)
      Retorno:
      */
     public void fecharConexao(Connection conexao) throws Exception {
@@ -81,14 +81,14 @@ public class Banco {
         ArrayList<Integer> mesas = new ArrayList<>();
         try {
             conexao = this.abrirConexao(autenticacao);
-            String query = "SELECT * FROM Mesa";
+            String query = "SELECT numero FROM Mesa WHERE ativo = true";
             PreparedStatement statement = conexao.prepareStatement(query);
             ResultSet resultado = statement.executeQuery();
             while (resultado.next()) {
                 mesas.add(resultado.getInt("numero"));
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            
         } finally {
             try {
                 this.fecharConexao(conexao);
@@ -338,23 +338,28 @@ public class Banco {
      preco (Float contendo o valor do produto selecionado)
      Retorno:
      */
-    public boolean inserirProduto(Autenticacao autenticacao, int numeroDoPedido, int codigoDoProduto, int quantidade, String tamanho, float preco) {
+    public boolean inserirProdutoNoPedido(Autenticacao autenticacao, int numeroDoPedido, int codigoDoProduto, int quantidade, String tamanho, float preco) {
         Connection conexao = null;
+        boolean inserirProdutoNoPedido = false;
         try {
             String query = "INSERT INTO ItemDoPedido(pedidoNumero, codigoProduto, qtdadeProdutos, tamanho, preco) VALUES(" + numeroDoPedido + "," + codigoDoProduto + "," + quantidade + ",'" + tamanho + "'," + preco + ")";
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
-            this.fecharConexao(conexao);
-            return true;
+            inserirProdutoNoPedido = true;
+            float valorDoPedido = this.consultarValorDoPedido(numeroDoPedido, autenticacao);
+            this.atualizarValorDoPedido(autenticacao, valorDoPedido, numeroDoPedido);
         } catch (Exception e) {
+            
+        }
+        finally{
             try {
                 this.fecharConexao(conexao);
             } catch (Exception e2) {
 
             }
-            return false;
         }
+        return inserirProdutoNoPedido;
     }
 
     /*
@@ -370,20 +375,53 @@ public class Banco {
      */
     public boolean atualizarQuantidadeDoProdutoNoPedido(Autenticacao autenticacao, int numeroDoPedido, String categoriaDoProduto, int codigoDoProduto, int quantidade) {
         Connection conexao = null;
+        boolean atualizarQuantidadeNoPedido = false;
         try {
             String query = "UPDATE ItemDoPedido SET qtdadeProdutos = qtdadeProdutos + " + quantidade + " WHERE pedidoNumero = " + numeroDoPedido + " AND codigoProduto = " + codigoDoProduto;
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
+            float valorDoPedido = this.consultarValorDoPedido(numeroDoPedido, autenticacao);
+            this.atualizarValorDoPedido(autenticacao, valorDoPedido, numeroDoPedido);
+            atualizarQuantidadeNoPedido = true;
             this.fecharConexao(conexao);
-            return true;
         } catch (Exception e) {
+            
+        }
+        finally{
             try {
                 this.fecharConexao(conexao);
             } catch (Exception e2) {
 
             }
-            return false;
+        }
+        return atualizarQuantidadeNoPedido;
+    }
+  
+    /*
+     Descrição: Método para atualização do valor do pedido após a inserção de um produto
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
+     valor (Float contendo o valor do pedido)
+     Retorno:
+     */
+    public void atualizarValorDoPedido(Autenticacao autenticacao, float valor, int numeroDoPedido) {
+        Connection conexao = null;
+        try {
+            String query = "UPDATE Pedido SET valor = " + valor + " WHERE numeroPedido = " + numeroDoPedido;
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            this.fecharConexao(conexao);
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e2) {
+
+            }
         }
     }
 
@@ -508,7 +546,7 @@ public class Banco {
             }
         }
     }
-    
+
     /*
      Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
      Parâmetros:
@@ -548,7 +586,7 @@ public class Banco {
         }
         return consultarEstoque;
     }
-    
+
     /*
      Descrição: Método para consulta da quantidade de Bebidas ou Outros em estoque
      Parâmetros:
@@ -559,31 +597,27 @@ public class Banco {
      Retorno:
      true, caso o estoque seja atualizado; false, caso contrário
      */
-    public boolean atualizarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto){
+    public boolean atualizarEstoque(Autenticacao autenticacao, int codigoDoProduto, int quantidade, String categoriaDoProduto) {
         Connection conexao = null;
         boolean atualizarEstoque = false;
-        try{
+        try {
             String query;
-            if(categoriaDoProduto.equals("Bebida")){
+            if (categoriaDoProduto.equals("Bebida")) {
                 query = "UPDATE Bebidas SET quantidade = quantidade - " + quantidade + " WHERE codProduto = " + codigoDoProduto;
-            }
-            else{
+            } else {
                 query = "UPDATE Outros SET quantidade = quantidade - " + quantidade + " WHERE codProduto = " + codigoDoProduto;
             }
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
             atualizarEstoque = true;
-        }
-        catch(Exception e){
-            
-        }
-        finally{
-            try{
+        } catch (Exception e) {
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         return atualizarEstoque;

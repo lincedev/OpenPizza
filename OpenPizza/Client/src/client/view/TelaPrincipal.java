@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 /*
  Descrição: Tela Principal
  */
-public class New_TelaPrincipal extends javax.swing.JFrame {
+public class TelaPrincipal extends javax.swing.JFrame {
 
     // Atributos encapsulados
     private Autenticacao autenticacao;
@@ -21,7 +21,7 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private New_TelaPrincipal() {
+    private TelaPrincipal() {
         initComponents();
     }
 
@@ -32,7 +32,7 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
      controle (Objeto do tipo Controle)
      Retorno:
      */
-    public New_TelaPrincipal(Autenticacao autenticacao, Controle controle) {
+    public TelaPrincipal(Autenticacao autenticacao, Controle controle) {
         this();
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
@@ -59,7 +59,6 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("OpenPizza");
-        setMaximumSize(new java.awt.Dimension(400, 700));
         setMinimumSize(new java.awt.Dimension(400, 700));
         setResizable(false);
 
@@ -174,7 +173,7 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
         // Autenticação válida -> Desabilitar visualização da tela atual e criar Tela de Pedido
         if (verificarAutenticacao) {
             this.setVisible(false);
-            New_TelaPedido telaPedido = new New_TelaPedido(this, this.getAutenticacao(), this.getControle());
+            TelaPedido telaPedido = new TelaPedido(this, this.getAutenticacao(), this.getControle());
             telaPedido.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
             telaPedido.setVisible(true);
         } // Autenticação inválida -> Mensagem de erro
@@ -191,7 +190,7 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
      */
     private void botaoAutenticarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAutenticarActionPerformed
         // Criar e habilitar visualização da Tela de Autenticação
-        New_TelaAutenticacao telaAutenticacao = new New_TelaAutenticacao(this.getAutenticacao(), this.getControle(), this.botaoPedido);
+        TelaAutenticacao telaAutenticacao = new TelaAutenticacao(this.getAutenticacao(), this.getControle(), this.botaoPedido);
         telaAutenticacao.setVisible(true);
     }//GEN-LAST:event_botaoAutenticarActionPerformed
 
@@ -212,20 +211,20 @@ public class New_TelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_TelaPrincipal().setVisible(true);
+                new TelaPrincipal().setVisible(true);
             }
         });
     }

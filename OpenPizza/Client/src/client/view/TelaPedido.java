@@ -12,10 +12,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 /*
  Descrição: Tela de Pedido
  */
-public class New_TelaPedido extends javax.swing.JFrame {
+public class TelaPedido extends javax.swing.JFrame {
 
     // Atributos encapsulados
-    private New_TelaPrincipal telaPrincipal;
+    private TelaPrincipal telaPrincipal;
     private Autenticacao autenticacao;
     private Controle controle;
     private int numeroDoPedido;
@@ -25,7 +25,7 @@ public class New_TelaPedido extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private New_TelaPedido() {
+    private TelaPedido() {
         initComponents();
     }
 
@@ -37,7 +37,7 @@ public class New_TelaPedido extends javax.swing.JFrame {
      controle (Objeto do tipo Controle)
      Retorno:
      */
-    public New_TelaPedido(New_TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle) {
+    public TelaPedido(TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
         this.setTelaPrincipal(telaPrincipal);
         this.setAutenticacao(autenticacao);
@@ -282,7 +282,7 @@ public class New_TelaPedido extends javax.swing.JFrame {
     private void botaoCardapioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCardapioActionPerformed
         // Desabilitar visualização da janela atual e criar Tela de Cardápio
         this.setVisible(false);
-        New_TelaCardapio telaCardapio = new New_TelaCardapio(this, this.getAutenticacao(), this.getControle(), this.getNumeroDoPedido());
+        TelaCardapio telaCardapio = new TelaCardapio(this, this.getAutenticacao(), this.getControle(), this.getNumeroDoPedido());
         telaCardapio.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaCardapio.setVisible(true);
     }//GEN-LAST:event_botaoCardapioActionPerformed
@@ -424,20 +424,20 @@ public class New_TelaPedido extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(New_TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaPedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_TelaPedido().setVisible(true);
+                new TelaPedido().setVisible(true);
             }
         });
     }
@@ -463,7 +463,7 @@ public class New_TelaPedido extends javax.swing.JFrame {
      Retorno:
      telaPrincipal (Referência à Tela Principal)
      */
-    public New_TelaPrincipal getTelaPrincipal() {
+    public TelaPrincipal getTelaPrincipal() {
         return telaPrincipal;
     }
 
@@ -473,7 +473,7 @@ public class New_TelaPedido extends javax.swing.JFrame {
      telaCardapio (Referência à Tela Principal)
      Retorno:
      */
-    public void setTelaPrincipal(New_TelaPrincipal telaPrincipal) {
+    public void setTelaPrincipal(TelaPrincipal telaPrincipal) {
         this.telaPrincipal = telaPrincipal;
     }
 

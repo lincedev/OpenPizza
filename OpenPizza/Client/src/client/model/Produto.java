@@ -21,7 +21,7 @@ public abstract class Produto {
     /*
      Descrição: Construtor completo do objeto produto
      Parâmetros:
-     *           descricao (Nome do produto)
+     descricao (Nome do produto)
      Retorno:
      */
     public Produto(String descricao) {
@@ -32,7 +32,7 @@ public abstract class Produto {
      Descrição: Método get do código do produto
      Parâmetros:
      Retorno:
-     *           código (Código do produto)
+     código (Código do produto)
      */
     public int getCodigo() {
         return codigo;
@@ -41,7 +41,7 @@ public abstract class Produto {
     /*
      Descrição: Método set do código do produto
      Parâmetros:
-     *          código (Código do produto)
+     código (Código do produto)
      Retorno:
      */
     public void setCodigo(int codigo) {
@@ -52,7 +52,7 @@ public abstract class Produto {
      Descrição: Método get da descrição do produto
      Parâmetros:
      Retorno:
-     *           descricao (Nome do produto)
+     descricao (Nome do produto)
      */
     public String getDescricao() {
         return descricao;
@@ -61,7 +61,7 @@ public abstract class Produto {
     /*
      Descrição: Método set da descrição do produto
      Parâmetros:
-     *           descricao (Nome do produto)
+     descricao (Nome do produto)
      Retorno:
      */
     public void setDescricao(String descricao) {

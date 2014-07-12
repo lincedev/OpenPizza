@@ -2,8 +2,9 @@
 package client.control;
 
 // Importações de pacotes e bibliotecas utillizadas
-import client.model.*;
-import client.persistence.*;
+import client.model.Autenticacao;
+import client.persistence.Arquivos;
+import client.persistence.Banco;
 import java.io.Serializable;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -117,8 +118,8 @@ public class Controle implements Serializable {
         // Tentativa de recuperação dos números das mesas e armazenamento em um ArrayList, para a posterior inserção dos itens no componente combobox
         try {
             ArrayList<Integer> mesas = this.banco.consultarMesas(autenticacao);
-            for (int i = 1; i <= mesas.size(); i++) {
-                comboBoxDasMesas.addItem(i);
+            for (int i = 0; i < mesas.size(); i++) {
+                comboBoxDasMesas.addItem(mesas.get(i));
             }
             return true;
         } catch (Exception e) {
@@ -230,7 +231,7 @@ public class Controle implements Serializable {
      true, caso o produto seja inserido no pedido; false, caso contrário
      */
     public boolean inserirProduto(Autenticacao autenticacao, int numeroDoPedido, int codigoDoProduto, int quantidade, String tamanho, float preco) {
-        boolean inserirPizza = this.banco.inserirProduto(autenticacao, numeroDoPedido, codigoDoProduto, quantidade, tamanho, preco);
+        boolean inserirPizza = this.banco.inserirProdutoNoPedido(autenticacao, numeroDoPedido, codigoDoProduto, quantidade, tamanho, preco);
         return inserirPizza;
     }
 

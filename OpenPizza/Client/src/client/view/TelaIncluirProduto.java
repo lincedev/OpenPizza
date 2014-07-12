@@ -11,10 +11,10 @@ import javax.swing.table.DefaultTableCellRenderer;
 /*
  Descrição: Tela de Inclusão de Produtos
  */
-public class New_TelaIncluirProduto extends javax.swing.JFrame {
+public class TelaIncluirProduto extends javax.swing.JFrame {
 
     // Atributos encapsulados
-    private New_TelaCardapio telaCardapio;
+    private TelaCardapio telaCardapio;
     private Autenticacao autenticacao;
     private Controle controle;
     private String categoriaDoProduto;
@@ -26,7 +26,7 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
      Parâmetros:
      Retorno:
      */
-    private New_TelaIncluirProduto() {
+    private TelaIncluirProduto() {
         initComponents();
     }
 
@@ -41,7 +41,7 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
      numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela Pedido)
      Retorno:
      */
-    public New_TelaIncluirProduto(New_TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido) {
+    public TelaIncluirProduto(TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido) {
         this();
         this.setTelaCardapio(telaCardapio);
         this.setControle(controle);
@@ -139,7 +139,6 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OpenPizza - Incluir Produto");
-        setMaximumSize(new java.awt.Dimension(400, 700));
         setMinimumSize(new java.awt.Dimension(400, 700));
         setResizable(false);
 
@@ -491,20 +490,20 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(New_TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(New_TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(New_TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(New_TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaIncluirProduto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new New_TelaIncluirProduto().setVisible(true);
+                new TelaIncluirProduto().setVisible(true);
             }
         });
     }
@@ -532,7 +531,7 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
      Retorno:
      telaCardapio (Referência à Tela de Cardápio)
      */
-    public New_TelaCardapio getTelaCardapio() {
+    public TelaCardapio getTelaCardapio() {
         return telaCardapio;
     }
 
@@ -542,7 +541,7 @@ public class New_TelaIncluirProduto extends javax.swing.JFrame {
      telaCardapio (Referência à Tela de Cardápio)
      Retorno:
      */
-    public void setTelaCardapio(New_TelaCardapio telaCardapio) {
+    public void setTelaCardapio(TelaCardapio telaCardapio) {
         this.telaCardapio = telaCardapio;
     }
 
