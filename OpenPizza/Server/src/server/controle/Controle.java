@@ -8,6 +8,8 @@ package server.controle;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.util.HashMap;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -149,5 +151,9 @@ public class Controle {
     public boolean desativarMesa(Autenticacao autenticacao, int numeroDaMesa){
         boolean desativarMesa = this.banco.desativarMesa(autenticacao, numeroDaMesa);
         return desativarMesa;
+    }
+    
+    public void gerarRelatorio(Autenticacao autenticacao, String tipoProduto) {
+        this.banco.gerarRelatorio(autenticacao, tipoProduto);
     }
 }

@@ -50,7 +50,9 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         menuExibir = new javax.swing.JMenu();
         itemMenuExibirPedidosEmAberto = new javax.swing.JMenuItem();
         itemMenuExibirProdutosCadastrados = new javax.swing.JMenuItem();
-        menuItemExibirRelatorios = new javax.swing.JMenuItem();
+        itemMenuRelatorios = new javax.swing.JMenu();
+        subItemMenuRelatorioBebidas = new javax.swing.JMenuItem();
+        subItemMenuRelatorioOutros = new javax.swing.JMenuItem();
         menuProdutos = new javax.swing.JMenu();
         itemMenuProdutosPizzas = new javax.swing.JMenuItem();
         itemMenuProdutosLanches = new javax.swing.JMenuItem();
@@ -80,7 +82,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         setPreferredSize(new java.awt.Dimension(900, 600));
         setResizable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("/home/lince/Documents/Copy/UFV/SIN143 - Laboratório de Programação/OpenPizza/OpenPizza/Client/src/client/view/OpenPizzaLogoMini.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/OpenPizzaLogoMini.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -88,8 +90,8 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(313, 313, 313)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(407, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(382, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,16 +153,31 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         });
         menuExibir.add(itemMenuExibirProdutosCadastrados);
 
-        menuItemExibirRelatorios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
-        menuItemExibirRelatorios.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
-        menuItemExibirRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Stats.png"))); // NOI18N
-        menuItemExibirRelatorios.setText("Relatórios");
-        menuItemExibirRelatorios.addActionListener(new java.awt.event.ActionListener() {
+        itemMenuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/Stats.png"))); // NOI18N
+        itemMenuRelatorios.setText("Relatórios");
+        itemMenuRelatorios.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+
+        subItemMenuRelatorioBebidas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        subItemMenuRelatorioBebidas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/bebidas.png"))); // NOI18N
+        subItemMenuRelatorioBebidas.setText("Bebidas");
+        subItemMenuRelatorioBebidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemExibirRelatoriosActionPerformed(evt);
+                subItemMenuRelatorioBebidasActionPerformed(evt);
             }
         });
-        menuExibir.add(menuItemExibirRelatorios);
+        itemMenuRelatorios.add(subItemMenuRelatorioBebidas);
+
+        subItemMenuRelatorioOutros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        subItemMenuRelatorioOutros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones/chocolate.png"))); // NOI18N
+        subItemMenuRelatorioOutros.setText("Outros");
+        subItemMenuRelatorioOutros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subItemMenuRelatorioOutrosActionPerformed(evt);
+            }
+        });
+        itemMenuRelatorios.add(subItemMenuRelatorioOutros);
+
+        menuExibir.add(itemMenuRelatorios);
 
         barraMenus.add(menuExibir);
 
@@ -304,17 +321,21 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         produtosCadastrados.setVisible(true);
     }//GEN-LAST:event_itemMenuExibirProdutosCadastradosActionPerformed
 
-    private void menuItemExibirRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExibirRelatoriosActionPerformed
-        // TODO add your handling code here:
-        TelaExibirRelatorio relatorioProdutos = new TelaExibirRelatorio();
-        relatorioProdutos.setVisible(true);
-    }//GEN-LAST:event_menuItemExibirRelatoriosActionPerformed
-
     private void itemMenuMesasGerenciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuMesasGerenciarActionPerformed
         // TODO add your handling code here:
         TelaCRUDMesas telaMesas = new TelaCRUDMesas(this, this.getAutenticacaoServer(), this.getControle());
         telaMesas.setVisible(true);
     }//GEN-LAST:event_itemMenuMesasGerenciarActionPerformed
+
+    private void subItemMenuRelatorioBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subItemMenuRelatorioBebidasActionPerformed
+        // TODO add your handling code here:
+        this.getControle().gerarRelatorio(this.getAutenticacaoServer(), "Bebida");
+    }//GEN-LAST:event_subItemMenuRelatorioBebidasActionPerformed
+
+    private void subItemMenuRelatorioOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subItemMenuRelatorioOutrosActionPerformed
+        // TODO add your handling code here:
+        this.getControle().gerarRelatorio(this.getAutenticacaoServer(), "Outro");
+    }//GEN-LAST:event_subItemMenuRelatorioOutrosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,6 +382,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private javax.swing.JMenuItem itemMenuProdutosLanches;
     private javax.swing.JMenuItem itemMenuProdutosOutros;
     private javax.swing.JMenuItem itemMenuProdutosPizzas;
+    private javax.swing.JMenu itemMenuRelatorios;
     private javax.swing.JMenuItem itemMenuSair;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -368,9 +390,10 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuExibir;
-    private javax.swing.JMenuItem menuItemExibirRelatorios;
     private javax.swing.JMenu menuMesas;
     private javax.swing.JMenu menuProdutos;
+    private javax.swing.JMenuItem subItemMenuRelatorioBebidas;
+    private javax.swing.JMenuItem subItemMenuRelatorioOutros;
     // End of variables declaration//GEN-END:variables
 
     public Autenticacao getAutenticacaoServer() {

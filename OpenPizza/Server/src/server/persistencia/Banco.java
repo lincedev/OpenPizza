@@ -6,10 +6,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import server.modelo.Autenticacao;
 import server.modelo.Bebidas;
 import server.modelo.Lanche;
@@ -365,5 +371,46 @@ public class Banco {
             }
         }
         return desativarMesa;
+    }
+    
+    public void gerarRelatorio(Autenticacao autenticacao, String tipoProduto){        
+        String query;
+        String caminho;
+        ResultSet rs = null;                
+        Connection conexao = null;
+
+        if(tipoProduto.equals("Bebida")){
+            try{
+                query = "SELECT p.descricao AS DESCRICAO, bbd.quantidade AS QUANTIDADE FROM produto AS p INNER JOIN bebidas AS bbd ON (p.codigo = bbd.codProduto) GROUP BY p.descricao;";
+                caminho = "src/server/view/RelatorioBebidaServer.jasper";
+                conexao = this.abrirConexao(autenticacao);
+                Statement homologacao = conexao.createStatement();
+                rs = homologacao.executeQuery(query);
+                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);                
+                JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
+                JasperViewer jv = new JasperViewer(jpPrint, false);
+                jv.setVisible(true);
+                jv.toFront();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possível exibir relatório.");
+            }            
+        } else {
+            try{
+                query = "SELECT p.descricao AS DESCRICAO, ots.quantidade AS QUANTIDADE FROM  produto AS p INNER JOIN Outros AS ots ON (p.codigo = ots.codProduto) GROUP BY p.descricao;";
+                caminho = "src/server/view/RelatorioOutrosServer.jasper";
+                conexao = this.abrirConexao(autenticacao);
+                Statement homologacao = conexao.createStatement();
+                rs = homologacao.executeQuery(query);
+                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);                
+                JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
+                JasperViewer jv = new JasperViewer(jpPrint, false);
+                jv.setVisible(true);
+                jv.toFront();
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, "Não foi possível exibir relatório.");
+            }   
+        }
     }
 }
