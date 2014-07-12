@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="52cc7c72-317e-41ad-8919-14bbd81c77bb">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="145"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -24,25 +24,22 @@ GROUP BY
 	<group name="DESCRICAO">
 		<groupExpression><![CDATA[$F{DESCRICAO}]]></groupExpression>
 		<groupHeader>
-			<band height="40">
+			<band height="28">
 				<textField>
-					<reportElement style="SubTitle" x="47" y="13" width="506" height="24" forecolor="#000000" uuid="f5ca2001-b7a3-4063-a252-dffe7ad36dc0"/>
+					<reportElement style="SubTitle" x="47" y="13" width="506" height="15" forecolor="#000000" uuid="f5ca2001-b7a3-4063-a252-dffe7ad36dc0"/>
 					<textElement>
-						<font isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
 				</textField>
-				<rectangle>
-					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#FF0000" backcolor="#CC0000" uuid="48a97ed5-9776-4518-b240-95316c29644f"/>
-				</rectangle>
 				<textField>
-					<reportElement style="Detail" x="316" y="25" width="117" height="15" uuid="2c05c325-cb0d-4431-8a8a-677ab6e8ce7b"/>
+					<reportElement style="Detail" x="316" y="13" width="117" height="15" uuid="2c05c325-cb0d-4431-8a8a-677ab6e8ce7b"/>
 					<textFieldExpression><![CDATA[$F{QUANTIDADE}]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="6"/>
+			<band height="1"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -69,7 +66,7 @@ GROUP BY
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="36" splitType="Stretch">
+		<band height="37" splitType="Stretch">
 			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="19d5d93d-757a-4fb0-a2ff-3aee154d78f6"/>
 				<graphicElement>
@@ -80,12 +77,16 @@ GROUP BY
 				<reportElement style="Column header" x="276" y="21" width="96" height="15" uuid="28886db1-82a9-45b3-b3a9-1a1782795056"/>
 				<text><![CDATA[QUANTIDADE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="47" y="20" width="96" height="15" uuid="1dfb2492-8c72-4111-a2b5-f28d35a7e2cd"/>
+				<text><![CDATA[PRODUTOS]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Stretch">
+		<band height="5" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="0ae4ff9d-7fac-4532-9dfd-2b8445384524"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="0ae4ff9d-7fac-4532-9dfd-2b8445384524"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e45f0299-8b0d-4715-8165-698980266543">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="3.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="295"/>
 	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
 	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -24,21 +24,22 @@ GROUP BY
 	<group name="DESCRICAO">
 		<groupExpression><![CDATA[$F{DESCRICAO}]]></groupExpression>
 		<groupHeader>
-			<band height="40">
+			<band height="30">
 				<textField>
-					<reportElement style="SubTitle" x="47" y="13" width="506" height="22" forecolor="#000000" uuid="bf899ce0-b41f-46ad-bba7-dbd045937cad"/>
+					<reportElement style="SubTitle" x="47" y="12" width="506" height="16" forecolor="#000000" uuid="bf899ce0-b41f-46ad-bba7-dbd045937cad"/>
 					<textElement>
-						<font isBold="true"/>
+						<font size="12" isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
 				</textField>
-				<rectangle>
-					<reportElement mode="Opaque" x="0" y="13" width="36" height="24" forecolor="#FF0000" backcolor="#CC0000" uuid="85502ca8-e29b-4beb-a33d-2faf813f0294"/>
-				</rectangle>
+				<textField>
+					<reportElement style="Detail" x="337" y="13" width="117" height="15" uuid="1477b74b-ecde-43e7-919a-f821f3f0c525"/>
+					<textFieldExpression><![CDATA[$F{QUANTIDADE}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="6"/>
+			<band height="2"/>
 		</groupFooter>
 	</group>
 	<background>
@@ -76,20 +77,20 @@ GROUP BY
 				<reportElement style="Column header" x="288" y="21" width="87" height="15" uuid="9f2082c6-462a-4ecf-95bb-49d7398434fa"/>
 				<text><![CDATA[QUANTIDADE]]></text>
 			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="47" y="21" width="87" height="15" uuid="2a9311ad-6339-4fc9-a6dc-0ecf59c2ff88"/>
+				<text><![CDATA[PRODUTOS]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="16" splitType="Stretch">
+		<band height="4" splitType="Stretch">
 			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="66ef1302-1cfd-4fe0-8bde-38ac3f5bc123"/>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="0" width="555" height="1" uuid="66ef1302-1cfd-4fe0-8bde-38ac3f5bc123"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			<textField>
-				<reportElement style="Detail" x="339" y="0" width="117" height="15" uuid="1477b74b-ecde-43e7-919a-f821f3f0c525"/>
-				<textFieldExpression><![CDATA[$F{QUANTIDADE}]]></textFieldExpression>
-			</textField>
 		</band>
 	</detail>
 	<columnFooter>

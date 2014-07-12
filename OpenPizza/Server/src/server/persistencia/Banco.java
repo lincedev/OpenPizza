@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import net.proteanit.sql.DbUtils;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -188,7 +187,7 @@ public class Banco {
             this.inserirProdutoEspecifico(autenticacao, produto, codigoDoProduto);
             inserirProduto = true;
         } catch (Exception e) {
-            
+
         } finally {
             try {
                 this.fecharConexao(conexao);
@@ -219,7 +218,7 @@ public class Banco {
                 codigoDoProduto = resultado.getInt("codigo");
             }
         } catch (Exception e) {
-            
+
         } finally {
             try {
                 this.fecharConexao(conexao);
@@ -300,117 +299,118 @@ public class Banco {
             JOptionPane.showMessageDialog(null, "Não foi possível encerrar a conexão com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public boolean desativarProduto(Autenticacao autenticacao, int codigoDoProduto){
+
+    public boolean desativarProduto(Autenticacao autenticacao, int codigoDoProduto) {
         Connection conexao = null;
         boolean desativarProduto = false;
-        try{
+        try {
             String query = "UPDATE Produto SET ativo = 0 WHERE codigo = " + codigoDoProduto;
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
             desativarProduto = true;
-        }
-        catch(Exception e){
-            
-        }
-        finally{
-            try{
+        } catch (Exception e) {
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         return desativarProduto;
     }
-    
-    public boolean inserirMesa(Autenticacao autenticacao){
+
+    public boolean inserirMesa(Autenticacao autenticacao) {
         Connection conexao = null;
         boolean inserirMesa = false;
-        try{
+        try {
             String query = "INSERT INTO Mesa(ativo) VALUES(1)";
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
             inserirMesa = true;
-        }
-        catch(Exception e){
-            
-        }
-        finally{
-            try{
+        } catch (Exception e) {
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         return inserirMesa;
     }
-    
-    public boolean desativarMesa(Autenticacao autenticacao, int numeroDaMesa){
+
+    public boolean desativarMesa(Autenticacao autenticacao, int numeroDaMesa) {
         Connection conexao = null;
         boolean desativarMesa = false;
-        try{
+        try {
             String query = "UPDATE Mesa SET ativo = false WHERE numero = " + numeroDaMesa;
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             homologacao.executeUpdate(query);
             desativarMesa = true;
-        }
-        catch(Exception e){
-            
-        }
-        finally{
-            try{
+        } catch (Exception e) {
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         return desativarMesa;
     }
-    
-    public void gerarRelatorio(Autenticacao autenticacao, String tipoProduto){        
+
+    public void gerarRelatorio(Autenticacao autenticacao, String tipoProduto) {
         String query;
         String caminho;
-        ResultSet rs = null;                
+        ResultSet rs = null;
         Connection conexao = null;
 
-        if(tipoProduto.equals("Bebida")){
-            try{
-                query = "SELECT p.descricao AS DESCRICAO, bbd.quantidade AS QUANTIDADE FROM produto AS p INNER JOIN bebidas AS bbd ON (p.codigo = bbd.codProduto) GROUP BY p.descricao;";
+        if (tipoProduto.equals("Bebida")) {
+            try {
+                query = "SELECT p.descricao AS DESCRICAO, bbd.quantidade AS QUANTIDADE FROM Produto AS p INNER JOIN Bebidas AS bbd ON (p.codigo = bbd.codProduto) GROUP BY p.descricao;";
                 caminho = "src/server/view/RelatorioBebidaServer.jasper";
                 conexao = this.abrirConexao(autenticacao);
                 Statement homologacao = conexao.createStatement();
                 rs = homologacao.executeQuery(query);
-                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);                
+                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);
                 JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
                 JasperViewer jv = new JasperViewer(jpPrint, false);
                 jv.setVisible(true);
                 jv.toFront();
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Não foi possível exibir relatório.");
-            }            
+            } finally {
+                try {
+                    this.fecharConexao(conexao);
+                } catch (Exception e) {
+
+                }
+            }
         } else {
-            try{
-                query = "SELECT p.descricao AS DESCRICAO, ots.quantidade AS QUANTIDADE FROM  produto AS p INNER JOIN Outros AS ots ON (p.codigo = ots.codProduto) GROUP BY p.descricao;";
+            try {
+                query = "SELECT p.descricao AS DESCRICAO, ots.quantidade AS QUANTIDADE FROM  Produto AS p INNER JOIN Outros AS ots ON (p.codigo = ots.codProduto) GROUP BY p.descricao;";
                 caminho = "src/server/view/RelatorioOutrosServer.jasper";
                 conexao = this.abrirConexao(autenticacao);
                 Statement homologacao = conexao.createStatement();
                 rs = homologacao.executeQuery(query);
-                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);                
+                JRResultSetDataSource relatResult = new JRResultSetDataSource(rs);
                 JasperPrint jpPrint = JasperFillManager.fillReport(caminho, new HashMap(), relatResult);
                 JasperViewer jv = new JasperViewer(jpPrint, false);
                 jv.setVisible(true);
                 jv.toFront();
-            }
-            catch(Exception e){
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Não foi possível exibir relatório.");
-            }   
+            } finally {
+                try {
+                    this.fecharConexao(conexao);
+                } catch (Exception e) {
+
+                }
+            }
         }
     }
 }
