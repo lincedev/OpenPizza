@@ -1,98 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
-import java.sql.*;
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JOptionPane;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
+import server.modelo.Lanche;
 
-/**
- *
- * @author Wellington
+/*
+ Definição: Tela Adicionar Lanches
  */
 public class TelaAdicionarLanches extends javax.swing.JFrame {
 
-    private TelaCRUDLanches telaCrudLanches;
-    private Banco bancoDados = new Banco();
-    private Connection connection;
-    private Autenticacao autenticacaoServer;
-    private String descricaoLanche;
-    private String ingredientesLanche;
-    private String precoLanche;
-    private float precoLancheFinal;
-        
+    // Atributos encapsulados
+    private TelaCRUDLanches telaCRUDLanches;
+    private Autenticacao autenticacao;
+    private Controle controle;
+
+    /*
+     Descrição: Construtor padrão da Tela Adicionar Lanches
+     Parâmetros:
+     Retorno:
+     */
     public TelaAdicionarLanches() {
         initComponents();
     }
 
-    public TelaAdicionarLanches(TelaCRUDLanches telaCrudLanches, Autenticacao autenticacaoServer)            
-    {
-        this();        
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.setTelaCrudLanches(telaCrudLanches);
-    }
-    
-    public TelaCRUDLanches getTelaCrudLanches() {
-        return telaCrudLanches;
-    }
-
-    public void setTelaCrudLanches(TelaCRUDLanches telaCrudLanches) {
-        this.telaCrudLanches = telaCrudLanches;
-    }
-
-    public Banco getBancoDados() {
-        return bancoDados;
+    /*
+     Descrição: Construtor completo da Tela Adicionar Lanches
+     Parâmetros:
+     telaCRUDLanches (Referência à Tela CRUD Lanches)
+     autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaAdicionarLanches(TelaCRUDLanches telaCRUDLanches, Autenticacao autenticacao, Controle controle) {
+        this();
+        this.setAutenticacao(autenticacao);
+        this.setTelaCRUDLanches(telaCRUDLanches);
+        this.setControle(controle);
     }
 
-    public void setBancoDados(Banco bancoDados) {
-        this.bancoDados = bancoDados;
-    }
-
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-
-    public String getDescricaoLanche() {
-        return descricaoLanche;
-    }
-
-    public void setDescricaoLanche(String descricaoLanche) {
-        this.descricaoLanche = descricaoLanche;
-    }
-
-    public String getIngredientesLanche() {
-        return ingredientesLanche;
-    }
-
-    public void setIngredientesLanche(String ingredientesLanche) {
-        this.ingredientesLanche = ingredientesLanche;
-    }
-
-    public String getPrecoLanche() {
-        return precoLanche;
-    }
-
-    public void setPrecoLanche(String precoLanche) {
-        this.precoLanche = precoLanche;
-    }
-
-    public float getPrecoLancheFinal() {
-        return precoLancheFinal;
-    }
-
-    public void setPrecoLancheFinal(float precoLancheFinal) {
-        this.precoLancheFinal = precoLancheFinal;
-    }
-     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,193 +50,163 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelCadastroLanches = new javax.swing.JPanel();
-        labelDescricaoLanche = new javax.swing.JLabel();
-        textDescricaoLanche = new javax.swing.JTextField();
-        labelPrecoLanche = new javax.swing.JLabel();
-        textPrecoLanche = new javax.swing.JTextField();
-        labelIngredientesLanche = new javax.swing.JLabel();
-        textIngredientesLanche = new javax.swing.JTextField();
-        buttonCadastrarLanche = new javax.swing.JToggleButton();
-        buttonCancelarCadastroLanche = new javax.swing.JButton();
+        painel = new javax.swing.JPanel();
+        labelDescricao = new javax.swing.JLabel();
+        textDescricao = new javax.swing.JTextField();
+        labelPreco = new javax.swing.JLabel();
+        textPreco = new javax.swing.JTextField();
+        labelIngredientes = new javax.swing.JLabel();
+        textIngredientes = new javax.swing.JTextField();
+        botaoCadastrar = new javax.swing.JToggleButton();
+        botaoCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Novo Lanche");
         setMaximumSize(new java.awt.Dimension(270, 300));
         setMinimumSize(new java.awt.Dimension(270, 300));
         setPreferredSize(new java.awt.Dimension(270, 300));
+        setResizable(false);
 
-        painelCadastroLanches.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        painelCadastroLanches.setMaximumSize(new java.awt.Dimension(260, 290));
-        painelCadastroLanches.setMinimumSize(new java.awt.Dimension(260, 290));
+        painel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        painel.setMaximumSize(new java.awt.Dimension(260, 290));
+        painel.setMinimumSize(new java.awt.Dimension(260, 290));
 
-        labelDescricaoLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDescricaoLanche.setText("Descrição:");
+        labelDescricao.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelDescricao.setText("Descrição:");
 
-        textDescricaoLanche.addActionListener(new java.awt.event.ActionListener() {
+        textDescricao.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        labelPreco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelPreco.setText("Preço:");
+
+        textPreco.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        labelIngredientes.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        labelIngredientes.setText("Ingredientes:");
+
+        textIngredientes.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDescricaoLancheActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
-        labelPrecoLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPrecoLanche.setText("Preço:");
-
-        textPrecoLanche.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPrecoLancheActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
-        labelIngredientesLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelIngredientesLanche.setText("Ingredientes:");
-
-        textIngredientesLanche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textIngredientesLancheActionPerformed(evt);
-            }
-        });
-
-        buttonCadastrarLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCadastrarLanche.setText("Cadastrar");
-        buttonCadastrarLanche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarLancheActionPerformed(evt);
-            }
-        });
-
-        buttonCancelarCadastroLanche.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCancelarCadastroLanche.setText("Cancelar");
-        buttonCancelarCadastroLanche.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarCadastroLancheActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout painelCadastroLanchesLayout = new javax.swing.GroupLayout(painelCadastroLanches);
-        painelCadastroLanches.setLayout(painelCadastroLanchesLayout);
-        painelCadastroLanchesLayout.setHorizontalGroup(
-            painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelIngredientesLanche)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
-                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(textIngredientesLanche))
-                    .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelDescricaoLanche)
-                            .addComponent(labelPrecoLanche))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addComponent(labelIngredientes)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelCadastroLanchesLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(buttonCancelarCadastroLanche)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCadastrarLanche)))
-                .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textIngredientes, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPreco)
+                                    .addComponent(labelDescricao))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
-        painelCadastroLanchesLayout.setVerticalGroup(
-            painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastroLanchesLayout.createSequentialGroup()
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelDescricaoLanche)
-                    .addComponent(textDescricaoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelDescricao)
+                    .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textPrecoLanche, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPrecoLanche, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPreco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelIngredientesLanche)
+                .addComponent(labelIngredientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textIngredientesLanche, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(painelCadastroLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCadastrarLanche)
-                    .addComponent(buttonCancelarCadastroLanche))
-                .addGap(59, 59, 59))
+                .addComponent(textIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelCadastroLanches, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelCadastroLanches, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textDescricaoLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoLancheActionPerformed
-        this.setDescricaoLanche(textDescricaoLanche.getText());
-    }//GEN-LAST:event_textDescricaoLancheActionPerformed
-
-    private void textPrecoLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoLancheActionPerformed
-        this.setPrecoLanche(textPrecoLanche.getText());
-    }//GEN-LAST:event_textPrecoLancheActionPerformed
-
-    private void textIngredientesLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIngredientesLancheActionPerformed
-        this.setIngredientesLanche(textIngredientesLanche.getText());
-    }//GEN-LAST:event_textIngredientesLancheActionPerformed
-
-    private void buttonCadastrarLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarLancheActionPerformed
-        this.setDescricaoLanche(textDescricaoLanche.getText());
-        this.setPrecoLanche(textPrecoLanche.getText());
-        this.setIngredientesLanche(textIngredientesLanche.getText());
-        
-        if(this.getDescricaoLanche().equals("")){
-            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
-        } else if(this.getPrecoLanche().equals("")){
-                JOptionPane.showMessageDialog(null, "Preencha o campo 'Preço'");
-                } else if(this.getIngredientesLanche().equals("")){
-                    JOptionPane.showMessageDialog(null, "Preencha o campo 'Ingredientes'");
-                } else {
-                    this.setPrecoLancheFinal(Float.parseFloat(textPrecoLanche.getText()));
-                    if(this.getPrecoLancheFinal() <= 0.00){
-                        JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
-                    }
-                }
-        
-        if((!(this.getDescricaoLanche().equals(""))) && (!(this.getPrecoLanche().equals(""))) && (!(this.getIngredientesLanche().equals(""))) && (!(this.getPrecoLancheFinal() <= 0.00))){
-            try{
-                boolean retorno = bancoDados.inserirLanche(this.getAutenticacaoServer(), this.getDescricaoLanche(), this.getPrecoLancheFinal(), this.getIngredientesLanche());
-                if(retorno == true){
-                    JOptionPane.showMessageDialog(null, "Lanche cadastrado com sucesso!!!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Lanche");
-                }                                    
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar o Lanche");
+    /*
+     Descrição: Evento ao clicar no botão Cadastrar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        //
+        boolean verificarCampos = this.getControle().verificarCamposLanche(this.textDescricao, this.textPreco);
+        if(verificarCampos){
+            Lanche novoLanche = new Lanche(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), this.textIngredientes.getText());
+            boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novoLanche);
+            if (inserirProduto) {
+                JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                this.textDescricao.setText(null);
+                this.textPreco.setText(null);
+                this.textIngredientes.setText(null);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }                       
-        //this.setEnabled(false);
-        //this.setVisible(false);
-        //this.telaCrudLanches.setEnabled(true);
-        //this.telaCrudLanches.setVisible(true);
-    }//GEN-LAST:event_buttonCadastrarLancheActionPerformed
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
-    private void buttonCancelarCadastroLancheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroLancheActionPerformed
-        this.setVisible(false);
-        this.setEnabled(false);
-        this.telaCrudLanches.setVisible(true);
-        this.telaCrudLanches.setEnabled(true);
-    }//GEN-LAST:event_buttonCancelarCadastroLancheActionPerformed
+    /*
+     Descrição: Evento ao clicar no botão Cancelar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        // Fechar janela atual
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -326,14 +244,74 @@ public class TelaAdicionarLanches extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JToggleButton buttonCadastrarLanche;
-    private javax.swing.JButton buttonCancelarCadastroLanche;
-    private javax.swing.JLabel labelDescricaoLanche;
-    private javax.swing.JLabel labelIngredientesLanche;
-    private javax.swing.JLabel labelPrecoLanche;
-    private javax.swing.JPanel painelCadastroLanches;
-    private javax.swing.JTextField textDescricaoLanche;
-    private javax.swing.JTextField textIngredientesLanche;
-    private javax.swing.JTextField textPrecoLanche;
+    private javax.swing.JToggleButton botaoCadastrar;
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JLabel labelDescricao;
+    private javax.swing.JLabel labelIngredientes;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JPanel painel;
+    private javax.swing.JTextField textDescricao;
+    private javax.swing.JTextField textIngredientes;
+    private javax.swing.JTextField textPreco;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método get da telaCRUDLanches
+     Parâmetros:
+     Retorno:
+     telaCRUDLanches (Referência à Tela CRUD Lanches)
+     */
+    public TelaCRUDLanches getTelaCRUDLanches() {
+        return telaCRUDLanches;
+    }
+
+    /*
+     Descrição: Método set da telaCRUDLanches
+     Parâmetros:
+     telaCRUDLanches (Referência à Tela CRUD Lanches)
+     Retorno:
+     */
+    public void setTelaCRUDLanches(TelaCRUDLanches telaCRUDLanches) {
+        this.telaCRUDLanches = telaCRUDLanches;
+    }
+
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

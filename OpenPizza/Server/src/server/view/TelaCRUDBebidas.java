@@ -1,85 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Pacote View
 package server.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JLabel;
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import net.proteanit.sql.DbUtils;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela CRUD de Bebidas
  */
 public class TelaCRUDBebidas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCRUDBebidas
-     */
-    // Variável para armazenamento da tela principal.
+    // Variáveis encapsuladas
     private TelaPrincipal janelaPrincipal;
     private Controle controle;
-    private Autenticacao autenticacaoServer;
-    
+    private Autenticacao autenticacao;
+
     /*
-     Descrição: Construtor padrão da janela de CRUD Lanches.
+     Descrição: Construtor padrão da janela de CRUD Bebidas.
      Parâmetros:
      Retorno:
-     Data Última Alteração: 22/05/2014
      */
-    public TelaCRUDBebidas() {
+    private TelaCRUDBebidas() {
         initComponents();
     }
 
     /*
-     Descrição: Construtor completo da janela de CRUD de Lanches.
+     Descrição: Construtor completo da janela de CRUD de Bebidas.
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
+     autenticacao (Necessário para realizar operações no banco de dados)
+     controle (Objeto do tipo Controle)
      Retorno:
-     Data Última Alteração: 22/05/2014 
      */
-    TelaCRUDBebidas(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer) {
+    TelaCRUDBebidas(TelaPrincipal janelaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
-        this.setJanelaPrincipal(janelaPrincipal);        
-        this.getJanelaPrincipal().setEnabled(false);
-        controle = new Controle();
-        controle.exibirBebidasCadastrados(autenticacaoServer, tabelaBebidas);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.setJanelaPrincipal(janelaPrincipal);
+        this.setAutenticacao(autenticacao);
+        this.setControle(controle);
+        this.getControle().exibirProdutos(autenticacao, tabelaBebidas, "Bebida");
     }
 
-    /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 22/05/2014
-     */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-
-    /*
-     Descrição: Método get para a variável janelaPrincipal
-     Parâmetros:
-     Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 22/05/2014 
-     */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -109,11 +69,6 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         jPanelMenuCRUDBebidas.setPreferredSize(new java.awt.Dimension(353, 85));
 
@@ -262,42 +217,62 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
-    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
 
-        this.getJanelaPrincipal().setVisible(true);
-        this.getJanelaPrincipal().setEnabled(true);
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        // Fechar a janela atual
         this.dispose();
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Excluir
+     Parâmetros:
+     Retorno:
+     */
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        int codigoProduto = (Integer) this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0);
-        if (codigoProduto > -1) {
-            JOptionPane.showMessageDialog(null, "Deseja excluir o item selecionado?", "Confirmação", JOptionPane.QUESTION_MESSAGE);
-            System.out.println(codigoProduto);
-            //boolean status = banco.excluirProduto(this.getAutenticacaoServer(), codigoProduto);
-            
+        // Confirmação de exclusão
+        int indice = this.tabelaBebidas.getSelectedRow();
+        if (indice >= 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if (confirmacao == JOptionPane.OK_OPTION) {
+                int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0)));
+                if (codigoDoProduto >= 0) {
+                    boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+                    if (desativarProduto) {
+                        JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaBebidas, "Bebida");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
         }
-
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Adicionar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
-        TelaAdicionarBebidas addBebida = new TelaAdicionarBebidas(this, this.autenticacaoServer);
-        addBebida.setVisible(true);
-        this.setEnabled(false);
-        addBebida.setLocationRelativeTo(null);
+        // Criar e habilitar visualização da Tela Adicionar Bebidas
+        TelaAdicionarBebidas telaAdicionarBebidas = new TelaAdicionarBebidas(this, this.getAutenticacao(), this.getControle());
+        telaAdicionarBebidas.setVisible(true);
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        controle.exibirBebidasCadastrados(this.autenticacaoServer, this.tabelaBebidas);
+        // Recuperar e exibir as Bebidas cadastradas
+        this.getControle().exibirProdutos(autenticacao, tabelaBebidas, "Bebida");
     }//GEN-LAST:event_botaoAtualizarActionPerformed
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        this.dispose();
-        this.getJanelaPrincipal().setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments
@@ -348,4 +323,64 @@ public class TelaCRUDBebidas extends javax.swing.JFrame {
     private javax.swing.JScrollPane painelBebidas;
     private javax.swing.JTable tabelaBebidas;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
+
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
 }

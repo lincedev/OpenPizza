@@ -1,89 +1,47 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
-import java.sql.Connection;
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JOptionPane;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
+import server.modelo.Bebidas;
+import server.modelo.Outros;
 
-/**
- *
- * @author Wellington
+/*
+ Descrição: Tela Adicionar Outros
  */
 public class TelaAdicionarOutros extends javax.swing.JFrame {
 
-    private TelaCRUDOutros telaCrudOutros;
-    private Banco bancoDados = new Banco();
-    private Connection connection;
-    private Autenticacao autenticacaoServer;
-    private String descricaoOutros;
-    private String precoOutros;
-    private float precoOutrosFinal;
-    
+    // Atributos encapsulados
+    private TelaCRUDOutros telaCRUDOutros;
+    private Autenticacao autenticacao;
+    private Controle controle;
+
+    /*
+     Descrição: Construtor padrão da Tela Adicionar Outros
+     Parâmetros:
+     Retorno:
+     */
     public TelaAdicionarOutros() {
         initComponents();
     }
 
-    public TelaAdicionarOutros(TelaCRUDOutros telaCrudOutros, Autenticacao autenticacaoServer)            
-    {
-        this();        
-        this.setAutenticacaoServer(autenticacaoServer);
-        this.setTelaCrudOutros(telaCrudOutros);
-    }
-    
-    public TelaCRUDOutros getTelaCrudOutros() {
-        return telaCrudOutros;
-    }
-
-    public void setTelaCrudOutros(TelaCRUDOutros telaCrudOutros) {
-        this.telaCrudOutros = telaCrudOutros;
-    }
-
-    public Banco getBancoDados() {
-        return bancoDados;
+    /*
+     Descrição: Construtor completo da Tela Adicionar Outros
+     Parâmetros:
+    telaCRUDOutros (Referência à Tela CRUD Outros)
+    autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaAdicionarOutros(TelaCRUDOutros telaCRUDOutros, Autenticacao autenticacao, Controle controle) {
+        this();
+        this.setAutenticacao(autenticacao);
+        this.setTelaCRUDOutros(telaCRUDOutros);
+        this.setControle(controle);
     }
 
-    public void setBancoDados(Banco bancoDados) {
-        this.bancoDados = bancoDados;
-    }
-
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-
-    public String getDescricaoOutros() {
-        return descricaoOutros;
-    }
-
-    public void setDescricaoOutros(String descricaoOutros) {
-        this.descricaoOutros = descricaoOutros;
-    }
-
-    public String getPrecoOutros() {
-        return precoOutros;
-    }
-
-    public void setPrecoOutros(String precoOutros) {
-        this.precoOutros = precoOutros;
-    }
-
-    public float getPrecoOutrosFinal() {
-        return precoOutrosFinal;
-    }
-
-    public void setPrecoOutrosFinal(float precoOutrosFinal) {
-        this.precoOutrosFinal = precoOutrosFinal;
-    }            
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,159 +51,164 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelCadastrarOutros = new javax.swing.JPanel();
-        labelDescricaoOutros = new javax.swing.JLabel();
-        textDescricaoOutros = new javax.swing.JTextField();
-        labelPrecoOutros = new javax.swing.JLabel();
-        textPrecoOutros = new javax.swing.JTextField();
-        buttonCadastrarOutros = new javax.swing.JButton();
-        buttonCancelarCadastroOutros = new javax.swing.JButton();
+        painel = new javax.swing.JPanel();
+        labelDescricao = new javax.swing.JLabel();
+        textDescricao = new javax.swing.JTextField();
+        labelPreco = new javax.swing.JLabel();
+        textPreco = new javax.swing.JTextField();
+        botaoCadastrar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
+        labelEstoque = new javax.swing.JLabel();
+        textEstoque = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Novo Outro");
         setMaximumSize(new java.awt.Dimension(270, 300));
         setMinimumSize(new java.awt.Dimension(270, 300));
+        setPreferredSize(new java.awt.Dimension(270, 300));
+        setResizable(false);
 
-        painelCadastrarOutros.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        painel.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
-        labelDescricaoOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDescricaoOutros.setText("Descrição:");
+        labelDescricao.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelDescricao.setText("Descrição:");
 
-        textDescricaoOutros.addActionListener(new java.awt.event.ActionListener() {
+        textDescricao.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        labelPreco.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelPreco.setText("Preço:");
+
+        textPreco.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDescricaoOutrosActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
-        labelPrecoOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPrecoOutros.setText("Preço:");
-
-        textPrecoOutros.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPrecoOutrosActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
-        buttonCadastrarOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCadastrarOutros.setText("Cadastrar");
-        buttonCadastrarOutros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarOutrosActionPerformed(evt);
-            }
-        });
+        labelEstoque.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelEstoque.setText("Estoque:");
 
-        buttonCancelarCadastroOutros.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCancelarCadastroOutros.setText("Cancelar");
-        buttonCancelarCadastroOutros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarCadastroOutrosActionPerformed(evt);
-            }
-        });
+        textEstoque.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
 
-        javax.swing.GroupLayout painelCadastrarOutrosLayout = new javax.swing.GroupLayout(painelCadastrarOutros);
-        painelCadastrarOutros.setLayout(painelCadastrarOutrosLayout);
-        painelCadastrarOutrosLayout.setHorizontalGroup(
-            painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textDescricaoOutros)
-                    .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                        .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDescricaoOutros)
-                            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                                .addComponent(labelPrecoOutros)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addComponent(labelDescricao)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                        .addComponent(buttonCadastrarOutros)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(buttonCancelarCadastroOutros)))
-                .addContainerGap())
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textDescricao)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(labelEstoque)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(labelPreco)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(textPreco, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
-        painelCadastrarOutrosLayout.setVerticalGroup(
-            painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastrarOutrosLayout.createSequentialGroup()
-                .addComponent(labelDescricaoOutros)
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textDescricaoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPreco)
+                    .addComponent(textPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textPrecoOutros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPrecoOutros))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addGroup(painelCadastrarOutrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCadastrarOutros)
-                    .addComponent(buttonCancelarCadastroOutros))
-                .addContainerGap())
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEstoque))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelCadastrarOutros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textDescricaoOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoOutrosActionPerformed
-        this.setDescricaoOutros(textDescricaoOutros.getText());
-    }//GEN-LAST:event_textDescricaoOutrosActionPerformed
-
-    private void textPrecoOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoOutrosActionPerformed
-        this.setPrecoOutros(textPrecoOutros.getText());
-    }//GEN-LAST:event_textPrecoOutrosActionPerformed
-
-    private void buttonCadastrarOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarOutrosActionPerformed
-        this.setDescricaoOutros(textDescricaoOutros.getText());
-        this.setPrecoOutros(textPrecoOutros.getText());
+    /*
+     Descrição: Evento ao clicar no botão Cadastrar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        boolean verificarCampos = this.getControle().verificarCamposBebidasOutros(this.textDescricao, this.textPreco, this.textEstoque);
+        if (verificarCampos) {
+            Outros novoOutros = new Outros(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), Integer.parseInt(this.textEstoque.getText()));
+            boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novoOutros);
+            if (inserirProduto) {
+                JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                this.textDescricao.setText(null);
+                this.textPreco.setText(null);
+                this.textEstoque.setText(null);
                 
-        if(this.getDescricaoOutros().equals("")){
-            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
-        } else if(this.getPrecoOutros().equals("")){
-                JOptionPane.showMessageDialog(null, "Preencha o campo 'Preço'");
-                } else {
-                    this.setPrecoOutrosFinal(Float.parseFloat(textPrecoOutros.getText()));
-                    if(this.getPrecoOutrosFinal() <= 0.00){
-                        JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
-                    }
-                }
-        
-        if((!(this.getDescricaoOutros().equals(""))) && (!(this.getPrecoOutros().equals(""))) && (!(this.getPrecoOutrosFinal() <= 0.00))){
-            try{
-                boolean retorno = bancoDados.inserirOutros(this.getAutenticacaoServer(), this.getDescricaoOutros(), this.getPrecoOutrosFinal());
-                if(retorno == true){
-                    JOptionPane.showMessageDialog(null, "Outros cadastrada com sucesso!!!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar Outros");
-                }                                    
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar Outros");
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        }                          
-        //this.setEnabled(false);
-        //this.setVisible(false);
-        //this.telaCrudOutros.setEnabled(true);
-        //this.telaCrudOutros.setVisible(true);
-    }//GEN-LAST:event_buttonCadastrarOutrosActionPerformed
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
-    private void buttonCancelarCadastroOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroOutrosActionPerformed
-        this.setVisible(false);
-        this.setEnabled(false);
-        this.telaCrudOutros.setVisible(true);
-        this.telaCrudOutros.setEnabled(true);
-    }//GEN-LAST:event_buttonCancelarCadastroOutrosActionPerformed
+    /*
+     Descrição: Evento ao clicar no botão Cancelar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        // Fechar janela atual
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -283,12 +246,74 @@ public class TelaAdicionarOutros extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCadastrarOutros;
-    private javax.swing.JButton buttonCancelarCadastroOutros;
-    private javax.swing.JLabel labelDescricaoOutros;
-    private javax.swing.JLabel labelPrecoOutros;
-    private javax.swing.JPanel painelCadastrarOutros;
-    private javax.swing.JTextField textDescricaoOutros;
-    private javax.swing.JTextField textPrecoOutros;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JLabel labelDescricao;
+    private javax.swing.JLabel labelEstoque;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JPanel painel;
+    private javax.swing.JTextField textDescricao;
+    private javax.swing.JTextField textEstoque;
+    private javax.swing.JTextField textPreco;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método get da telaCRUDOutros
+     Parâmetros:
+     Retorno:
+     telaCRUDOutros (Referência à Tela CRUD Outros)
+     */
+    public TelaCRUDOutros getTelaCRUDOutros() {
+        return telaCRUDOutros;
+    }
+
+    /*
+     Descrição: Método set da telaCRUDOutros
+     Parâmetros:
+     telaCRUDOutros (Referência à Tela CRUD Outros)
+     Retorno:
+     */
+    public void setTelaCRUDOutros(TelaCRUDOutros telaCRUDOutros) {
+        this.telaCRUDOutros = telaCRUDOutros;
+    }
+
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

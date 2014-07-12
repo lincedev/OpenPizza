@@ -1,6 +1,7 @@
+// Pacote View
 package server.view;
 
-
+// Importação dos pacotes e bibliotecas necessárias
 import java.io.Serializable;
 import server.controle.Controle;
 import server.modelo.Autenticacao;

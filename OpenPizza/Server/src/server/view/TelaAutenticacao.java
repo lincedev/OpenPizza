@@ -177,7 +177,6 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
         setTitle("OpenPizza - Autenticação");
         setMaximumSize(new java.awt.Dimension(350, 250));
         setMinimumSize(new java.awt.Dimension(350, 250));
-        setPreferredSize(new java.awt.Dimension(350, 250));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
@@ -214,9 +213,9 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
 
         autenticarBanco.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         autenticarBanco.setText("Autenticar");
-        autenticarBanco.setMaximumSize(new java.awt.Dimension(110, 30));
-        autenticarBanco.setMinimumSize(new java.awt.Dimension(110, 30));
-        autenticarBanco.setPreferredSize(new java.awt.Dimension(110, 30));
+        autenticarBanco.setMaximumSize(new java.awt.Dimension(120, 40));
+        autenticarBanco.setMinimumSize(new java.awt.Dimension(120, 40));
+        autenticarBanco.setPreferredSize(new java.awt.Dimension(120, 40));
         autenticarBanco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 autenticarBancoActionPerformed(evt);
@@ -227,9 +226,9 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
 
         cancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         cancelar.setText("Cancelar");
-        cancelar.setMaximumSize(new java.awt.Dimension(110, 30));
-        cancelar.setMinimumSize(new java.awt.Dimension(110, 30));
-        cancelar.setPreferredSize(new java.awt.Dimension(110, 30));
+        cancelar.setMaximumSize(new java.awt.Dimension(120, 40));
+        cancelar.setMinimumSize(new java.awt.Dimension(120, 40));
+        cancelar.setPreferredSize(new java.awt.Dimension(120, 40));
         cancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelarActionPerformed(evt);
@@ -245,16 +244,15 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
                 .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(56, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
             .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(labelUsuario)
                         .addGap(85, 85, 85)
                         .addComponent(usuarioBanco))
                     .addGroup(painelLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(labelSenha)
                         .addGap(97, 97, 97)
                         .addComponent(senhaBanco)))
@@ -286,7 +284,7 @@ public class TelaAutenticacao extends javax.swing.JFrame implements Serializable
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(autenticarBanco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
             .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelLayout.createSequentialGroup()
                     .addContainerGap()

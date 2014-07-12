@@ -2,14 +2,7 @@
 package server.view;
 
 // Importação dos pacotes e bibliotecas necessárias
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JLabel;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import net.proteanit.sql.DbUtils;
+import javax.swing.JOptionPane;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
@@ -47,51 +40,7 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         this.setControle(controle);
         this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
     }
-   
-    /*
-     Descrição: Método para exibição de Outros cadastrados
-     Parâmetros:
-     *           autenticacao (Necessário para acesso/consulta no banco de dados)
-     Retorno:      
-     Data Última Alteração: 03/07/2014 
-    */
-    public void exibirMesas(Autenticacao autenticacaoServer) {
-        Controle controle = new Controle();
-        controle.verificarAutenticacao();
-        try {
-            String query = null;
-            JTable tabelaMesas = null;
-            
-            query = "SELECT * FROM Mesa";
-            
-            // Recuperação dos produtos cadastrados de acordo com a categoria selecionada
-            Connection con = DriverManager.getConnection(this.getAutenticacao().getCaminhoBanco(), this.getAutenticacao().getUsuarioBanco(), this.getAutenticacao().getUsuarioSenha());
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(query);
-
-            tabelaMesas = this.tabelaCRUDMesas;
-            
-            // Formatação do modelo da tabela de exibição
-            tabelaMesas.setModel(DbUtils.resultSetToTableModel(rs));
-            tabelaMesas.setRowSelectionAllowed(true);
-
-            // Exibição centralizada dos registros
-            DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-            centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-
-            // Formatação das colunas da tabela de exibição
-            tabelaMesas.getColumnModel().getColumn(0).setHeaderValue("Numero");
-
-            // Centralizar
-            tabelaMesas.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
-
-            con.close();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            //JOptionPane.showMessageDialog(null, "Não foi possível exibir as pizzas cadastrados.", "Erro", JOptionPane.ERROR_MESSAGE);
-        }
-    } 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -101,18 +50,18 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        painel = new javax.swing.JPanel();
+        painelMesas = new javax.swing.JScrollPane();
         tabelaCRUDMesas = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        painelCRUDMesas = new javax.swing.JPanel();
         botaoVoltarTelaCRUDMesas = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        botaoAdicionar = new javax.swing.JButton();
+        botaoExcluir = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
+        labelVoltar = new javax.swing.JLabel();
+        labelAdicionar = new javax.swing.JLabel();
+        labelExcluir = new javax.swing.JLabel();
+        labelAtualizar = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Mesas");
@@ -135,7 +84,7 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         ));
         tabelaCRUDMesas.setRowHeight(25);
         tabelaCRUDMesas.setRowMargin(5);
-        jScrollPane1.setViewportView(tabelaCRUDMesas);
+        painelMesas.setViewportView(tabelaCRUDMesas);
 
         botaoVoltarTelaCRUDMesas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
         botaoVoltarTelaCRUDMesas.setBorderPainted(false);
@@ -150,104 +99,117 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
-        jButton2.setBorderPainted(false);
-        jButton2.setContentAreaFilled(false);
-        jButton2.setMaximumSize(new java.awt.Dimension(63, 63));
-        jButton2.setMinimumSize(new java.awt.Dimension(63, 63));
-        jButton2.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AdicionarPizza.png"))); // NOI18N
+        botaoAdicionar.setBorderPainted(false);
+        botaoAdicionar.setContentAreaFilled(false);
+        botaoAdicionar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAdicionarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
-        jButton5.setBorderPainted(false);
-        jButton5.setContentAreaFilled(false);
-        jButton5.setMaximumSize(new java.awt.Dimension(63, 63));
-        jButton5.setMinimumSize(new java.awt.Dimension(63, 63));
-        jButton5.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/DeleterPizza.png"))); // NOI18N
+        botaoExcluir.setBorderPainted(false);
+        botaoExcluir.setContentAreaFilled(false);
+        botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirActionPerformed(evt);
+            }
+        });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
-        jButton4.setBorderPainted(false);
-        jButton4.setContentAreaFilled(false);
-        jButton4.setMaximumSize(new java.awt.Dimension(63, 63));
-        jButton4.setMinimumSize(new java.awt.Dimension(63, 63));
-        jButton4.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setBorderPainted(false);
+        botaoAtualizar.setContentAreaFilled(false);
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        jLabel1.setText("Voltar");
+        labelVoltar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelVoltar.setText("Voltar");
 
-        jLabel2.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        jLabel2.setText("Adicionar");
+        labelAdicionar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelAdicionar.setText("Adicionar");
 
-        jLabel3.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        jLabel3.setText("Excluir");
+        labelExcluir.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelExcluir.setText("Excluir");
 
-        jLabel4.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
-        jLabel4.setText("Atualizar");
+        labelAtualizar.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelAtualizar.setText("Atualizar");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout painelCRUDMesasLayout = new javax.swing.GroupLayout(painelCRUDMesas);
+        painelCRUDMesas.setLayout(painelCRUDMesasLayout);
+        painelCRUDMesasLayout.setHorizontalGroup(
+            painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCRUDMesasLayout.createSequentialGroup()
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoVoltarTelaCRUDMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(painelCRUDMesasLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1)))
+                        .addComponent(labelVoltar)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelAdicionar))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelCRUDMesasLayout.createSequentialGroup()
                         .addGap(12, 12, 12)
-                        .addComponent(jLabel3)))
+                        .addComponent(labelExcluir)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAtualizar)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 10, Short.MAX_VALUE))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        painelCRUDMesasLayout.setVerticalGroup(
+            painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelCRUDMesasLayout.createSequentialGroup()
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(botaoVoltarTelaCRUDMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                .addGroup(painelCRUDMesasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelVoltar)
+                    .addComponent(labelAdicionar)
+                    .addComponent(labelExcluir)
+                    .addComponent(labelAtualizar))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelCRUDMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelMesas, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(painelCRUDMesas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -255,11 +217,11 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -275,6 +237,57 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
         // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoVoltarTelaCRUDMesasActionPerformed
+
+    /*
+     Descrição: Evento ao clicar no botão Adicionar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
+        // TODO add your handling code here:
+        boolean inserirMesa = this.getControle().inserirMesa(this.getAutenticacao());
+        if(inserirMesa){
+            JOptionPane.showMessageDialog(null, "Mesa inserida com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Não foi possível inserir uma nova mesa.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoAdicionarActionPerformed
+
+    /*
+     Descrição: Evento ao clicar no botão Excluir
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        // Confirmação de exclusão
+        int indice = this.tabelaCRUDMesas.getSelectedRow();
+        if (indice >= 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if (confirmacao == JOptionPane.OK_OPTION) {
+                int numeroDaMesa = Integer.parseInt(String.valueOf(this.tabelaCRUDMesas.getValueAt(this.tabelaCRUDMesas.getSelectedRow(), 0)));
+                if (numeroDaMesa >= 0) {
+                    boolean desativarProduto = this.getControle().desativarMesa(this.getAutenticacao(), numeroDaMesa);
+                    if (desativarProduto) {
+                        JOptionPane.showMessageDialog(null, "Mesa excluída com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDMesas, "Mesa");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir a mesa selecionadas.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoExcluirActionPerformed
+
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -312,40 +325,76 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoAdicionar;
+    private javax.swing.JButton botaoAtualizar;
+    private javax.swing.JButton botaoExcluir;
     private javax.swing.JButton botaoVoltarTelaCRUDMesas;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labelAdicionar;
+    private javax.swing.JLabel labelAtualizar;
+    private javax.swing.JLabel labelExcluir;
+    private javax.swing.JLabel labelVoltar;
+    private javax.swing.JPanel painel;
+    private javax.swing.JPanel painelCRUDMesas;
+    private javax.swing.JScrollPane painelMesas;
     private javax.swing.JTable tabelaCRUDMesas;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get da janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Referência à Tela Principal)
+     */
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
     }
 
+    /*
+     Descrição: Método set da janelaPrincipal
+     Parâmetros:
+     janelaPrincipal (Referência à Tela Principal)
+     Retorno:
+     */
     public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
 
+   /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticação contendo as informações para acesso ao banco de dados)
+     */
     public Autenticacao getAutenticacao() {
         return autenticacao;
     }
 
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
     public void setAutenticacao(Autenticacao autenticacao) {
         this.autenticacao = autenticacao;
     }

@@ -19,9 +19,6 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
-  <Events>
-    <EventHandler event="windowClosed" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosed"/>
-  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -95,7 +92,7 @@
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
           <SubComponents>
-            <Component class="javax.swing.JTable" name="tabelaLanches">
+            <Component class="javax.swing.JTable" name="tabelaCRUDLanches">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="16" style="0"/>
@@ -109,6 +106,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaCRUDLanchesMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -140,7 +140,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="votaoVoltar" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoVoltar" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="botaoAdicionar" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -150,7 +150,7 @@
                           <Group type="102" attributes="0">
                               <Component id="botaoExcluir" min="-2" max="-2" attributes="0"/>
                               <EmptySpace pref="31" max="32767" attributes="0"/>
-                              <Component id="botaoEditar" min="-2" max="-2" attributes="0"/>
+                              <Component id="botaoAtualizar" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
@@ -168,10 +168,10 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="votaoVoltar" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoVoltar" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoAdicionar" alignment="2" min="-2" max="-2" attributes="0"/>
                           <Component id="botaoExcluir" alignment="2" min="-2" max="-2" attributes="0"/>
-                          <Component id="botaoEditar" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Component id="botaoAtualizar" alignment="2" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -228,8 +228,11 @@
                   <Dimension value="[63, 63]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoExcluirActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="botaoEditar">
+            <Component class="javax.swing.JButton" name="botaoAtualizar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/server/view/icones_CRUD/AtualizaPizza.png"/>
@@ -246,10 +249,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoEditarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoAtualizarActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="votaoVoltar">
+            <Component class="javax.swing.JButton" name="botaoVoltar">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/server/view/icones_CRUD/voltar.png"/>
@@ -267,7 +270,7 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="votaoVoltarActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoVoltarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelVoltar">

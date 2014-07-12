@@ -1,55 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
+import javax.swing.JOptionPane;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela CRUD de Lanches
  */
 public class TelaCRUDLanches extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCRUDLanches
-     */
-
-    private Controle controle;
-    // Variável para armazenamento da tela principal.
+    // Atributos encapsulados
     private TelaPrincipal janelaPrincipal;
-    private Autenticacao autenticacaoServer;
+    private Autenticacao autenticacao;
+    private Controle controle;
 
-   /*
+    /*
      Descrição: Construtor padrão da janela de CRUD Lanches.
      Parâmetros:
      Retorno:
-     Data Última Alteração: 22/05/2014
      */
     private TelaCRUDLanches() {
         initComponents();
     }
-    
+
     /*
      Descrição: Construtor completo da janela de CRUD de Lanches.
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
+     autenticacao (Necessário para realizar operações no banco de dados)
+     controle (Objeto do tipo Controle)
      Retorno:
-     Data Última Alteração: 22/05/2014 
-    */
+     */
     public TelaCRUDLanches(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
         this();
         this.setJanelaPrincipal(janelaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
+        this.setAutenticacao(autenticacaoServer);
         this.setControle(controle);
-        this.getControle().exibirProdutos(this.getAutenticacaoServer(), this.tabelaLanches, "Lanche");
+        this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDLanches, "Lanche");
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -62,13 +52,13 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
 
         painel = new javax.swing.JPanel();
         painelLanches = new javax.swing.JScrollPane();
-        tabelaLanches = new javax.swing.JTable();
+        tabelaCRUDLanches = new javax.swing.JTable();
         labelDescriçãoLanches = new javax.swing.JLabel();
         jPanelMenuCRUDLanches = new javax.swing.JPanel();
         botaoAdicionar = new javax.swing.JButton();
         botaoExcluir = new javax.swing.JButton();
-        botaoEditar = new javax.swing.JButton();
-        votaoVoltar = new javax.swing.JButton();
+        botaoAtualizar = new javax.swing.JButton();
+        botaoVoltar = new javax.swing.JButton();
         labelVoltar = new javax.swing.JLabel();
         labelAdicionar = new javax.swing.JLabel();
         labelExcluir = new javax.swing.JLabel();
@@ -82,16 +72,16 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         setMinimumSize(new java.awt.Dimension(540, 400));
         setPreferredSize(new java.awt.Dimension(540, 400));
         setResizable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
+
+        tabelaCRUDLanches.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        tabelaCRUDLanches.setRowHeight(25);
+        tabelaCRUDLanches.setRowMargin(5);
+        tabelaCRUDLanches.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaCRUDLanchesMouseClicked(evt);
             }
         });
-
-        tabelaLanches.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        tabelaLanches.setRowHeight(25);
-        tabelaLanches.setRowMargin(5);
-        painelLanches.setViewportView(tabelaLanches);
+        painelLanches.setViewportView(tabelaCRUDLanches);
 
         labelDescriçãoLanches.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelDescriçãoLanches.setText("Ingredientes:");
@@ -116,27 +106,32 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
-
-        botaoEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
-        botaoEditar.setContentAreaFilled(false);
-        botaoEditar.setMaximumSize(new java.awt.Dimension(63, 63));
-        botaoEditar.setMinimumSize(new java.awt.Dimension(63, 63));
-        botaoEditar.setPreferredSize(new java.awt.Dimension(63, 63));
-        botaoEditar.addActionListener(new java.awt.event.ActionListener() {
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoEditarActionPerformed(evt);
+                botaoExcluirActionPerformed(evt);
             }
         });
 
-        votaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
-        votaoVoltar.setBorderPainted(false);
-        votaoVoltar.setContentAreaFilled(false);
-        votaoVoltar.setMaximumSize(new java.awt.Dimension(63, 63));
-        votaoVoltar.setMinimumSize(new java.awt.Dimension(63, 63));
-        votaoVoltar.setPreferredSize(new java.awt.Dimension(63, 63));
-        votaoVoltar.addActionListener(new java.awt.event.ActionListener() {
+        botaoAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/AtualizaPizza.png"))); // NOI18N
+        botaoAtualizar.setContentAreaFilled(false);
+        botaoAtualizar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                votaoVoltarActionPerformed(evt);
+                botaoAtualizarActionPerformed(evt);
+            }
+        });
+
+        botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
+        botaoVoltar.setBorderPainted(false);
+        botaoVoltar.setContentAreaFilled(false);
+        botaoVoltar.setMaximumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setMinimumSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoVoltarActionPerformed(evt);
             }
         });
 
@@ -165,7 +160,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
                         .addComponent(labelAdicionar))
                     .addGroup(jPanelMenuCRUDLanchesLayout.createSequentialGroup()
                         .addGap(9, 9, 9)
-                        .addComponent(votaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
@@ -173,7 +168,7 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
                     .addGroup(jPanelMenuCRUDLanchesLayout.createSequentialGroup()
                         .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(botaoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelMenuCRUDLanchesLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(labelExcluir)
@@ -186,10 +181,10 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
             .addGroup(jPanelMenuCRUDLanchesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelMenuCRUDLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(votaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoEditar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelMenuCRUDLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelMenuCRUDLanchesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -253,31 +248,75 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-  
-    private void votaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_votaoVoltarActionPerformed
-        // TODO add your handling code here:
-        this.getJanelaPrincipal().setVisible(true);
-        this.getJanelaPrincipal().setEnabled(true);
-        this.dispose();
-    }//GEN-LAST:event_votaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
+        // Fechar a janela atual
+        this.dispose();
+    }//GEN-LAST:event_botaoVoltarActionPerformed
+
+    /*
+     Descrição: Evento ao clicar no botão Adicionar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
-        TelaAdicionarLanches addLanche = new TelaAdicionarLanches(this, this.autenticacaoServer);
-        addLanche.setVisible(true);
-        this.setEnabled(false);
-        addLanche.setLocationRelativeTo(null);
+        // Criar e habilitar visualização da Tela Adicionar Lanches
+        TelaAdicionarLanches telaAdicionarLanche = new TelaAdicionarLanches(this, this.getAutenticacao(), this.getControle());
+        telaAdicionarLanche.setVisible(true);
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
-    private void botaoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoEditarActionPerformed
-        controle.exibirLanchesCadastrados(this.autenticacaoServer, this.tabelaLanches);
-    }//GEN-LAST:event_botaoEditarActionPerformed
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
+        // Recuperar e exibir os Lanches cadastrados
+        this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDLanches, "Lanche");
+        this.textAreaIngredientes.setText(null);
+    }//GEN-LAST:event_botaoAtualizarActionPerformed
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        this.dispose();
-        this.getJanelaPrincipal().setEnabled(true);
-    }//GEN-LAST:event_formWindowClosed
+    /*
+     Descrição: Evento ao clicar na tabela de Lanches
+     Parâmetros:
+     Retorno:
+     */
+    private void tabelaCRUDLanchesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCRUDLanchesMouseClicked
+        // Recuperar e exibir os ingredientes do lanche selecionado
+        String nomeDoProduto = String.valueOf(this.tabelaCRUDLanches.getValueAt(this.tabelaCRUDLanches.getSelectedRow(), 1));
+        this.getControle().consultarIngredientes(this.textAreaIngredientes, this.getAutenticacao(), "Lanche", nomeDoProduto);
+    }//GEN-LAST:event_tabelaCRUDLanchesMouseClicked
+
+    /*
+     Descrição: Evento ao clicar no botão Excluir
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        // Confirmação de exclusão
+        int indice = this.tabelaCRUDLanches.getSelectedRow();
+        if (indice >= 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if (confirmacao == JOptionPane.OK_OPTION) {
+                int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaCRUDLanches.getValueAt(this.tabelaCRUDLanches.getSelectedRow(), 0)));
+                if (codigoDoProduto >= 0) {
+                    boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+                    if (desativarProduto) {
+                        JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDLanches, "Lanche");
+                        this.textAreaIngredientes.setText(null);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoExcluirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -316,8 +355,9 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAdicionar;
-    private javax.swing.JButton botaoEditar;
+    private javax.swing.JButton botaoAtualizar;
     private javax.swing.JButton botaoExcluir;
+    private javax.swing.JButton botaoVoltar;
     private javax.swing.JPanel jPanelMenuCRUDLanches;
     private javax.swing.JLabel labelAdicionar;
     private javax.swing.JLabel labelAtualizar;
@@ -327,32 +367,67 @@ public class TelaCRUDLanches extends javax.swing.JFrame {
     private javax.swing.JPanel painel;
     private javax.swing.JScrollPane painelIngredientes;
     private javax.swing.JScrollPane painelLanches;
-    private javax.swing.JTable tabelaLanches;
+    private javax.swing.JTable tabelaCRUDLanches;
     private javax.swing.JTextArea textAreaIngredientes;
-    private javax.swing.JButton votaoVoltar;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
+    /*
+     Descrição: Método get da janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Referência à Tela Principal)
+     */
     public TelaPrincipal getJanelaPrincipal() {
         return janelaPrincipal;
     }
 
+    /*
+     Descrição: Método set da janelaPrincipal
+     Parâmetros:
+     janelaPrincipal (Referência à Tela Principal)
+     Retorno:
+     */
     public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
         this.janelaPrincipal = janelaPrincipal;
     }
 
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticação contendo as informações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
     }
 
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticação contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
     }
 }

@@ -24,9 +24,9 @@ public class Banco {
     /*
      Descrição: Método para abertura de conexão com o banco de dados
      Parâmetros:
-     *           autenticacao (Necessário para acesso ao banco de dados)
+                autenticacao (Necessário para acesso ao banco de dados)
      Retorno:
-     *           conexao (Conexão com o banco de dados)
+                conexao (Conexão com o banco de dados)
      */
     public Connection abrirConexao(Autenticacao autenticacao) throws Exception {
         try {
@@ -40,7 +40,7 @@ public class Banco {
     /*
      Descrição: Método para finalização de conexão com o banco de dados.
      Parâmetros:
-     *           conexao (Conexão que será fechada)
+                conexao (Conexão que será fechada)
      Retorno:
      */
     public void fecharConexao(Connection conexao) throws Exception {

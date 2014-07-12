@@ -1,121 +1,50 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import java.awt.Image;
-import java.sql.Connection;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
+import server.modelo.Lanche;
+import server.modelo.Pizza;
 
-/**
- *
- * @author Wellington
+/*
+ Descrição: Tela Adicionar Pizzas
  */
 public class TelaAdicionarPizzas extends javax.swing.JFrame {
-    
-    private TelaCRUDPizzas telaCrudPizzas;
-    private Banco bancoDados = new Banco();
-    private Connection connection;
-    private Autenticacao autenticacaoServer;
-    private String descricaoPizza;
-    private int tamahoPizza;
-    private String tamanhoPizzaFinal;
-    private int quantidadeFatiasPizza;
-    private int quantidadeFatiasPizzaFinal;    
-    private String ingredientesPizza;
-    private String precoPizza;
-    private float precoPizzaFinal;              
-    
-    public TelaAdicionarPizzas() {
+
+    // Atributos encapsulados
+    private TelaCRUDPizzas telaCRUDPizzas;
+    private Autenticacao autenticacao;
+    private Controle controle;
+
+    /*
+     Descrição: Construtor padrão da janela de CRUD Pizzas
+     Parâmetros:
+     Retorno:
+     */
+    private TelaAdicionarPizzas() {
         initComponents();
     }
 
-    public TelaAdicionarPizzas(TelaCRUDPizzas telaCrudPizzas, Autenticacao autenticacaoServer)            
-    {
-        this();        
-        this.setAutenticacaoServer(autenticacaoServer);        
-        this.setTelaCrudPizzas(telaCrudPizzas);
+    /*
+     Descrição: Construtor completo da janela de CRUD Pizzas
+     Parâmetros:
+     telaCRUDPizzas (Referência à Tela CRUD Pizzas)
+     autenticacao (Objeto do tipo Autenticacao contendo informações para acesso ao banco de dados)
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public TelaAdicionarPizzas(TelaCRUDPizzas telaCRUDPizzas, Autenticacao autenticacao, Controle controle) {
+        this();
+        this.setAutenticacao(autenticacao);
+        this.setTelaCRUDPizzas(telaCRUDPizzas);
+        this.setControle(controle);
     }
 
-    public TelaCRUDPizzas getTelaCrudPizzas() {
-        return telaCrudPizzas;
-    }
-
-    public void setTelaCrudPizzas(TelaCRUDPizzas telaCrudPizzas) {
-        this.telaCrudPizzas = telaCrudPizzas;
-    }
-
-    public Banco getBancoDados() {
-        return bancoDados;
-    }
-
-    public void setBancoDados(Banco bancoDados) {
-        this.bancoDados = bancoDados;
-    }
-
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-
-    public String getDescricaoPizza() {
-        return descricaoPizza;
-    }
-
-    public void setDescricaoPizza(String descricaoPizza) {
-        this.descricaoPizza = descricaoPizza;
-    }
-
-    public int getTamahoPizza() {
-        return tamahoPizza;
-    }
-
-    public void setTamahoPizza(int tamahoPizza) {
-        this.tamahoPizza = tamahoPizza;
-    }
-
-    public int getQuantidadeFatiasPizza() {
-        return quantidadeFatiasPizza;
-    }
-
-    public void setQuantidadeFatiasPizza(int quantidadeFatiasPizza) {
-        this.quantidadeFatiasPizza = quantidadeFatiasPizza;
-    }
-            
-    public String getIngredientesPizza() {
-        return ingredientesPizza;
-    }
-
-    public void setIngredientesPizza(String ingredientesPizza) {
-        this.ingredientesPizza = ingredientesPizza;
-    }
-
-    public String getPrecoPizza() {
-        return precoPizza;
-    }
-
-    public void setPrecoPizza(String precoPizza) {
-        this.precoPizza = precoPizza;
-    }
-
-    public float getPrecoPizzaFinal() {
-        return precoPizzaFinal;
-    }
-
-    public void setPrecoPizzaFinal(float precoPizzaFinal) {
-        this.precoPizzaFinal = precoPizzaFinal;
-    }                                    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,7 +54,7 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelAdicionarPizzas = new javax.swing.JPanel();
+        painel = new javax.swing.JPanel();
         buttonProcurarArquivo = new javax.swing.JButton();
         labelDescricaoPizza = new javax.swing.JLabel();
         textDescricaoPizza = new javax.swing.JTextField();
@@ -136,172 +65,171 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
         labelImagemPizza = new javax.swing.JLabel();
         labelPrecoPizza = new javax.swing.JLabel();
         textPrecoPizza = new javax.swing.JTextField();
-        buttonCadastrarPizza = new javax.swing.JButton();
-        buttonCancelarCadastroPizza = new javax.swing.JButton();
+        botaoCadastrar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
         comboBoxQuantidadeFatiasPizza = new javax.swing.JComboBox();
         comboBoxTamanhoPizzas = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Nova Pizza");
-        setMaximumSize(new java.awt.Dimension(300, 300));
-        setMinimumSize(new java.awt.Dimension(300, 300));
-        setPreferredSize(new java.awt.Dimension(300, 300));
+        setMaximumSize(new java.awt.Dimension(300, 350));
+        setMinimumSize(new java.awt.Dimension(300, 350));
+        setPreferredSize(new java.awt.Dimension(300, 350));
         setResizable(false);
 
-        painelAdicionarPizzas.setMaximumSize(new java.awt.Dimension(260, 280));
-        painelAdicionarPizzas.setMinimumSize(new java.awt.Dimension(260, 280));
-        painelAdicionarPizzas.setPreferredSize(new java.awt.Dimension(270, 300));
+        painel.setMaximumSize(new java.awt.Dimension(300, 350));
+        painel.setMinimumSize(new java.awt.Dimension(300, 350));
+        painel.setPreferredSize(new java.awt.Dimension(300, 350));
 
-        buttonProcurarArquivo.setText("Produto ...");
+        buttonProcurarArquivo.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        buttonProcurarArquivo.setText("Selecione...");
         buttonProcurarArquivo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonProcurarArquivoActionPerformed(evt);
             }
         });
 
-        labelDescricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelDescricaoPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelDescricaoPizza.setText("Descrição:");
 
-        textDescricaoPizza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDescricaoPizzaActionPerformed(evt);
-            }
-        });
+        textDescricaoPizza.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
 
-        labelTamanhoPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTamanhoPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelTamanhoPizza.setText("Tamanho:");
 
-        labelFatiasPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelFatiasPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelFatiasPizza.setText("Fatias: ");
 
-        labelIngredientesPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelIngredientesPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelIngredientesPizza.setText("Ingredientes:");
 
-        textIngredientesPizza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textIngredientesPizzaActionPerformed(evt);
-            }
-        });
+        textIngredientesPizza.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
 
-        labelImagemPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelImagemPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelImagemPizza.setText("Imagem:");
 
-        labelPrecoPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelPrecoPizza.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         labelPrecoPizza.setText("Preço:");
 
-        textPrecoPizza.addActionListener(new java.awt.event.ActionListener() {
+        textPrecoPizza.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPrecoPizzaActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
-        buttonCadastrarPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCadastrarPizza.setText("Cadastrar");
-        buttonCadastrarPizza.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarPizzaActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
-        buttonCancelarCadastroPizza.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCancelarCadastroPizza.setText("Cancelar");
-        buttonCancelarCadastroPizza.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarCadastroPizzaActionPerformed(evt);
-            }
-        });
-
+        comboBoxQuantidadeFatiasPizza.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
         comboBoxQuantidadeFatiasPizza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "4", "6", "8", "10" }));
 
-        comboBoxTamanhoPizzas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxTamanhoPizzas.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        comboBoxTamanhoPizzas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Mini", "Pequena", "Média", "Grande" }));
 
-        javax.swing.GroupLayout painelAdicionarPizzasLayout = new javax.swing.GroupLayout(painelAdicionarPizzas);
-        painelAdicionarPizzas.setLayout(painelAdicionarPizzasLayout);
-        painelAdicionarPizzasLayout.setHorizontalGroup(
-            painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                        .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelDescricaoPizza)
-                            .addComponent(labelPrecoPizza)
-                            .addComponent(labelTamanhoPizza))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelIngredientesPizza)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(labelImagemPizza)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonProcurarArquivo, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addComponent(labelPrecoPizza)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addComponent(textPrecoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelFatiasPizza)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(comboBoxQuantidadeFatiasPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(14, 14, 14))
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addComponent(textDescricaoPizza)
-                                .addContainerGap())
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addComponent(comboBoxTamanhoPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                        .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textIngredientesPizza)
-                            .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelIngredientesPizza)
-                                    .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                                        .addComponent(labelImagemPizza)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonProcurarArquivo)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(painelAdicionarPizzasLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(buttonCancelarCadastroPizza)
+                        .addComponent(textPrecoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelFatiasPizza)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCadastrarPizza)
-                        .addGap(44, 44, 44))))
+                        .addComponent(comboBoxQuantidadeFatiasPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(18, Short.MAX_VALUE))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(painelLayout.createSequentialGroup()
+                                    .addComponent(labelDescricaoPizza)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textDescricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(textIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(painelLayout.createSequentialGroup()
+                                    .addComponent(labelTamanhoPizza)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(comboBoxTamanhoPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
-        painelAdicionarPizzasLayout.setVerticalGroup(
-            painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAdicionarPizzasLayout.createSequentialGroup()
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelDescricaoPizza)
                     .addComponent(textDescricaoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textPrecoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPrecoPizza)
-                    .addComponent(labelFatiasPizza)
-                    .addComponent(comboBoxQuantidadeFatiasPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelFatiasPizza)
+                            .addComponent(textPrecoPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(labelPrecoPizza))
+                    .addGroup(painelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(comboBoxQuantidadeFatiasPizza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxTamanhoPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTamanhoPizza))
-                .addGap(7, 7, 7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelIngredientesPizza)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
                 .addComponent(textIngredientesPizza, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelImagemPizza)
                     .addComponent(buttonProcurarArquivo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelAdicionarPizzasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCancelarCadastroPizza)
-                    .addComponent(buttonCadastrarPizza))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelAdicionarPizzas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(painel, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -309,122 +237,74 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-                   
+
     private void buttonProcurarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarArquivoActionPerformed
         try {
             //Criação do FileChooser  
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Importar imagem");
             fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            
+
             if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
                 //aqui voce pega o arquivo que o usuario selecionou e joga dentro de uma variavel do tipo ImageIcon
-                ImageIcon icone = new ImageIcon(fileChooser.getSelectedFile().getPath());  
+                ImageIcon icone = new ImageIcon(fileChooser.getSelectedFile().getPath());
                 //o proximo passo é redimensionar a imagem:
                 ImageIcon iconeRedimensionado = new ImageIcon(icone.getImage().getScaledInstance(75, 70, Image.SCALE_DEFAULT));
                 //agora voce seta o iconeRedimensionado
                 //jL_foto.setIcon(iconeRedimensionado);
-                
+
                 JOptionPane.showMessageDialog(null, icone);
                 JOptionPane.showMessageDialog(null, iconeRedimensionado);
                 JOptionPane.showMessageDialog(null, fileChooser);
             }
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");
-        }                                              
+        }
     }//GEN-LAST:event_buttonProcurarArquivoActionPerformed
 
-    private void textDescricaoPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoPizzaActionPerformed
-        this.setDescricaoPizza(textDescricaoPizza.getText());
-    }//GEN-LAST:event_textDescricaoPizzaActionPerformed
-
-    private void textIngredientesPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textIngredientesPizzaActionPerformed
-       this.setIngredientesPizza(textIngredientesPizza.getText()); 
-    }//GEN-LAST:event_textIngredientesPizzaActionPerformed
-
-    private void textPrecoPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoPizzaActionPerformed
-       this.setPrecoPizza(textPrecoPizza.getText());
-    }//GEN-LAST:event_textPrecoPizzaActionPerformed
-
-    private void buttonCadastrarPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarPizzaActionPerformed
-        this.setDescricaoPizza(textDescricaoPizza.getText());
-        this.setTamahoPizza(comboBoxTamanhoPizzas.getSelectedIndex());        
-        this.setQuantidadeFatiasPizza(comboBoxQuantidadeFatiasPizza.getSelectedIndex());
-        this.setIngredientesPizza(textIngredientesPizza.getText());
-        this.setPrecoPizza(textPrecoPizza.getText());
-                                                            
-        if(this.getDescricaoPizza().equals("")){
-            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
-        } else if(this.getIngredientesPizza().equals("")){
-                    JOptionPane.showMessageDialog(null, "Preencha o campo 'Ingredientes'");
-                } else if(this.getPrecoPizza().equals("")){
-                            JOptionPane.showMessageDialog(null, "Por favor, preencha o campo 'Preço'");                                                                                                            
-                        } else {
-                            this.setPrecoPizzaFinal(Float.parseFloat(textPrecoPizza.getText()));
-                            if(this.getPrecoPizzaFinal() <= 0.00){
-                                JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
-                            }
-                    }
-
-        switch(this.getTamahoPizza()){
-            case 0:
-                this.tamanhoPizzaFinal = "Mini";
-                break;
-            case 1:
-                this.tamanhoPizzaFinal = "Pequena";
-                break;
-            case 2:
-                this.tamanhoPizzaFinal = "Média";                
-                break;
-            case 3:
-                this.tamanhoPizzaFinal = "Grande";
-                break;
+    /*
+     Descrição: Evento ao clicar no botão Cadastrar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        boolean verificarCampos = this.getControle().verificarCamposPizza(this.textDescricaoPizza, this.textPrecoPizza, this.comboBoxTamanhoPizzas);
+        if(verificarCampos){
+            String descricao = this.textDescricaoPizza.getText();
+            float preco = Float.parseFloat(this.textPrecoPizza.getText());
+            String tamanho = String.valueOf(this.comboBoxTamanhoPizzas.getSelectedIndex());
+            int fatias = Integer.parseInt(String.valueOf(this.comboBoxQuantidadeFatiasPizza.getSelectedItem()));
+            String ingredientes = this.textIngredientesPizza.getText();
+            String imagem = null;
+            Pizza novaPizza = new Pizza(descricao, preco, tamanho, fatias, ingredientes, imagem);
+            boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novaPizza);
+            if (inserirProduto) {
+                JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                this.textDescricaoPizza.setText(null);
+                this.textPrecoPizza.setText(null);
+                this.textIngredientesPizza.setText(null);
+                this.comboBoxQuantidadeFatiasPizza.setSelectedIndex(0);
+                this.comboBoxTamanhoPizzas.setSelectedIndex(0);
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
-        switch(this.getQuantidadeFatiasPizza()){
-            case 0:
-                this.quantidadeFatiasPizzaFinal = 4;
-                break;
-            case 1:
-                this.quantidadeFatiasPizzaFinal = 6;
-                break;                
-            case 2:
-                this.quantidadeFatiasPizzaFinal = 8;
-                break;
-            case 3:
-                this.quantidadeFatiasPizzaFinal = 10;
-                break;
+        else{
+            JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        if((!(this.getDescricaoPizza().equals(""))) && (!(this.tamanhoPizzaFinal.equals(""))) && 
-           (!(this.getIngredientesPizza().equals(""))) && (this.quantidadeFatiasPizzaFinal != 0) &&
-           (!(this.getPrecoPizza().equals(""))) && (!(this.getPrecoPizzaFinal() <= 0.00))){
-                                                
-            try{                
-              boolean retorno = bancoDados.inserirPizzaSemImagem(this.getAutenticacaoServer(), this.getDescricaoPizza(), this.tamanhoPizzaFinal, this.quantidadeFatiasPizzaFinal, this.getIngredientesPizza(), this.getPrecoPizzaFinal());
-                if(retorno == true){
-                    JOptionPane.showMessageDialog(null, "Pizza cadastrada com sucesso!!!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a Pizza");
-                }                                    
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a Pizza");
-            }            
-        }         
-        //this.setEnabled(false);
-        //this.setVisible(false);
-        //this.telaCrudPizzas.setEnabled(true);
-        //this.telaCrudPizzas.setVisible(true);
-    }//GEN-LAST:event_buttonCadastrarPizzaActionPerformed
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
-    private void buttonCancelarCadastroPizzaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroPizzaActionPerformed
-        this.setVisible(false);
-        this.setEnabled(false);
-        this.telaCrudPizzas.setVisible(true);
-        this.telaCrudPizzas.setEnabled(true);
-    }//GEN-LAST:event_buttonCancelarCadastroPizzaActionPerformed
+    /*
+     Descrição: Evento ao clicar no botão Cancelar
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        // Fechar a janela atual
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
@@ -461,8 +341,8 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCadastrarPizza;
-    private javax.swing.JButton buttonCancelarCadastroPizza;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton buttonProcurarArquivo;
     private javax.swing.JComboBox comboBoxQuantidadeFatiasPizza;
     private javax.swing.JComboBox comboBoxTamanhoPizzas;
@@ -472,9 +352,69 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
     private javax.swing.JLabel labelIngredientesPizza;
     private javax.swing.JLabel labelPrecoPizza;
     private javax.swing.JLabel labelTamanhoPizza;
-    private javax.swing.JPanel painelAdicionarPizzas;
+    private javax.swing.JPanel painel;
     private javax.swing.JTextField textDescricaoPizza;
     private javax.swing.JTextField textIngredientesPizza;
     private javax.swing.JTextField textPrecoPizza;
     // End of variables declaration//GEN-END:variables
+
+    /*
+     Descrição: Método get da telaCRUDPizzas
+     Parâmetros:
+     Retorno:
+     telaCRUDPizzas (Referência à Tela CRUD Pizzas)
+     */
+    public TelaCRUDPizzas getTelaCRUDPizzas() {
+        return telaCRUDPizzas;
+    }
+
+    /*
+     Descrição: Método set da telaCRUDPizzas
+     Parâmetros:
+     telaCRUDPizzas (Referência à Tela CRUD Pizzas)
+     Retorno:
+     */
+    public void setTelaCRUDPizzas(TelaCRUDPizzas telaCRUDPizzas) {
+        this.telaCRUDPizzas = telaCRUDPizzas;
+    }
+
+    /*
+     Descrição: Método get da autenticacao
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    /*
+     Descrição: Método set da autenticacao
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as inforamações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
+    public Controle getControle() {
+        return controle;
+    }
+
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

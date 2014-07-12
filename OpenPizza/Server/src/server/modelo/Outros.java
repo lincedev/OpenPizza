@@ -7,6 +7,7 @@ public class Outros extends Produto {
 
     // Atributos encapsulados
     private float preco;
+    private int quantidade;
 
     /*
      Descrição: Construtor padrão do objeto outros
@@ -23,9 +24,10 @@ public class Outros extends Produto {
      *           preco (Preço do produto)
      Retorno:
      */
-    public Outros(String descricao, float preco) {
+    public Outros(String descricao, float preco, int quantidade) {
         super(descricao);
         this.setPreco(preco);
+        this.setQuantidade(quantidade);
     }
 
     /*
@@ -46,5 +48,13 @@ public class Outros extends Produto {
      */
     public void setPreco(float preco) {
         this.preco = preco;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }

@@ -1,79 +1,46 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
 
-/**
- *
- * @author Gustavo
+/*
+ Descrição: Tela CRUD de Pizzas
  */
 public class TelaCRUDPizzas extends javax.swing.JFrame {
 
-    // Variável para armazenamento da tela principal.
+    // Variáveis encapsuladas
     private TelaPrincipal janelaPrincipal;
-
     private Controle controle;
-    
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
-    private Autenticacao autenticacaoServer;
-      
+    private Autenticacao autenticacao;
+
     /*
      Descrição: Construtor padrão da janela de CRUD Pizza.
      Parâmetros:
      Retorno:
-     
      */
-    public TelaCRUDPizzas() {
-        initComponents();                                
+    private TelaCRUDPizzas() {
+        initComponents();
     }
-    
-    
+
     /*
      Descrição: Construtor completo da janela de CRUD de pizzas.
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     *          autenticacao (Necessário para realizar operações no banco de dados)
+     autenticacao (Necessário para realizar operações no banco de dados)
      Retorno:
-     Data Última Alteração: 22/05/2014 
-    */
-    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacaoServer, Controle controle) {                
-        this();                        
+     */
+    public TelaCRUDPizzas(TelaPrincipal telaPrincipal, Autenticacao autenticacao, Controle controle) {
+        this();
         this.setJanelaPrincipal(telaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
+        this.setAutenticacao(autenticacao);
         this.setControle(controle);
-        this.botaoAtualizarActionPerformed(null);
+        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDPizza, "Pizza");
     }
 
-    /*
-     Descrição: Método set para a variável janelaPrincipal.
-     Parâmetros: 
-     *           janelaPrincipal (Necessário para controle dos métodos da janela principal)
-     Retorno:
-     Data Última Alteração: 22/05/2014
-    */
-    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
-        this.janelaPrincipal = janelaPrincipal;
-    }
-    
-    /*
-     Descrição: Método get para a variável janelaPrincipal
-     Parâmetros:
-     Retorno:
-     *           janelaPrincipal (Necessário para controle dos métodos da janela anterior)
-     Data Última Alteração: 22/05/2014 
-    */
-    public TelaPrincipal getJanelaPrincipal() {
-        return janelaPrincipal;
-    }
-
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -297,62 +264,80 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   
-       
+
+
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         // TODO add your handling code here:
         this.dispose();
         this.getJanelaPrincipal().setEnabled(true);
     }//GEN-LAST:event_formWindowClosed
 
+    /*
+     Descrição: Evento ao clicar no botão Atualizar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        // Talves seja necessário colocar o método de testarAutenticação
-        //controle.exibirPizzasCadastradas(this.autenticacaoServer, this.tabelaCRUDPizza);
-        this.getControle().exibirProdutos(this.getAutenticacaoServer(), tabelaCRUDPizza, "Pizza");
-        
-        DefaultTableCellRenderer centralizarLabel = new DefaultTableCellRenderer();
-        centralizarLabel.setHorizontalAlignment(JLabel.CENTER);
-        
-        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setHeaderValue("Produto");
-        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setCellRenderer(centralizarLabel);
-        this.tabelaCRUDPizza.getColumnModel().getColumn(0).setMinWidth(120);
-        
-        this.tabelaCRUDPizza.getColumnModel().getColumn(1).setHeaderValue("Preço");
-        this.tabelaCRUDPizza.getColumnModel().getColumn(1).setCellRenderer(centralizarLabel);
-        
-        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setHeaderValue("Tamanho");
-        this.tabelaCRUDPizza.getColumnModel().getColumn(2).setCellRenderer(centralizarLabel);
-        
-        this.tabelaCRUDPizza.getColumnModel().getColumn(3).setHeaderValue("Fatias");
-        this.tabelaCRUDPizza.getColumnModel().getColumn(3).setCellRenderer(centralizarLabel);
+        // Recuperar e exibir as Pizzas cadastradas
+        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDPizza, "Pizza");
+        this.textAreaIngredientes.setText(null);
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
     /*
-     Descrição: Método para voltar a janela anterior.
-     Parâmetros: 
-     *           Evento de botão
+     Descrição: Evento ao clicar no botão Voltar
+     Parâmetros:
      Retorno:
-    
-     Data Última Alteração: 22/05/2014 
-    */
+     */
     private void botaoVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoVoltarActionPerformed
-        // TODO add your handling code here:
+        // Fechar janela atual
         this.dispose();
     }//GEN-LAST:event_botaoVoltarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Adicionar
+     Parâmetros:
+     Retorno:
+     */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        TelaAdicionarPizzas addPizza = new TelaAdicionarPizzas(this, this.getAutenticacaoServer());
-        addPizza.setVisible(true);
+        // Criar e habilitar a visualização da Tela Adicionar Pizzas
+        TelaAdicionarPizzas telaAdicionarPizzas = new TelaAdicionarPizzas(this, this.getAutenticacao(), this.getControle());
+        telaAdicionarPizzas.setVisible(true);
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Excluir
+     Parâmetros:
+     Retorno:
+     */
     private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
-        //
+        // Confirmação de exclusão
+        int indice = this.tabelaCRUDPizza.getSelectedRow();
+        if (indice >= 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if (confirmacao == JOptionPane.OK_OPTION) {
+                int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaCRUDPizza.getValueAt(this.tabelaCRUDPizza.getSelectedRow(), 0)));
+                if (codigoDoProduto >= 0) {
+                    boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+                    if (desativarProduto) {
+                        JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaCRUDPizza, "Pizza");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
     }//GEN-LAST:event_botaoExcluirActionPerformed
 
+    /*
+     Descrição: Evento ao clicar na tabela de Pizzas
+     Parâmetros:
+     Retorno:
+     */
     private void tabelaCRUDPizzaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCRUDPizzaMouseClicked
-        // TODO add your handling code here:
-        String nomeDoProduto = String.valueOf(this.tabelaCRUDPizza.getValueAt(this.tabelaCRUDPizza.getSelectedRow(), 0));
-        this.getControle().consultarIngredientes(this.textAreaIngredientes, this.getAutenticacaoServer(), "Pizza", nomeDoProduto);
+        // Recuperar e exibir os ingredientes da pizza
+        String nomeDoProduto = String.valueOf(this.tabelaCRUDPizza.getValueAt(this.tabelaCRUDPizza.getSelectedRow(), 1));
+        this.getControle().consultarIngredientes(this.textAreaIngredientes, this.getAutenticacao(), "Pizza", nomeDoProduto);
     }//GEN-LAST:event_tabelaCRUDPizzaMouseClicked
 
     /**
@@ -409,19 +394,63 @@ public class TelaCRUDPizzas extends javax.swing.JFrame {
     private javax.swing.JScrollPane textoIngredientes;
     // End of variables declaration//GEN-END:variables
 
+    /*
+     Descrição: Método set para a variável janelaPrincipal.
+     Parâmetros: 
+     janelaPrincipal (Necessário para controle dos métodos da janela principal)
+     Retorno:
+     */
+    public void setJanelaPrincipal(TelaPrincipal janelaPrincipal) {
+        this.janelaPrincipal = janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get para a variável janelaPrincipal
+     Parâmetros:
+     Retorno:
+     janelaPrincipal (Necessário para controle dos métodos da janela anterior)
+     */
+    public TelaPrincipal getJanelaPrincipal() {
+        return janelaPrincipal;
+    }
+
+    /*
+     Descrição: Método get do controle
+     Parâmetros:
+     Retorno:
+     controle (Objeto do tipo Controle)
+     */
     public Controle getControle() {
         return controle;
     }
 
+    /*
+     Descrição: Método set do controle
+     Parâmetros:
+     controle (Objeto do tipo Controle)
+     Retorno:
+     */
     public void setControle(Controle controle) {
         this.controle = controle;
     }
 
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
+    /*
+     Descrição: Método get da autenticação
+     Parâmetros:
+     Retorno:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     */
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
     }
 
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    /*
+     Descrição: Método set da autenticação
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     */
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
     }
 }

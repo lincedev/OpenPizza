@@ -1,43 +1,54 @@
-
+// Pacote Persistência
 package server.persistencia;
 
-import javax.swing.*;
-import java.io.*;
-import java.sql.*;
-import java.util.*;
+// Importação dos pacotes e bibliotecas necessárias
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
 import net.proteanit.sql.DbUtils;
-import server.modelo.*;
-import server.modelo.*;
+import server.modelo.Autenticacao;
+import server.modelo.Bebidas;
+import server.modelo.Lanche;
+import server.modelo.Outros;
+import server.modelo.Pizza;
 
 /*
  Descrição: Classe de persistência com o banco de dados
  */
 public class Banco {
-    
-    public void exibirPedidosEmAberto(Autenticacao autenticacao, JTable tabelaPedidosEmAberto){
+
+    /*
+     Descrição: Método para tentativa de consulta dos pedidos em aberto no banco de dados
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     tabelaPedidosEmAberto (JTable que será preenchida com os pedidos)
+     Retorno:
+     */
+    public void exibirPedidosEmAberto(Autenticacao autenticacao, JTable tabelaPedidosEmAberto) {
         Connection conexao = null;
-        try{
-            
+        try {
+
             String query = "SELECT * FROM Pedido WHERE pedidoFinalizado = false";
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             ResultSet resultado = homologacao.executeQuery(query);
             tabelaPedidosEmAberto.setModel(DbUtils.resultSetToTableModel(resultado));
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally{
-            try{
+        } finally {
+            try {
                 this.fecharConexao(conexao);
+            } catch (Exception e) {
+
             }
-            catch(Exception e){
-                
-            }
-            
+
         }
     }
-    
+
     /*
      Descrição: Método para tentativa de consulta dos produtos disponíveis no banco de dados (cardápio)
      Parâmetros:
@@ -51,13 +62,13 @@ public class Banco {
         try {
             String query;
             if (categoriaDoProduto.equals("Pizza")) {
-                query = "SELECT P.descricao FROM Produto AS P JOIN Pizza AS PZ ON P.codigo = PZ.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+                query = "SELECT P.descricao AS 'Descrição' FROM Produto AS P JOIN Pizza AS PZ ON P.codigo = PZ.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
             } else if (categoriaDoProduto.equals("Lanche")) {
-                query = "SELECT P.descricao FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+                query = "SELECT P.descricao AS 'Descrição' FROM Produto AS P JOIN Lanche AS L ON P.codigo = L.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
             } else if (categoriaDoProduto.equals("Bebida")) {
-                query = "SELECT P.descricao FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+                query = "SELECT P.descricao AS 'Descrição' FROM Produto AS P JOIN Bebidas AS B ON P.codigo = B.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
             } else {
-                query = "SELECT P.descricao FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
+                query = "SELECT P.descricao AS 'Descrição' FROM Produto AS P JOIN Outros AS O ON P.codigo = O.codProduto WHERE P.ativo = true GROUP BY P.descricao ORDER BY P.descricao";
             }
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
@@ -73,44 +84,37 @@ public class Banco {
             }
         }
     }
-    
-    public void exibirProdutos(Autenticacao autenticacao, JTable tabelaProdutos, String categoriaDoProduto){
+
+    public void exibirProdutos(Autenticacao autenticacao, JTable tabelaProdutos, String categoriaDoProduto) {
         Connection conexao = null;
-        try{
+        try {
             String query;
-            if(categoriaDoProduto.equals("Pizza")){
-                query = "SELECT p.descricao AS 'Descrição', pp.preco AS 'Preço', pp.tamanho AS 'Tamanho' , pp.fatias AS 'Fatias' FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto";
-            }
-            else if(categoriaDoProduto.equals("Lanche")){
-                query = "SELECT p.descricao AS 'Descrição', l.preco AS 'Preço' FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto";
-            }
-            else if(categoriaDoProduto.equals("Bebida")){
-                query = "SELECT p.codigo, p.descricao AS 'Descrição', b.preco AS 'Preço' FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto";
-            }
-            else if(categoriaDoProduto.equals("Outro")){
-                query = "SELECT p.descricao AS 'Descrição', o.preco AS 'Preço' FROM Produto AS p JOIN Outros AS o ON p.codigo = o.codProduto";
-            }
-            else{
-                query = "SELECT numero AS 'Número', ativo AS 'Ativo' FROM Mesa";
+            if (categoriaDoProduto.equals("Pizza")) {
+                query = "SELECT p.codigo AS 'Código', p.descricao AS 'Descrição', pp.preco AS 'Preço', pp.tamanho AS 'Tamanho' , pp.fatias AS 'Fatias' FROM Produto AS p JOIN Pizza AS pp ON p.codigo = pp.codProduto WHERE p.ativo = true";
+            } else if (categoriaDoProduto.equals("Lanche")) {
+                query = "SELECT p.codigo AS 'Código', p.descricao AS 'Descrição', l.preco AS 'Preço' FROM Produto AS p JOIN Lanche AS l ON p.codigo = l.codProduto WHERE p.ativo = true";
+            } else if (categoriaDoProduto.equals("Bebida")) {
+                query = "SELECT p.codigo AS 'Código', p.descricao AS 'Descrição', b.preco AS 'Preço' FROM Produto AS p JOIN Bebidas AS b ON p.codigo = b.codProduto WHERE p.ativo = true";
+            } else if (categoriaDoProduto.equals("Outro")) {
+                query = "SELECT p.codigo AS 'Código', p.descricao AS 'Descrição', o.preco AS 'Preço' FROM Produto AS p JOIN Outros AS o ON p.codigo = o.codProduto WHERE p.ativo = true";
+            } else {
+                query = "SELECT numero AS 'Número', ativo AS 'Ativo' FROM Mesa WHERE ativo = true";
             }
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             ResultSet resultado = homologacao.executeQuery(query);
             tabelaProdutos.setModel(DbUtils.resultSetToTableModel(resultado));
-        }
-        catch(Exception e){
-            
-        }
-        finally{
-            try{
+        } catch (Exception e) {
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }
-    
+
     /*
      Descrição: Método para consulta dos ingredientes referentes à um determinado produto
      Parâmetros:
@@ -136,162 +140,230 @@ public class Banco {
                 if (categoriaDoProduto.equals("Pizza")) {
                     textoIngredientes.setText(resultado.getString("ingredientes"));
                 } else {
-                    textoIngredientes.setText(resultado.getString("ingredientesLanches"));
+                    textoIngredientes.setText(resultado.getString("ingredientesLanche"));
                 }
             }
         } catch (Exception e) {
 
         }
     }
-    
-    
-    private String queryProduto;
-    private Statement statement;
-    private Connection connection;
-    private Autenticacao autenticacaoServer;    
-    
-    public Banco(){};
-    
-    public Banco(Autenticacao autenticacaoServer){
-        this.setAutenticacaoServer(autenticacaoServer);
-    }
-    
-    public String getQueryProduto() {
-        return queryProduto;
-    }
 
-    public void setQueryProduto(String queryProduto) {
-        this.queryProduto = queryProduto;
-    }                   
-
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }        
-    
-    public Connection abrirConexao(Autenticacao autenticacaoServer){
-        Connection conexao = null;
-        try{
-            conexao = DriverManager.getConnection(autenticacaoServer.getCaminhoBanco(), autenticacaoServer.getUsuarioBanco(), autenticacaoServer.getUsuarioSenha());
-            return conexao;
-        }catch(Exception e){
-            return conexao;
-        }
-    } 
-    
-    public void fecharConexao(Connection conexao){
-        try{
-            conexao.close();
-        } catch(Exception e){
-            JOptionPane.showMessageDialog(null, "Não foi possível encerrar a conexão");
-        }                       
-    }
-    
-    public boolean inserirPizzaSemImagem(Autenticacao autenticacaoServer, String descricaoPizza, 
-            String tamanhoPizza, int quantidadeFatiasPizza, String ingredientesPizza, 
-            float precoPizza) throws Exception {                
-        String queryPizza;
-        try{
-            statement = null;                        
-            JOptionPane.showMessageDialog(null, "Abrindo Conexao");        
-            this.abrirConexao(autenticacaoServer);                
-            JOptionPane.showMessageDialog(null, "Stabelecendo Conexao");        
-            this.statement = connection.createStatement();            
-            this.queryProduto = ("INSERT INTO produto(descricao) VALUES('" + descricaoPizza + "')");                        
-            this.statement.executeUpdate(this.queryProduto);            
-            queryPizza = "insert into pizza (codProduto, preco, tamanho, fatias, ingredientes) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoPizza + "', '" + tamanhoPizza + "', '" + quantidadeFatiasPizza + "', '" + ingredientesPizza + "')";
-            this.statement.executeUpdate(queryPizza);
-            this.fecharConexao(connection);            
-            return(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return(false);
-        } finally {
-            this.fecharConexao(connection);                        
-        }
-    }                               
-        
-    public boolean inserirLanche(Autenticacao autenticacaoServer, String descricaoLanche, float precoLanche, String ingredientesLanche) throws Exception {        
-        String queryLanche;      
-        try{
-            statement = null;                        
-            this.abrirConexao(autenticacaoServer);                
-            this.statement = connection.createStatement();            
-            this.queryProduto = ("INSERT INTO Produto(descricao) VALUES('" + descricaoLanche + "')");                        
-            this.statement.executeUpdate(this.queryProduto);                       
-            queryLanche = "insert into lanche (codProduto, preco, ingredientesLanche) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoLanche + "', '" + ingredientesLanche + "')";
-            this.statement.executeUpdate(queryLanche);
-            this.fecharConexao(connection);            
-            return(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return(false);
-        } finally {
-            this.fecharConexao(connection);                        
-        }
-    }                         
-
-    public boolean inserirBebida(Autenticacao autenticacaoServer, String descricaoBebida, float precoBebida) throws Exception {        
-        String queryBebida;
-        try{
-            statement = null;                        
-            this.abrirConexao(autenticacaoServer);                
-            this.statement = connection.createStatement();            
-            this.queryProduto = ("INSERT INTO Produto(descricao) VALUES('" + descricaoBebida + "')");                        
-            this.statement.executeUpdate(this.queryProduto);            
-            queryBebida = "insert into bebidas (codProduto, preco) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoBebida + "')";
-            this.statement.executeUpdate(queryBebida);
-            this.fecharConexao(connection);            
-            return(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return(false);
-        } finally {
-            this.fecharConexao(connection);                        
-        }
-    }
-    
-    public boolean inserirOutros(Autenticacao autenticacaoServer, String descricaoOutros, float precoOutros) throws Exception {        
-        String queryOutros;
-        try{
-            statement = null;                        
-            this.abrirConexao(autenticacaoServer);                
-            this.statement = connection.createStatement();            
-            this.queryProduto = ("INSERT INTO Produto(descricao) VALUES('" + descricaoOutros + "')");                        
-            this.statement.executeUpdate(this.queryProduto);                                    
-            queryOutros = "insert into outros (codProduto, preco) values ((select codigo from produto where produto.codigo = (select max(codigo) from produto)), '" + precoOutros + "')";
-            this.statement.executeUpdate(queryOutros);
-            this.fecharConexao(connection);            
-            return(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return(false);
-        } finally {
-            this.fecharConexao(connection);                        
-        }
-    }
-    
     /*
-    public boolean excluirProduto(Autenticacao autenticacao, int codigoProduto){
-        
-        
-        String query = "DELETE FROM Produto WHERE codigo = " + codigoProduto;
+     Descrição: Método para tentativa de inserção de produto no banco de dados
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     produto (Objeto a ser inserido no banco de dados)
+     Retorno:
+     true, caso o produto seja inserido; false, caso contrário
+     */
+    public boolean inserirProduto(Autenticacao autenticacao, Object produto) {
+        Connection conexao = null;
+        boolean inserirProduto = false;
+        try {
+            String query;
+            int codigoDoProduto;
+            if (produto instanceof Pizza) {
+                Pizza novaPizza = (Pizza) produto;
+                query = "INSERT INTO Produto(descricao, ativo) VALUES('" + novaPizza.getDescricao() + "', true)";
+            } else if (produto instanceof Lanche) {
+                Lanche novoLanche = (Lanche) produto;
+                query = "INSERT INTO Produto(descricao, ativo) VALUES('" + novoLanche.getDescricao() + "', true)";
+            } else if (produto instanceof Bebidas) {
+                Bebidas novaBebida = (Bebidas) produto;
+                query = "INSERT INTO Produto(descricao, ativo) VALUES('" + novaBebida.getDescricao() + "', true)";
+            } else {
+                Outros novoOutro = (Outros) produto;
+                query = "INSERT INTO Produto(descricao, ativo) VALUES('" + novoOutro.getDescricao() + "', true)";
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            codigoDoProduto = this.consultarCodigoDoProduto(autenticacao);
+            this.inserirProdutoEspecifico(autenticacao, produto, codigoDoProduto);
+            inserirProduto = true;
+        } catch (Exception e) {
+            
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e) {
+
+            }
+        }
+        return inserirProduto;
+    }
+
+    /*
+     Descrição: Método para tentativa de consulta do último registro de produto inserido.
+     Necessário para a inserção de chave estrangeira.
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     Retorno:
+     codigoDoProduto (Inteiro contendo o valor do último código de produto do banco de dados)
+     */
+    public int consultarCodigoDoProduto(Autenticacao autenticacao) {
+        Connection conexao = null;
+        int codigoDoProduto = -1;
+        try {
+            String query = "SELECT codigo FROM Produto ORDER BY codigo DESC LIMIT 1";
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            ResultSet resultado = homologacao.executeQuery(query);
+            if (resultado.next()) {
+                codigoDoProduto = resultado.getInt("codigo");
+            }
+        } catch (Exception e) {
+            
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e) {
+
+            }
+        }
+        return codigoDoProduto;
+
+    }
+
+    /*
+     Descrição: Método para tentativa de inserção de informações específicas de um produto
+     Parâmetros:
+     autenticacao (Objeto do tipo Autenticacao contendo as informações para acesso ao banco de dados)
+     produto (Objeto a ser inserido no banco de dados)
+     codigoDoProduto (Inteiro contendo o código do último produto cadastrado)
+     Retorno:
+     */
+    public void inserirProdutoEspecifico(Autenticacao autenticacao, Object produto, int codigoDoProduto) {
+        Connection conexao = null;
+        try {
+            String query;
+            if (produto instanceof Pizza) {
+                Pizza novaPizza = (Pizza) produto;
+                query = "INSERT INTO Pizza(codProduto, preco, tamanho, fatias, ingredientes) VALUES(" + codigoDoProduto + ", " + novaPizza.getPreco() + ", '" + novaPizza.getTamanho() + "', " + novaPizza.getFatias() + ", '" + novaPizza.getIngredientesPizza() + "')";
+            } else if (produto instanceof Lanche) {
+                Lanche novoLanche = (Lanche) produto;
+                query = "INSERT INTO Lanche(codProduto, preco, ingredientesLanche) VALUES(" + codigoDoProduto + ", " + novoLanche.getPreco() + ", '" + novoLanche.getIngredientesLanche() + "')";
+            } else if (produto instanceof Bebidas) {
+                Bebidas novaBebida = (Bebidas) produto;
+                query = "INSERT INTO Bebidas(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novaBebida.getPreco() + ", " + novaBebida.getQuantidade() + ")";
+            } else {
+                Outros novoOutro = (Outros) produto;
+                query = "INSERT INTO Outros(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novoOutro.getPreco() + ", " + novoOutro.getQuantidade() + ")";
+            }
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+        } catch (Exception e) {
+
+        } finally {
+            try {
+                this.fecharConexao(conexao);
+            } catch (Exception e) {
+
+            }
+        }
+    }
+
+    /*
+     Descrição: Método para abertura de conexão com o banco de dados
+     Parâmetros:
+     *           autenticacao (Necessário para acesso ao banco de dados)
+     Retorno:
+     *           conexao (Conexão com o banco de dados)
+     */
+    public Connection abrirConexao(Autenticacao autenticacao) {
+        Connection conexao = null;
+        try {
+            conexao = DriverManager.getConnection(autenticacao.getCaminhoBanco(), autenticacao.getUsuarioBanco(), autenticacao.getUsuarioSenha());
+            return conexao;
+        } catch (Exception e) {
+            return conexao;
+        }
+    }
+
+    /*
+     Descrição: Método para finalização de conexão com o banco de dados.
+     Parâmetros:
+     conexao (Conexão que será fechada)
+     Retorno:
+     */
+    public void fecharConexao(Connection conexao) {
+        try {
+            conexao.close();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível encerrar a conexão com o banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public boolean desativarProduto(Autenticacao autenticacao, int codigoDoProduto){
+        Connection conexao = null;
+        boolean desativarProduto = false;
         try{
-            Connection cn = this.abrirConexao(this.getAutenticacaoServer());
-            Statement st = cn.createStatement();
-            st.executeUpdate(query);
-            cn.close();
-            return true;
+            String query = "UPDATE Produto SET ativo = 0 WHERE codigo = " + codigoDoProduto;
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            desativarProduto = true;
         }
         catch(Exception e){
-            e.printStackTrace();
-            return false;
+            
         }
         finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
         }
+        return desativarProduto;
     }
-    */
+    
+    public boolean inserirMesa(Autenticacao autenticacao){
+        Connection conexao = null;
+        boolean inserirMesa = false;
+        try{
+            String query = "INSERT INTO Mesa(ativo) VALUES(1)";
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            inserirMesa = true;
+        }
+        catch(Exception e){
+            
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+        return inserirMesa;
+    }
+    
+    public boolean desativarMesa(Autenticacao autenticacao, int numeroDaMesa){
+        Connection conexao = null;
+        boolean desativarMesa = false;
+        try{
+            String query = "UPDATE Mesa SET ativo = false WHERE numero = " + numeroDaMesa;
+            conexao = this.abrirConexao(autenticacao);
+            Statement homologacao = conexao.createStatement();
+            homologacao.executeUpdate(query);
+            desativarMesa = true;
+        }
+        catch(Exception e){
+            
+        }
+        finally{
+            try{
+                this.fecharConexao(conexao);
+            }
+            catch(Exception e){
+                
+            }
+        }
+        return desativarMesa;
+    }
 }

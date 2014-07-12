@@ -1,44 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// Pacote View
 package server.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import javax.swing.JLabel;
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import net.proteanit.sql.DbUtils;
 import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
 
-/**
- *
- * @author Gustavo
+/*
+Descrição: Tela CRUD de Outros
  */
 public class TelaCRUDOutros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form TelaCRUDOutros
-     */
-    private Controle controle;
-    // Variável para armazenamento da tela principal.
+    // Variáveis encapsuladas
     private TelaPrincipal janelaPrincipal;
-
-    // Variável para armazenamento dos dados de autenticação do banco de dados.
-    private Autenticacao autenticacaoServer;
+    private Autenticacao autenticacao;
+    private Controle controle;
 
     /*
      Descrição: Construtor padrão da janela de CRUD Outros.
      Parâmetros:
      Retorno:
-     Data Última Alteração: 22/05/2014
      */
     private TelaCRUDOutros() {
         initComponents();
@@ -49,14 +30,13 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Parâmetros: janelaPrincipal (Necessário para controle dos métodos da janela anterior)
      autenticacao (Necessário para realizar operações no banco de dados)
      Retorno:
-     Data Última Alteração: 22/05/2014 
      */
-    public TelaCRUDOutros(TelaPrincipal janelaPrincipal, Autenticacao autenticacaoServer, Controle controle) {
+    public TelaCRUDOutros(TelaPrincipal janelaPrincipal, Autenticacao autenticacao, Controle controle) {
         this();
         this.setJanelaPrincipal(janelaPrincipal);
-        this.setAutenticacaoServer(autenticacaoServer);
+        this.setAutenticacao(autenticacao);
         this.setControle(controle);
-        this.getControle().exibirProdutos(autenticacaoServer, tabelaOutros, "Outro");
+        this.getControle().exibirProdutos(autenticacao, tabelaOutros, "Outro");
     }
 
     /*
@@ -131,6 +111,11 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         botaoExcluir.setMaximumSize(new java.awt.Dimension(63, 63));
         botaoExcluir.setMinimumSize(new java.awt.Dimension(63, 63));
         botaoExcluir.setPreferredSize(new java.awt.Dimension(63, 63));
+        botaoExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botaoExcluirActionPerformed(evt);
+            }
+        });
 
         botaoVoltar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/server/view/icones_CRUD/voltar.png"))); // NOI18N
         botaoVoltar.setBorderPainted(false);
@@ -269,7 +254,7 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
         // Criar e habilitar visualização da Tela para Adicionar Outros
-        TelaAdicionarOutros addOutros = new TelaAdicionarOutros(this, this.autenticacaoServer);
+        TelaAdicionarOutros addOutros = new TelaAdicionarOutros(this, this.getAutenticacao(), this.getControle());
         addOutros.setVisible(true);
     }//GEN-LAST:event_botaoAdicionarActionPerformed
 
@@ -279,9 +264,36 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAtualizarActionPerformed
-        controle.exibirOutrosCadastrados(this.autenticacaoServer, this.tabelaOutros);
+        //
+        this.getControle().exibirProdutos(autenticacao, tabelaOutros, "Outro");
     }//GEN-LAST:event_botaoAtualizarActionPerformed
 
+    /*
+     Descrição: Evento ao clicar no botão Excluir
+     Parâmetros:
+     Retorno:
+     */
+    private void botaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExcluirActionPerformed
+        // Confirmação de exclusão
+        int indice = this.tabelaOutros.getSelectedRow();
+        if (indice >= 0) {
+            int confirmacao = JOptionPane.showConfirmDialog(null, "Deseja excluir o item selecionado?\nEssa operação não poderá ser desfeita.", "Aviso", JOptionPane.OK_CANCEL_OPTION);
+            if (confirmacao == JOptionPane.OK_OPTION) {
+                int codigoDoProduto = Integer.parseInt(String.valueOf(this.tabelaOutros.getValueAt(this.tabelaOutros.getSelectedRow(), 0)));
+                if (codigoDoProduto >= 0) {
+                    boolean desativarProduto = this.getControle().desativarProduto(this.getAutenticacao(), codigoDoProduto);
+                    if (desativarProduto) {
+                        JOptionPane.showMessageDialog(null, "Produto excluído com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                        this.getControle().exibirProdutos(this.getAutenticacao(), tabelaOutros, "Outro");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Não foi possível excluir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_botaoExcluirActionPerformed
+
+  
     /**
      * @param args the command line arguments
      */
@@ -340,11 +352,11 @@ public class TelaCRUDOutros extends javax.swing.JFrame {
         this.controle = controle;
     }
 
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
     }
 
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
     }
 }

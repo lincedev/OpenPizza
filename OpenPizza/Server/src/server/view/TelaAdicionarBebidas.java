@@ -1,91 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+// Pacote View
 package server.view;
 
-import java.sql.*;
+// Importação dos pacotes e bibliotecas necessárias
 import javax.swing.JOptionPane;
+import server.controle.Controle;
 import server.modelo.Autenticacao;
-import server.persistencia.Banco;
+import server.modelo.Bebidas;
 
-/**
- *
- * @author Wellington
+/*
+Descrição: Tela Adicionar Bebidas
  */
 public class TelaAdicionarBebidas extends javax.swing.JFrame {
     
     private TelaCRUDBebidas telaCrudBebidas;
-    private Banco bancoDados = new Banco();
-    private Connection connection;
-    private Autenticacao autenticacaoServer;
-    private String descricaoBebida;
-    private String precoBebida;
-    private float precoBebidaFinal;
+    private Autenticacao autenticacao;
+    private Controle controle;
     
-    public TelaAdicionarBebidas() {
+    private TelaAdicionarBebidas() {
         initComponents();
     }
-
-    public TelaAdicionarBebidas(TelaCRUDBebidas telaCrudBebidas, Autenticacao autenticacaoServer)            
-    {
-        this();        
-        this.setAutenticacaoServer(autenticacaoServer);        
+    
+    public TelaAdicionarBebidas(TelaCRUDBebidas telaCrudBebidas, Autenticacao autenticacao, Controle controle) {
+        this();
         this.setTelaCrudBebidas(telaCrudBebidas);
-    }
-    
-    
-    public TelaCRUDBebidas getTelaCrudBebidas() {
-        return telaCrudBebidas;
+        this.setAutenticacao(autenticacao);
+        this.setControle(controle);
     }
 
-    public void setTelaCrudBebidas(TelaCRUDBebidas telaCrudBebidas) {
-        this.telaCrudBebidas = telaCrudBebidas;
-    }
-        
-    public Banco getBancoDados() {
-        return bancoDados;
-    }
-
-    public void setBancoDados(Banco bancoDados) {
-        this.bancoDados = bancoDados;
-    }
-
-    public Autenticacao getAutenticacaoServer() {
-        return autenticacaoServer;
-    }
-
-    public void setAutenticacaoServer(Autenticacao autenticacaoServer) {
-        this.autenticacaoServer = autenticacaoServer;
-    }
-        
-    public String getDescricaoBebida() {
-        return descricaoBebida;
-    }
-
-    public void setDescricaoBebida(String descricaoBebida) {
-        this.descricaoBebida = descricaoBebida;
-    }
-
-    public String getPrecoBebida() {
-        return precoBebida;
-    }
-
-    public void setPrecoBebida(String precoBebida) {
-        this.precoBebida = precoBebida;
-    }
-
-    public float getPrecoBebidaFinal() {
-        return precoBebidaFinal;
-    }
-
-    public void setPrecoBebidaFinal(float precoBebidaFinal) {
-        this.precoBebidaFinal = precoBebidaFinal;
-    }
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,13 +35,15 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelCadastroBebidas = new javax.swing.JPanel();
-        labelDescricaoBebida = new javax.swing.JLabel();
-        textDescricaoBebida = new javax.swing.JTextField();
-        labelPrecoBebida = new javax.swing.JLabel();
-        textPrecoBebida = new javax.swing.JTextField();
-        buttonCadastrarBebida = new javax.swing.JButton();
-        buttonCancelarCadastroBebida = new javax.swing.JButton();
+        painel = new javax.swing.JPanel();
+        labelDescricao = new javax.swing.JLabel();
+        textDescricao = new javax.swing.JTextField();
+        labelPreco = new javax.swing.JLabel();
+        textPreco = new javax.swing.JTextField();
+        botaoCadastrar = new javax.swing.JButton();
+        botaoCancelar = new javax.swing.JButton();
+        labelEstoque = new javax.swing.JLabel();
+        textEstoque = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("OpenPizza - Nova Bebida");
@@ -109,145 +52,131 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(270, 300));
         setResizable(false);
 
-        labelDescricaoBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDescricaoBebida.setText("Descrição:");
+        labelDescricao.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelDescricao.setText("Descrição:");
 
-        textDescricaoBebida.addActionListener(new java.awt.event.ActionListener() {
+        textDescricao.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        labelPreco.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelPreco.setText("Preço:");
+
+        textPreco.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+
+        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDescricaoBebidaActionPerformed(evt);
+                botaoCadastrarActionPerformed(evt);
             }
         });
 
-        labelPrecoBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPrecoBebida.setText("Preço:");
-
-        textPrecoBebida.addActionListener(new java.awt.event.ActionListener() {
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        botaoCancelar.setText("Cancelar");
+        botaoCancelar.setMaximumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setMinimumSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.setPreferredSize(new java.awt.Dimension(120, 40));
+        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textPrecoBebidaActionPerformed(evt);
+                botaoCancelarActionPerformed(evt);
             }
         });
 
-        buttonCadastrarBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCadastrarBebida.setText("Cadastrar");
-        buttonCadastrarBebida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCadastrarBebidaActionPerformed(evt);
-            }
-        });
+        labelEstoque.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
+        labelEstoque.setText("Estoque:");
 
-        buttonCancelarCadastroBebida.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        buttonCancelarCadastroBebida.setText("Cancelar");
-        buttonCancelarCadastroBebida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCancelarCadastroBebidaActionPerformed(evt);
-            }
-        });
+        textEstoque.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
 
-        javax.swing.GroupLayout painelCadastroBebidasLayout = new javax.swing.GroupLayout(painelCadastroBebidas);
-        painelCadastroBebidas.setLayout(painelCadastroBebidasLayout);
-        painelCadastroBebidasLayout.setHorizontalGroup(
-            painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
+        javax.swing.GroupLayout painelLayout = new javax.swing.GroupLayout(painel);
+        painel.setLayout(painelLayout);
+        painelLayout.setHorizontalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textDescricaoBebida)
-                    .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                        .addComponent(buttonCancelarCadastroBebida)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                        .addComponent(buttonCadastrarBebida))
-                    .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                        .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDescricaoBebida)
-                            .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                                .addComponent(labelPrecoBebida)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLayout.createSequentialGroup()
+                        .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(textDescricao, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(painelLayout.createSequentialGroup()
+                                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelEstoque)
+                                    .addComponent(labelDescricao)
+                                    .addComponent(labelPreco))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(textPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textEstoque, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(24, 24, 24))))
         );
-        painelCadastroBebidasLayout.setVerticalGroup(
-            painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelCadastroBebidasLayout.createSequentialGroup()
-                .addComponent(labelDescricaoBebida)
+        painelLayout.setVerticalGroup(
+            painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textDescricaoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPreco))
                 .addGap(18, 18, 18)
-                .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(textPrecoBebida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelPrecoBebida))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(painelCadastroBebidasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCadastrarBebida)
-                    .addComponent(buttonCancelarCadastroBebida))
-                .addGap(17, 17, 17))
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelEstoque)
+                    .addComponent(textEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelCadastroBebidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(painel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        painelCadastroBebidas.getAccessibleContext().setAccessibleName("");
+        painel.getAccessibleContext().setAccessibleName("");
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void textDescricaoBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDescricaoBebidaActionPerformed
-        this.setDescricaoBebida(textDescricaoBebida.getText());
-    }//GEN-LAST:event_textDescricaoBebidaActionPerformed
+    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_botaoCancelarActionPerformed
 
-    private void textPrecoBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPrecoBebidaActionPerformed
-        this.setPrecoBebida(textPrecoBebida.getText());
-    }//GEN-LAST:event_textPrecoBebidaActionPerformed
-
-    private void buttonCancelarCadastroBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarCadastroBebidaActionPerformed
-        this.setVisible(false);
-        this.setEnabled(false);
-        this.telaCrudBebidas.setVisible(true);
-        this.telaCrudBebidas.setEnabled(true);
-    }//GEN-LAST:event_buttonCancelarCadastroBebidaActionPerformed
-
-    private void buttonCadastrarBebidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarBebidaActionPerformed
-        this.setDescricaoBebida(textDescricaoBebida.getText());
-        this.setPrecoBebida(textPrecoBebida.getText());
-        
-        if(this.getDescricaoBebida().equals("")){
-            JOptionPane.showMessageDialog(null, "Por favor preencha o campo 'Descrição'");
-        } else if(this.getPrecoBebida().equals("")){
-                JOptionPane.showMessageDialog(null, "Preencha o campo 'Preço'");
-                } else {
-                    this.setPrecoBebidaFinal(Float.parseFloat(textPrecoBebida.getText()));
-                    if(this.getPrecoBebidaFinal() <= 0.00){
-                    JOptionPane.showMessageDialog(null, "Por favor, preencha com valores Positivos o campo 'Preço'");
-                }
+    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+        boolean verificarCampos = this.getControle().verificarCamposBebidasOutros(this.textDescricao, this.textPreco, this.textEstoque);
+        if (verificarCampos) {
+            Bebidas novaBebida = new Bebidas(this.textDescricao.getText(), Float.parseFloat(this.textPreco.getText()), Integer.parseInt(this.textEstoque.getText()));
+            boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novaBebida);
+            if (inserirProduto) {
+                JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                this.textDescricao.setText(null);
+                this.textPreco.setText(null);
+                this.textEstoque.setText(null);
+            } else {
+                JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar inserir o produto no banco de dados.", "Erro", JOptionPane.ERROR_MESSAGE);
             }
-        
-        if((!(this.getDescricaoBebida().equals(""))) && (!(this.getPrecoBebida().equals(""))) && (!(this.getPrecoBebidaFinal() <= 0.00))){
-            try{
-                boolean retorno = bancoDados.inserirBebida(this.getAutenticacaoServer(), this.getDescricaoBebida(), this.getPrecoBebidaFinal());
-                if(retorno == true){
-                    JOptionPane.showMessageDialog(null, "Bebida cadastrada com sucesso!!!");
-                }else{
-                    JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a bebida");
-                }                                    
-            } catch(Exception e){
-                JOptionPane.showMessageDialog(null, "Não foi possível cadastrar a bebida");
-            }
-        }                                
-        //this.setEnabled(false);
-        //this.setVisible(false);
-        //this.telaCrudBebidas.setEnabled(true);
-        //this.telaCrudBebidas.setVisible(true);
-    }//GEN-LAST:event_buttonCadastrarBebidaActionPerformed
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Por favor, preencha os campos com valores válidos.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -285,12 +214,38 @@ public class TelaAdicionarBebidas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonCadastrarBebida;
-    private javax.swing.JButton buttonCancelarCadastroBebida;
-    private javax.swing.JLabel labelDescricaoBebida;
-    private javax.swing.JLabel labelPrecoBebida;
-    private javax.swing.JPanel painelCadastroBebidas;
-    private javax.swing.JTextField textDescricaoBebida;
-    private javax.swing.JTextField textPrecoBebida;
+    private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JLabel labelDescricao;
+    private javax.swing.JLabel labelEstoque;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JPanel painel;
+    private javax.swing.JTextField textDescricao;
+    private javax.swing.JTextField textEstoque;
+    private javax.swing.JTextField textPreco;
     // End of variables declaration//GEN-END:variables
+
+    public TelaCRUDBebidas getTelaCrudBebidas() {
+        return telaCrudBebidas;
+    }
+
+    public void setTelaCrudBebidas(TelaCRUDBebidas telaCrudBebidas) {
+        this.telaCrudBebidas = telaCrudBebidas;
+    }
+
+    public Autenticacao getAutenticacao() {
+        return autenticacao;
+    }
+
+    public void setAutenticacao(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+    }
+
+    public Controle getControle() {
+        return controle;
+    }
+
+    public void setControle(Controle controle) {
+        this.controle = controle;
+    }
 }

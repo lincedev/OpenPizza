@@ -272,7 +272,6 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
         // Criação da janela de CRUD para Pizzas
         TelaCRUDPizzas telaPizza = new TelaCRUDPizzas(this, this.getAutenticacaoServer(), this.getControle());
         telaPizza.setVisible(true);
-
     }//GEN-LAST:event_itemMenuProdutosPizzasActionPerformed
 
     private void itemMenuProdutosOutrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosOutrosActionPerformed
@@ -289,7 +288,7 @@ public class TelaPrincipal extends javax.swing.JFrame implements Serializable {
 
     private void itemMenuProdutosBebidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuProdutosBebidasActionPerformed
         // TODO add your handling code here:
-        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.autenticacaoServer);
+        TelaCRUDBebidas tBebidas = new TelaCRUDBebidas(this ,this.getAutenticacaoServer(), this.getControle());
         tBebidas.setVisible(true);
     }//GEN-LAST:event_itemMenuProdutosBebidasActionPerformed
 
