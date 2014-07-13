@@ -282,7 +282,8 @@ public class TelaPedido extends javax.swing.JFrame {
     private void botaoCardapioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCardapioActionPerformed
         // Desabilitar visualização da janela atual e criar Tela de Cardápio
         this.setVisible(false);
-        TelaCardapio telaCardapio = new TelaCardapio(this, this.getAutenticacao(), this.getControle(), this.getNumeroDoPedido());
+        int numeroDaMesa = Integer.parseInt(String.valueOf(this.comboboxMesas.getSelectedItem()));
+        TelaCardapio telaCardapio = new TelaCardapio(this, this.getAutenticacao(), this.getControle(), this.getNumeroDoPedido(), numeroDaMesa);
         telaCardapio.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaCardapio.setVisible(true);
     }//GEN-LAST:event_botaoCardapioActionPerformed

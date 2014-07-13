@@ -262,11 +262,12 @@ public class TelaCRUDMesas extends javax.swing.JFrame {
      Retorno:
      */
     private void botaoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoAdicionarActionPerformed
-        // TODO add your handling code here:
+        // Tentativa de inserção e exibição da nova mesa
         boolean inserirMesa = this.getControle().inserirMesa(this.getAutenticacao());
         if (inserirMesa) {
             JOptionPane.showMessageDialog(null, "Mesa inserida com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             this.getControle().exibirProdutos(this.getAutenticacao(), this.tabelaCRUDMesas, "Mesa");
+            this.formatarTabelaDeMesas();
         } else {
             JOptionPane.showMessageDialog(null, "Não foi possível inserir uma nova mesa.", "Erro", JOptionPane.ERROR_MESSAGE);
         }

@@ -2,6 +2,7 @@
 package client.view;
 
 // Importação dos pacotes e bibliotecas necessárias
+import client.control.SocketCliente;
 import client.control.Controle;
 import client.model.Autenticacao;
 import javax.swing.JLabel;
@@ -20,6 +21,7 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
     private String categoriaDoProduto;
     private String nomeDoProduto;
     private int numeroDoPedido;
+    private int numeroDaMesa;
 
     /*
      Descrição: Construtor padrão da Tela de Inclusão de Produtos
@@ -41,7 +43,7 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
      numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela Pedido)
      Retorno:
      */
-    public TelaIncluirProduto(TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido) {
+    public TelaIncluirProduto(TelaCardapio telaCardapio, Controle controle, Autenticacao autenticacao, String categoriaDoProduto, String nomeDoProduto, int numeroDoPedido, int numeroDaMesa) {
         this();
         this.setTelaCardapio(telaCardapio);
         this.setControle(controle);
@@ -49,6 +51,7 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
         this.setCategoriaDoProduto(categoriaDoProduto);
         this.setNomeDoProduto(nomeDoProduto);
         this.setNumeroDoPedido(numeroDoPedido);
+        this.setNumeroDaMesa(numeroDaMesa);
         this.labelNomeProduto.setText(this.getNomeDoProduto());
         this.getControle().consultarOpcoesDoProduto(this.tabelaOpcoesDisponiveis, this.getAutenticacao(), this.getCategoriaDoProduto(), this.getNomeDoProduto());
         this.formatarTabelaDeOpcoesDisponiveis();
@@ -368,6 +371,11 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
                             }
                             
                             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            
+                            // Criação da conexão TCP e notificação ao servidor
+                            SocketCliente cliente = new SocketCliente();
+                            cliente.notificarServidor(this.getNumeroDaMesa(), this.getNumeroDoPedido());
+                            
                         } // Quantidade não atualizada -> Mensagem de erro
                         else {
                             JOptionPane.showMessageDialog(null, "Não foi possível atualizar a quantidade do produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -409,6 +417,11 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
                             }
                             
                             JOptionPane.showMessageDialog(null, "Produto inserido com sucesso.", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                            
+                            // Criação da conexão TCP e notificação ao servidor
+                            SocketCliente cliente = new SocketCliente();
+                            cliente.notificarServidor(this.getNumeroDaMesa(), this.getNumeroDoPedido());
+                            
                         } // Produto não inserido -> Mensagem de erro
                         else {
                             JOptionPane.showMessageDialog(null, "Não foi possível inserir o produto selecionado.", "Erro", JOptionPane.ERROR_MESSAGE);
@@ -641,5 +654,25 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
      */
     public void setCategoriaDoProduto(String categoriaDoProduto) {
         this.categoriaDoProduto = categoriaDoProduto;
+    }
+
+    /*
+     Descrição: Método get do numeroDaMesa
+     Parâmetros:
+     Retorno:
+     numeroDaMesa (Inteiro contendo o número da mesa selecionada na Tela de Pedido)
+     */
+    public int getNumeroDaMesa() {
+        return numeroDaMesa;
+    }
+
+    /*
+     Descrição: Método set do numeroDaMesa
+     Parâmetros:
+     numeroDaMesa (Inteiro contendo o número da mesa selecionada na Tela de Pedido)
+     Retorno:
+     */
+    public void setNumeroDaMesa(int numeroDaMesa) {
+        this.numeroDaMesa = numeroDaMesa;
     }
 }

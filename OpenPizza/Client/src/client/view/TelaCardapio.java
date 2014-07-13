@@ -19,6 +19,7 @@ public class TelaCardapio extends javax.swing.JFrame {
     private Autenticacao autenticacao;
     private Controle controle;
     private int numeroDoPedido;
+    private int numeroDaMesa;
 
     /*
      Descrição: Construtor padrão da Tela de Cardápio
@@ -38,12 +39,13 @@ public class TelaCardapio extends javax.swing.JFrame {
      numeroDoPedido (Inteiro contendo o número do pedido selecionado na Tela de Pedido)
      Retorno:
      */
-    public TelaCardapio(TelaPedido telaPedido, Autenticacao autenticacao, Controle controle, int numeroDoPedido) {
+    public TelaCardapio(TelaPedido telaPedido, Autenticacao autenticacao, Controle controle, int numeroDoPedido, int numeroDaMesa) {
         this();
         this.setTelaPedido(telaPedido);
         this.setAutenticacao(autenticacao);
         this.setControle(controle);
         this.setNumeroDoPedido(numeroDoPedido);
+        this.setNumeroDaMesa(numeroDaMesa);
         this.getControle().consultarCardapio(this.tabelaPizzas, this.getAutenticacao(), "Pizza");
     }
 
@@ -230,7 +232,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da pizza selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDaPizza = String.valueOf(this.tabelaPizzas.getValueAt(this.tabelaPizzas.getSelectedRow(), 0));
-        TelaIncluirProduto telaIncluirPizza = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Pizza", nomeDaPizza, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirPizza = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Pizza", nomeDaPizza, this.getNumeroDoPedido(), this.getNumeroDaMesa());
         telaIncluirPizza.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirPizza.setVisible(true);
     }//GEN-LAST:event_tabelaPizzasMouseClicked
@@ -285,7 +287,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da lanche selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaLanches.getValueAt(this.tabelaLanches.getSelectedRow(), 0));
-        TelaIncluirProduto telaIncluirLanche = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Lanche", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirLanche = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Lanche", nomeDoLanche, this.getNumeroDoPedido(), this.getNumeroDaMesa());
         telaIncluirLanche.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirLanche.setVisible(true);
     }//GEN-LAST:event_tabelaLanchesMouseClicked
@@ -299,7 +301,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome da bebida selecionada e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaBebidas.getValueAt(this.tabelaBebidas.getSelectedRow(), 0));
-        TelaIncluirProduto telaIncluirBebidas = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Bebida", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirBebidas = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Bebida", nomeDoLanche, this.getNumeroDoPedido(), this.getNumeroDaMesa());
         telaIncluirBebidas.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirBebidas.setVisible(true);
     }//GEN-LAST:event_tabelaBebidasMouseClicked
@@ -313,7 +315,7 @@ public class TelaCardapio extends javax.swing.JFrame {
         // Desabilitar a janela atual, recuperar o nome do outro selecionado e criar a Tela de Inclusão de Produto
         this.setVisible(false);
         String nomeDoLanche = String.valueOf(this.tabelaOutros.getValueAt(this.tabelaOutros.getSelectedRow(), 0));
-        TelaIncluirProduto telaIncluirOutros = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Outro", nomeDoLanche, this.getNumeroDoPedido());
+        TelaIncluirProduto telaIncluirOutros = new TelaIncluirProduto(this, this.getControle(), this.getAutenticacao(), "Outro", nomeDoLanche, this.getNumeroDoPedido(), this.getNumeroDaMesa());
         telaIncluirOutros.setIconImage(new ImageIcon("../Imagens/pedaco_pizza.png").getImage());
         telaIncluirOutros.setVisible(true);
     }//GEN-LAST:event_tabelaOutrosMouseClicked
@@ -445,5 +447,25 @@ public class TelaCardapio extends javax.swing.JFrame {
      */
     public void setNumeroDoPedido(int numeroDoPedido) {
         this.numeroDoPedido = numeroDoPedido;
+    }
+
+    /*
+     Descrição: Método get do numeroDaMesa
+     Parâmetros:
+     Retorno:
+     numeroDaMesa (Inteiro contendo o número da mesa selecionada na Tela de Pedido)
+     */
+    public int getNumeroDaMesa() {
+        return numeroDaMesa;
+    }
+
+    /*
+     Descrição: Método set do numeroDaMesa
+     Parâmetros:
+     numeroDaMesa (Inteiro contendo o número da mesa selecionada na Tela de Pedido)
+     Retorno:
+     */
+    public void setNumeroDaMesa(int numeroDaMesa) {
+        this.numeroDaMesa = numeroDaMesa;
     }
 }
