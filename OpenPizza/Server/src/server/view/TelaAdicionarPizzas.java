@@ -2,8 +2,9 @@
 package server.view;
 
 // Importação dos pacotes e bibliotecas necessárias
-import java.awt.Image;
-import javax.swing.ImageIcon;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import server.controle.Controle;
@@ -19,6 +20,7 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
     private TelaCRUDPizzas telaCRUDPizzas;
     private Autenticacao autenticacao;
     private Controle controle;
+    private InputStream streamImagem;
 
     /*
      Descrição: Construtor padrão da janela de CRUD Pizzas
@@ -244,24 +246,14 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
      */
     private void buttonProcurarArquivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonProcurarArquivoActionPerformed
         try {
-            //Criação do FileChooser  
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Importar imagem");
-            fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-            if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-                //aqui voce pega o arquivo que o usuario selecionou e joga dentro de uma variavel do tipo ImageIcon
-                ImageIcon icone = new ImageIcon(fileChooser.getSelectedFile().getPath());
-                //o proximo passo é redimensionar a imagem:
-                ImageIcon iconeRedimensionado = new ImageIcon(icone.getImage().getScaledInstance(75, 70, Image.SCALE_DEFAULT));
-                //agora voce seta o iconeRedimensionado
-                //jL_foto.setIcon(iconeRedimensionado);
-
-                JOptionPane.showMessageDialog(null, icone);
-                JOptionPane.showMessageDialog(null, iconeRedimensionado);
-                JOptionPane.showMessageDialog(null, fileChooser);
+            //Criação do FileChooser
+            JFileChooser imagemEscolhida = new JFileChooser();
+            imagemEscolhida.setDialogTitle("Importar Imagem");
+            imagemEscolhida.setFileSelectionMode(JFileChooser.FILES_ONLY);
+            if (imagemEscolhida.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+               this.setStreamImagem(new FileInputStream(new File(imagemEscolhida.getSelectedFile().getPath())));
             }
-        } catch (Exception erro) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel carregar a imagem.");
         }
     }//GEN-LAST:event_buttonProcurarArquivoActionPerformed
@@ -283,7 +275,7 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
             String tamanho = String.valueOf(this.comboBoxTamanhoPizzas.getSelectedIndex());
             int fatias = Integer.parseInt(String.valueOf(this.comboBoxQuantidadeFatiasPizza.getSelectedItem()));
             String ingredientes = this.textIngredientesPizza.getText();
-            String imagem = null;
+            InputStream imagem = this.getStreamImagem();
             Pizza novaPizza = new Pizza(descricao, preco, tamanho, fatias, ingredientes, imagem);
             boolean inserirProduto = this.getControle().inserirProduto(this.getAutenticacao(), novaPizza);
 
@@ -427,5 +419,13 @@ public class TelaAdicionarPizzas extends javax.swing.JFrame {
      */
     public void setControle(Controle controle) {
         this.controle = controle;
+    }
+
+    public InputStream getStreamImagem() {
+        return streamImagem;
+    }
+
+    public void setStreamImagem(InputStream streamImagem) {
+        this.streamImagem = streamImagem;
     }
 }

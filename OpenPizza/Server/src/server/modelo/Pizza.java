@@ -1,6 +1,8 @@
 // Pacote Modelo
 package server.modelo;
 
+import java.io.InputStream;
+
 /*
  Descrição: Classe Pizza (Subclasse de Produto)
  */
@@ -11,7 +13,7 @@ public class Pizza extends Produto {
     private String tamanho;
     private int fatias;
     private String ingredientesPizza;
-    private String imagemPizza;
+    private InputStream imagemPizza;
 
     /*
      Descrição: Construtor padrão do objeto pizza
@@ -32,7 +34,7 @@ public class Pizza extends Produto {
      imagemPizza (Imagem da pizza)
      Retorno:
      */
-    public Pizza(String descricao, float preco, String tamanho, int qtdFatias, String ingredientesPizza, String imagemPizza) {
+    public Pizza(String descricao, float preco, String tamanho, int qtdFatias, String ingredientesPizza, InputStream imagemPizza) {
         super(descricao);
         this.setPreco(preco);
         this.setTamanho(tamanho);
@@ -127,7 +129,7 @@ public class Pizza extends Produto {
      Retorno:
      imagemPizza (URL da imagem da pizza)
      */
-    public String getImagemPizza() {
+    public InputStream getImagemPizza() {
         return imagemPizza;
     }
 
@@ -137,7 +139,7 @@ public class Pizza extends Produto {
      imagemPizza (URL da imagem da pizza)
      Retorno:
      */
-    public void setImagemPizza(String imagemPizza) {
+    public void setImagemPizza(InputStream imagemPizza) {
         this.imagemPizza = imagemPizza;
     }
 }

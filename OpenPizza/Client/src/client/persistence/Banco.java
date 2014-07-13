@@ -4,12 +4,17 @@ package client.persistence;
 // Importação dos pacotes e bibliotecas necessárias
 import client.model.Autenticacao;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -540,19 +545,24 @@ public class Banco {
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             ResultSet resultado = homologacao.executeQuery(query);
-            if (resultado.next()) {
-                String local = resultado.getString("imagem");
-                ImageIcon icone = new ImageIcon(local);
-                Image imagem = icone.getImage();
-                foto.setIcon(new ImageIcon(imagem));
+            if(resultado.next()){
+                Blob blob = resultado.getBlob("imagem");
+                byte[] bytesDaImagem = blob.getBytes(1, (int) blob.length());
+                InputStream streamImagem = new ByteArrayInputStream(bytesDaImagem);
+                BufferedImage carregarImagem = ImageIO.read(streamImagem);
+                Image imagem = carregarImagem;
+                Image imagemRedimensionada = imagem.getScaledInstance(374, 104, java.awt.Image.SCALE_SMOOTH);
+                ImageIcon icone = new ImageIcon(imagemRedimensionada);
+                foto.setIcon(icone);
             }
-            this.fecharConexao(conexao);
 
         } catch (Exception e) {
-            e.printStackTrace();
+            
+        }
+        finally{
             try {
                 this.fecharConexao(conexao);
-            } catch (Exception e2) {
+            } catch (Exception e) {
 
             }
         }

@@ -4,6 +4,7 @@ package server.persistencia;
 // Importação dos pacotes e bibliotecas necessárias
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.HashMap;
@@ -281,20 +282,31 @@ public class Banco {
             String query;
             if (produto instanceof Pizza) {
                 Pizza novaPizza = (Pizza) produto;
-                query = "INSERT INTO Pizza(codProduto, preco, tamanho, fatias, ingredientes) VALUES(" + codigoDoProduto + ", " + novaPizza.getPreco() + ", '" + novaPizza.getTamanho() + "', " + novaPizza.getFatias() + ", '" + novaPizza.getIngredientesPizza() + "')";
-            } else if (produto instanceof Lanche) {
-                Lanche novoLanche = (Lanche) produto;
-                query = "INSERT INTO Lanche(codProduto, preco, ingredientesLanche) VALUES(" + codigoDoProduto + ", " + novoLanche.getPreco() + ", '" + novoLanche.getIngredientesLanche() + "')";
-            } else if (produto instanceof Bebidas) {
-                Bebidas novaBebida = (Bebidas) produto;
-                query = "INSERT INTO Bebidas(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novaBebida.getPreco() + ", " + novaBebida.getQuantidade() + ")";
+                query = "INSERT INTO Pizza(codProduto, preco, tamanho, fatias, ingredientes, imagem) VALUES(?, ?, ?, ?, ?, ?)";
+                conexao = this.abrirConexao(autenticacao);
+                PreparedStatement homologacao = conexao.prepareStatement(query);
+                homologacao.setInt(1, codigoDoProduto);
+                homologacao.setFloat(2, novaPizza.getPreco());
+                homologacao.setString(3, novaPizza.getTamanho());
+                homologacao.setInt(4, novaPizza.getFatias());
+                homologacao.setString(5, novaPizza.getIngredientesPizza());
+                homologacao.setBlob(6, novaPizza.getImagemPizza());
+                homologacao.executeUpdate();
             } else {
-                Outros novoOutro = (Outros) produto;
-                query = "INSERT INTO Outros(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novoOutro.getPreco() + ", " + novoOutro.getQuantidade() + ")";
+                if (produto instanceof Lanche) {
+                    Lanche novoLanche = (Lanche) produto;
+                    query = "INSERT INTO Lanche(codProduto, preco, ingredientesLanche) VALUES(" + codigoDoProduto + ", " + novoLanche.getPreco() + ", '" + novoLanche.getIngredientesLanche() + "')";
+                } else if (produto instanceof Bebidas) {
+                    Bebidas novaBebida = (Bebidas) produto;
+                    query = "INSERT INTO Bebidas(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novaBebida.getPreco() + ", " + novaBebida.getQuantidade() + ")";
+                } else {
+                    Outros novoOutro = (Outros) produto;
+                    query = "INSERT INTO Outros(codProduto, preco, quantidade) VALUES(" + codigoDoProduto + ", " + novoOutro.getPreco() + ", " + novoOutro.getQuantidade() + ")";
+                }
+                conexao = this.abrirConexao(autenticacao);
+                Statement homologacao = conexao.createStatement();
+                homologacao.executeUpdate(query);
             }
-            conexao = this.abrirConexao(autenticacao);
-            Statement homologacao = conexao.createStatement();
-            homologacao.executeUpdate(query);
         } catch (Exception e) {
 
         } finally {

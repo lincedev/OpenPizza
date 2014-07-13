@@ -127,7 +127,6 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
         labelOpcoesDisponiveis = new javax.swing.JLabel();
         labelQuantidade = new javax.swing.JLabel();
         labelIngredientes = new javax.swing.JLabel();
-        labelFoto = new javax.swing.JLabel();
         labelNomeProduto = new javax.swing.JLabel();
         textFieldQuantidade = new javax.swing.JTextField();
         botaoIncluir = new javax.swing.JButton();
@@ -136,6 +135,7 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
         tabelaOpcoesDisponiveis = new javax.swing.JTable();
         painelIngredientes = new javax.swing.JScrollPane();
         textoIngredientes = new javax.swing.JTextArea();
+        labelFoto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("OpenPizza - Incluir Produto");
@@ -153,8 +153,6 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
 
         labelIngredientes.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
         labelIngredientes.setText("Ingredientes:");
-
-        labelFoto.setFont(new java.awt.Font("Cantarell", 0, 16)); // NOI18N
 
         labelNomeProduto.setFont(new java.awt.Font("Cantarell", 1, 16)); // NOI18N
         labelNomeProduto.setText("---");
@@ -271,9 +269,9 @@ public class TelaIncluirProduto extends javax.swing.JFrame {
                 .addComponent(labelIngredientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelIngredientes, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(painelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
