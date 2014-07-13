@@ -68,18 +68,16 @@ public class Banco {
         boolean verificarConexao = false;
         try {
             conexao = this.abrirConexao(autenticacao);
-            if(conexao.isValid(1)){
+            if (conexao.isValid(1)) {
                 verificarConexao = true;
             }
         } catch (Exception e) {
-           
-        }
-        finally{
-            try{
+
+        } finally {
+            try {
                 this.fecharConexao(conexao);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
         return verificarConexao;
@@ -104,7 +102,7 @@ public class Banco {
                 mesas.add(resultado.getInt("numero"));
             }
         } catch (Exception e) {
-            
+
         } finally {
             try {
                 this.fecharConexao(conexao);
@@ -366,9 +364,8 @@ public class Banco {
             float valorDoPedido = this.consultarValorDoPedido(numeroDoPedido, autenticacao);
             this.atualizarValorDoPedido(autenticacao, valorDoPedido, numeroDoPedido);
         } catch (Exception e) {
-            
-        }
-        finally{
+
+        } finally {
             try {
                 this.fecharConexao(conexao);
             } catch (Exception e2) {
@@ -402,9 +399,8 @@ public class Banco {
             atualizarQuantidadeNoPedido = true;
             this.fecharConexao(conexao);
         } catch (Exception e) {
-            
-        }
-        finally{
+
+        } finally {
             try {
                 this.fecharConexao(conexao);
             } catch (Exception e2) {
@@ -413,7 +409,7 @@ public class Banco {
         }
         return atualizarQuantidadeNoPedido;
     }
-  
+
     /*
      Descrição: Método para atualização do valor do pedido após a inserção de um produto
      Parâmetros:
@@ -545,21 +541,21 @@ public class Banco {
             conexao = this.abrirConexao(autenticacao);
             Statement homologacao = conexao.createStatement();
             ResultSet resultado = homologacao.executeQuery(query);
-            if(resultado.next()){
+            if (resultado.next()) {
                 Blob blob = resultado.getBlob("imagem");
-                byte[] bytesDaImagem = blob.getBytes(1, (int) blob.length());
-                InputStream streamImagem = new ByteArrayInputStream(bytesDaImagem);
-                BufferedImage carregarImagem = ImageIO.read(streamImagem);
-                Image imagem = carregarImagem;
-                Image imagemRedimensionada = imagem.getScaledInstance(374, 104, java.awt.Image.SCALE_SMOOTH);
-                ImageIcon icone = new ImageIcon(imagemRedimensionada);
-                foto.setIcon(icone);
+                if (blob.length() > 0) {
+                    byte[] bytesDaImagem = blob.getBytes(1, (int) blob.length());
+                    InputStream streamImagem = new ByteArrayInputStream(bytesDaImagem);
+                    BufferedImage carregarImagem = ImageIO.read(streamImagem);
+                    Image imagem = carregarImagem;
+                    Image imagemRedimensionada = imagem.getScaledInstance(374, 104, java.awt.Image.SCALE_SMOOTH);
+                    ImageIcon icone = new ImageIcon(imagemRedimensionada);
+                    foto.setIcon(icone);
+                }
             }
-
         } catch (Exception e) {
-            
-        }
-        finally{
+
+        } finally {
             try {
                 this.fecharConexao(conexao);
             } catch (Exception e) {
